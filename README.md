@@ -9,7 +9,7 @@ git clone git@github.com:/SalTor/runescape-hiscores.git
 cd runescape-hiscores
 npm install
 grunt runescape &
-npm runescape
+npm start
 
 Go to http://localhost:3000
 ```
