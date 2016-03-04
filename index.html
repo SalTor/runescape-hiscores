@@ -1,16 +1,30 @@
 <!doctype html>
 <html>
     <head>
-        <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <link rel="stylesheet" href="Build/index.css">
     </head>
     <body>
         <div class="container">
-            <div class="skills"></div>
+            <div class="form">
+                <form id="form" class="" role="form">
+                    <legend>Hi-Scores Lookup</legend>
+
+                    <div class="form-group">
+                        <label for="">Username:</label>
+                        <input type="text" class="form-control" id="user-name" placeholder="Zezima">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="stats-container">
+                <div class="skills"></div>
+                <div class="overall-and-combat"></div>
+            </div>
         </div>
-        <script src="node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-        <script src="Build/index.min.js"></script>
+        <script src="Build/babel-index.min.js"></script>
     </body>
 </html>

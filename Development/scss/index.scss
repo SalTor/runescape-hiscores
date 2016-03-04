@@ -1,18 +1,35 @@
 @import "bourbon";
 
-.container{
-	margin-top: 20px;
-	width: 223px;
+@import "common/variables";
 
-	.skills{
-		$skills: "Overall", "Attack", "Defence", "Strength", "Hitpoints", "Ranged", "Prayer", "Magic", "Cooking", "Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting", "Smithing", "Mining", "Herblore", "Agility", "Thieving", "Slayer", "Farming", "Runecrafting", "Hunter", "Construction";
-		@include display(flex);
-		@include flex-wrap(wrap);
+.container{
+	@include display(flex);
+	@include justify-content(center);
+	width: 80%;
+	margin-top: 20px;
+
+	.form{
+		height: 201px;
+		width: 540px;
 		border: 1px solid;
-		padding: 10px;
-		width: 100%;
+		padding: 20px;
+		margin-right: 20px;
+	}
+    .stats-container{
+        border: 1px solid;
+        padding: 10px;
+        width: 223px;
+        @include display(flex);
+        @include flex-direction(column);
+        @include align-items(center);
+    }
+	.skills{
+        width: 100%;
+        max-width: 173px;
+        border: 1px solid;
+        @include display(flex);
+        @include flex-wrap(wrap);
 		.skill{
-			$stats-order: "Attack", "Hitpoints", "Mining", "Strength", "Agility", "Smithing", "Defence", "Herblore", "Fishing", "Ranged", "Thieving", "Cooking", "Prayer", "Crafting", "Firemaking", "Magic", "Fletching", "Woodcutting", "Runecrafting", "Slayer", "Farming", "Construction", "Hunter", "Overall";
 			@include display(flex);
 			@include justify-content(center);
 			@include align-items(center);
@@ -27,7 +44,6 @@
 					@include order(#{$index});
 				}
 			}
-			&.Overall{@include align-items(space-between);}
 			.skill-image{
 				height: 0;
 				width: 50px;
@@ -43,4 +59,15 @@
 			}
 		}
 	}
+    .overall-and-combat{
+        @include display(flex);
+        @include justify-content(flex-end);
+        width: 100%;
+        max-width: 173px;
+        margin: 5px;
+        padding: 5px;
+        border: 1px solid;
+        height: auto;
+        max-height: 100px;
+    }
 }

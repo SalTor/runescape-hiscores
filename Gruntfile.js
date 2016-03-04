@@ -7,14 +7,16 @@ module.exports = function(grunt){
             },
             dist: {
                 files: {
-                    'Build/index-babel.js': 'Development/scripts/index.js'
+                    'Build/babel-index.min.js': 'Development/scripts/index.js',
+                    'Build/babel-api.min.js': 'Development/scripts/api.js'
                 }
             }
         },
         uglify: {
             babel: {
                 files: {
-                    'Build/index.min.js': ['Build/index-babel.js']
+                    'Build/babel-index.min.js': ['Build/babel-index.min.js'],
+                    'Build/babel-api.min.js':   ['Build/babel-api.min.js']
                 }
             }
         },
@@ -49,5 +51,7 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
-    grunt.registerTask('default', ['babel', 'uglify', 'sass', 'watch']);
+    grunt.registerTask('build', ['base']);
+    grunt.registerTask('base', ['babel', 'uglify', 'sass']);
+    grunt.registerTask('default', ['base', 'watch']);
 };
