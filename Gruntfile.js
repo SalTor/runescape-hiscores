@@ -8,7 +8,8 @@ module.exports = function(grunt){
             dist: {
                 files: {
                     'Build/babel-index.min.js': 'Development/scripts/index.js',
-                    'Build/babel-api.min.js': 'Development/scripts/api.js'
+                    'Build/babel-api.min.js': 'Development/scripts/api.js',
+                    'Build/routes/player.js': 'Development/scripts/routes/player.js'
                 }
             }
         },
@@ -35,7 +36,7 @@ module.exports = function(grunt){
         },
         watch: {
             babel: {
-                files: ['Development/scripts/index.js'],
+                files: ['Development/scripts/*.js', 'Development/scripts/**/*.js'],
                 tasks: ['babel', 'uglify']
             },
             sass: {

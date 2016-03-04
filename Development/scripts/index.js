@@ -2,10 +2,14 @@ $(document).ready(function() {
     $("#form").submit(function(event){
         event.preventDefault();
 
+        let form = $(this);
+        // let user = form.serialize();
         let user = $("#user-name").val();
 
         $.get('/player/' + user, appendSkills)
-            .success(function(){})
+            .success(function(){
+                form.trigger('reset');
+            })
             .fail(function(error){
                 console.log('Not sure what happened exactly, but here\s the error report: ', error);
             });
@@ -24,6 +28,7 @@ $(document).ready(function() {
             return index.skill !== 'overall';
         });
         for(let skill in skills){
+            // skills_list.push('<div class="skill ' + skills[skill].skill + '"><div class="skill-image" data-skill="' + skills[skill].skill + '"></div><div class="skill-level">' + skills[skill].level + '</div></div>');
             skills_list.push('<div class="skill ' + skills[skill].skill + '"><div class="skill-image" data-skill="' + skills[skill].skill + '"></div><div class="skill-level">' + skills[skill].level + '</div></div>');
         }
 
