@@ -51,7 +51,7 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
-    grunt.registerTask('build', ['base']);
     grunt.registerTask('base', ['babel', 'uglify', 'sass']);
-    grunt.registerTask('default', ['base', 'watch']);
+    grunt.registerTask('default', ['base']);
+    grunt.registerTask('runescape', ['base', 'watch']);
 };
