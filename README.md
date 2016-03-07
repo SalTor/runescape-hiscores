@@ -22,12 +22,13 @@ Go to http://localhost:3000
 ctrl + c
 ```
 
-To find the process running the grunt runescape task enter:
+To find the process running the grunt task enter:
 
 ```bash
-$ ps aux | grep grunt
-  username  3755   0.1  0.7  3146956 124156 s002  SN   11:52AM   0:02.14 grunt
-$ sudo kill 3755 (yours will be different)
+$ ps u
+USER         PID  %CPU %MEM      VSZ    RSS   TT  STAT STARTED      TIME COMMAND
+user        5672   X.X  X.X  XXXXXXX XXXXXX XXXX  XX   XXXXXXX   XXXXXXX grunt
+$ sudo kill 5672 (yours will be different)
 ```
 
 ## Moving Forward
