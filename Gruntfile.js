@@ -34,25 +34,34 @@ module.exports = function(grunt){
                 ]
             }
         },
+        notify: {
+            build: {
+                options: {
+                    title: '',
+                    message: 'Grunt tasks finished'
+                }
+            }
+        },
         watch: {
             babel: {
                 files: ['Development/scripts/*.js', 'Development/scripts/**/*.js'],
-                tasks: ['babel', 'uglify']
+                tasks: ['babel', 'uglify', 'notify']
             },
             sass: {
                 files: ['Development/scss/index.scss', 'Development/scss/**/*.scss'],
-                tasks: ['sass']
+                tasks: ['sass', 'notify']
             }
         }
     });
-     
+
     grunt.loadNpmTasks('grunt-babel');
+    grunt.loadNpmTasks('grunt-notify');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
-    grunt.registerTask('base', ['babel', 'uglify', 'sass']);
+    grunt.registerTask('base', ['babel', 'uglify', 'sass', 'notify']);
     grunt.registerTask('default', ['base']);
     grunt.registerTask('runescape', ['base', 'watch']);
 };
