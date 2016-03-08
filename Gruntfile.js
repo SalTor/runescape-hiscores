@@ -7,8 +7,8 @@ module.exports = function(grunt){
             },
             dist: {
                 files: {
-                    'Build/babel-index.min.js': 'Development/scripts/index.js',
-                    'Build/babel-api.min.js': 'Development/scripts/api.js',
+                    'Build/index.min.js': 'Development/scripts/index.js',
+                    'Build/api.min.js': 'Development/scripts/api.js',
                     'Build/routes/player.js': 'Development/scripts/routes/player.js'
                 }
             }
@@ -16,8 +16,9 @@ module.exports = function(grunt){
         uglify: {
             babel: {
                 files: {
-                    'Build/babel-index.min.js': ['Build/babel-index.min.js'],
-                    'Build/babel-api.min.js':   ['Build/babel-api.min.js']
+                    'Build/index.min.js': ['Build/index.min.js'],
+                    'Build/api.min.js':   ['Build/api.min.js'],
+                    'Build/routes/player.js': ['Build/routes/player.js']
                 }
             }
         },
@@ -44,8 +45,8 @@ module.exports = function(grunt){
         },
         watch: {
             babel: {
-                files: ['Development/scripts/*.js', 'Development/scripts/**/*.js'],
-                tasks: ['babel', 'uglify', 'notify']
+                files: ['Development/scripts/*.js', 'Development/scripts/routes/*.js'],
+                tasks: ['babel', 'notify']
             },
             sass: {
                 files: ['Development/scss/index.scss', 'Development/scss/**/*.scss'],
@@ -61,7 +62,7 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
-    grunt.registerTask('base', ['babel', 'uglify', 'sass', 'notify']);
+    grunt.registerTask('base', ['babel', 'sass', 'notify']);
     grunt.registerTask('default', ['base']);
     grunt.registerTask('runescape', ['base', 'watch']);
 };

@@ -19,16 +19,8 @@ Go to http://localhost:3000
 
 ### When You Want To Stop
 ```bash
-ctrl + c
-```
-
-To find the process running the grunt task enter:
-
-```bash
-$ ps u
-USER         PID  %CPU %MEM      VSZ    RSS   TT  STAT STARTED      TIME COMMAND
-user        5672   X.X  X.X  XXXXXXX XXXXXX XXXX  XX   XXXXXXX   XXXXXXX grunt
-$ sudo kill 5672 (yours will be different)
+$ ctrl + c
+$ sudo killall grunt
 ```
 
 ## Moving Forward

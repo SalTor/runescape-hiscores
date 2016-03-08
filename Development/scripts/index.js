@@ -1,54 +1,45 @@
 $(document).ready(function() {
     $("#form").submit(function(event){
-        event.preventDefault();
+        event.preventDefault()
 
-        let form = $(this);
-        // let user = form.serialize();
-        let user = $("#user-name").val();
+        let form = $(this),
+            user = $("#user-name").val()
 
         $.get('/player/' + user, appendSkills)
-            .success(function(){
-                form.trigger('reset');
-            })
-            .fail(function(error){
-                console.log('Not sure what happened exactly, but here\s the error report: ', error);
-            });
-    });
+            .success((success) => form.trigger('reset'))
+            .fail((error) => console.log('Not sure what happened exactly, but here\s the error report: ', error))
+    })
 
     function appendSkills(data, username) {
-        let user = $("#user-name").val();
+        let user = $("#user-name").val()
 
-        console.groupCollapsed(user); // To organize our console logs
-        console.log("data", data);
+        console.groupCollapsed(user) // To organize our console logs
 
-        let skills_list = [];
-        let total_combt = [];
+        data.map( (index) => console.log(JSON.stringify(index)) )
 
-        let skills  = data.filter(function(index) {
-            return index.skill !== 'overall';
-        });
+        let skills_list = new Array()
+        let total_combt = new Array()
 
-        let getinfo = function (skill){
-            return {skill: skill.skill, level: skill.level, experience: skill.experience};
-        }
+        let skills  = data.filter( (index) => index.skill !== 'overall' )
+        let overall = data.filter( (index) => index.skill  == 'overall' )
 
-        for(let index in skills){
-            let {skill, level} = getinfo(skills[index]);
+        skills.map(function(index) {
+            let skill      = index.skill,
+                rank       = index.rank,
+                level      = index.level,
+                experience = index.experience
 
-            let skillElement = `<div class="skill ${skill}"><div class="skill-image" data-skill="${skill}"></div><div class="skill-level">${level}</div></div>`;
+            let skillElement = `<div class="skill ${skill}"><div class="skill-image" data-skill="${skill}"></div><div class="skill-level">${level}</div></div>`
 
-            skills_list.push(skillElement);
-        }
+            skills_list.push(skillElement)
+        })
 
-        let overall = data.filter(function(index) {
-            return index.skill  == 'overall';
-        });
 
-        total_combt.push(overall[0].skill + ": " + overall[0].level);
+        total_combt.push(overall[0].skill + ": " + overall[0].level)
 
-        $('.skills, .overall-and-combat').empty();
-        $('.overall-and-combat').append(total_combt);
-        $('.skills').append(skills_list);
-        console.groupEnd();
+        $('.skills, .overall-and-combat').empty()
+        $('.overall-and-combat').append(total_combt)
+        $('.skills').append(skills_list)
+        console.groupEnd()
     }
-});
+})

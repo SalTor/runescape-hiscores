@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./Build/babel-api.min.js"
+    "start": "node ./Build/api.min.js"
   },
   "author": "Sal Torcivia",
   "license": "ISC",
