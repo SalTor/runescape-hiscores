@@ -34,8 +34,11 @@ $(document).ready(function() {
             skills_list.push(skillElement)
         })
 
-
-        total_combt.push(overall[0].skill + ": " + overall[0].level)
+        overall.map(function(index) {
+            let level        = index.level,
+                totalElement = `overall: ${level}`
+            total_combt.push(totalElement)
+        })
 
         $('.skills, .overall-and-combat').empty()
         $('.overall-and-combat').append(total_combt)
