@@ -22,6 +22,7 @@
     "http": "0.0.0",
     "jquery": "^2.2.0",
     "node-bourbon": "^4.2.3",
+    "object-assign": "^4.0.1",
     "runescape-api": "^1.0.6"
   }
 }
