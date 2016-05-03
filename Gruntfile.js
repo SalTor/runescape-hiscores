@@ -64,5 +64,6 @@ module.exports = function(grunt){
 
     grunt.registerTask('base', ['babel', 'sass', 'notify']);
     grunt.registerTask('default', ['base']);
+    grunt.registerTask('build', ['base']);
     grunt.registerTask('runescape', ['base', 'watch']);
 };
