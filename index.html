@@ -1,17 +1,17 @@
 <!doctype html>
-<html>
+<html ng-app="runescapeHiscores">
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <link rel="stylesheet" href="Build/index.css">
     </head>
     <body>
-        <div class="container">
+        <div class="container" ng-controller="mainController">
             <div class="form">
                 <form id="form" class="" role="form">
                     <legend>Hi-Scores Lookup</legend>
 
                     <div class="form-group">
-                        <label for="">Username:</label>
+                        <label>Username:</label>
                         <input type="text" class="form-control" id="user-name" placeholder="Zezima">
                     </div>
 
@@ -20,96 +20,8 @@
             </div>
             <div class="stats-container">
                 <div class="skills">
-                    <div class="skill attack">
-                        <div class="skill-image" data-skill="attack"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill hitpoints">
-                        <div class="skill-image" data-skill="hitpoints"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill mining">
-                        <div class="skill-image" data-skill="mining"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill strength">
-                        <div class="skill-image" data-skill="strength"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill agility">
-                        <div class="skill-image" data-skill="agility"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill smithing">
-                        <div class="skill-image" data-skill="smithing"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill defence">
-                        <div class="skill-image" data-skill="defence"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill herblore">
-                        <div class="skill-image" data-skill="herblore"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill fishing">
-                        <div class="skill-image" data-skill="fishing"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill ranged">
-                        <div class="skill-image" data-skill="ranged"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill thieving">
-                        <div class="skill-image" data-skill="thieving"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill cooking">
-                        <div class="skill-image" data-skill="cooking"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill prayer">
-                        <div class="skill-image" data-skill="prayer"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill crafting">
-                        <div class="skill-image" data-skill="crafting"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill firemaking">
-                        <div class="skill-image" data-skill="firemaking"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill magic">
-                        <div class="skill-image" data-skill="magic"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill fletching">
-                        <div class="skill-image" data-skill="fletching"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill woodcutting">
-                        <div class="skill-image" data-skill="woodcutting"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill runecrafting">
-                        <div class="skill-image" data-skill="runecrafting"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill slayer">
-                        <div class="skill-image" data-skill="slayer"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill farming">
-                        <div class="skill-image" data-skill="farming"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill construction">
-                        <div class="skill-image" data-skill="construction"></div>
-                        <div class="skill-level"></div>
-                    </div>
-                    <div class="skill hunter">
-                        <div class="skill-image" data-skill="hunter"></div>
+                    <div ng-repeat="skill in skills" class="skill {{ skill.name }}">
+                        <div class="skill-image" data-skill="{{ skill.name }}" ng-cloak></div>
                         <div class="skill-level"></div>
                     </div>
                 </div>
@@ -120,6 +32,9 @@
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="./node_modules/angular/angular.min.js"></script>
+        <script src="./node_modules/angular-animate/angular-animate.min.js"></script>
+        <script src="./node_modules/angular-route/angular-route.min.js"></script>
         <script src="Build/index.min.js"></script>
     </body>
 </html>

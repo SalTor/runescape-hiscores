@@ -2,6 +2,10 @@
 
 @import "common/variables";
 
+[ng-cloak] {
+    display: none;
+}
+
 .container{
 	@include display(flex);
 	@include justify-content(center);

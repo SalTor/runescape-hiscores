@@ -1,3 +1,36 @@
+angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
+    .filter('safe', function($sce) { return $sce.trustAsHtml })
+    .controller('mainController', [ '$scope',
+        function($scope, $http){
+            $scope.skills = [
+                {name: "attack"},
+                {name: "hitpoints"},
+                {name: "mining"},
+                {name: "strength"},
+                {name: "agility"},
+                {name: "smithing"},
+                {name: "defence"},
+                {name: "herblore"},
+                {name: "fishing"},
+                {name: "ranged"},
+                {name: "thieving"},
+                {name: "cooking"},
+                {name: "prayer"},
+                {name: "crafting"},
+                {name: "firemaking"},
+                {name: "magic"},
+                {name: "fletching"},
+                {name: "woodcutting"},
+                {name: "runecrafting"},
+                {name: "slayer"},
+                {name: "farming"},
+                {name: "construction"},
+                {name: "hunter"}
+            ];
+        }
+    ]);
+
+
 $(document).ready(function() {
     $("#form").submit(function(event){
         event.preventDefault()
