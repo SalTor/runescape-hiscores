@@ -50,8 +50,8 @@ $(document).ready(function() {
 
         data.map( (index) => console.log(JSON.stringify(index)) )
 
-        let skills_list = new Array()
-        let total_combt = new Array()
+        let skills_list = []
+        let total_combt = []
 
         let skills  = data.filter( (index) => index.skill !== 'overall' )
         let overall = data.filter( (index) => index.skill  == 'overall' )
