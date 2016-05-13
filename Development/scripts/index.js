@@ -62,7 +62,7 @@ $(document).ready(function() {
                 level      = index.level,
                 experience = index.experience
 
-            let skillElement = `<div class="skill ${skill}"><div class="skill-image" data-skill="${skill}"></div><div class="skill-level">${level}</div></div>`
+            let skillElement = `<div class="skill ${skill}"><div class="skill-image" data-skill="${skill}" data-rank="${rank}" data-experience="${experience}"></div><div class="skill-level">${level}</div></div>`
 
             skills_list.push(skillElement)
         })
