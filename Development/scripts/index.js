@@ -1,7 +1,7 @@
 angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
-    .filter('safe', function($sce) { return $sce.trustAsHtml })
+    .filter('safe', function ($sce) { return $sce.trustAsHtml })
     .controller('mainController', [ '$scope',
-        function($scope, $http){
+        function($scope) {
             $scope.skills = [
                 {name: "attack"},
                 {name: "hitpoints"},
@@ -39,11 +39,11 @@ $(document).ready(function() {
             user = $("#user-name").val()
 
         $.get('/player/' + user, appendSkills)
-            .success((success) => form.trigger('reset'))
+            .success(() => form.trigger('reset'))
             .fail((error) => console.log('Not sure what happened exactly, but here\s the error report: ', error))
     })
 
-    function appendSkills(data, username) {
+    function appendSkills(data) {
         let user = $("#user-name").val()
 
         console.groupCollapsed(user) // To organize our console logs
