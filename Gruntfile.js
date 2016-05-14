@@ -22,6 +22,17 @@ module.exports = function(grunt){
                 }
             }
         },
+        postcss: {
+            options: {
+                map: true,
+                processors: [
+                    require('autoprefixer')({
+                        browsers: ['last 2 versions']
+                    })
+                ]
+            },
+            dist: {src: 'Build/index.css'}
+        },
         sass : {
             hiscores : {
                 options : {
@@ -57,12 +68,13 @@ module.exports = function(grunt){
 
     grunt.loadNpmTasks('grunt-babel');
     grunt.loadNpmTasks('grunt-notify');
+    grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
-    grunt.registerTask('base', ['babel', 'sass', 'notify']);
+    grunt.registerTask('base', ['babel', 'sass', 'postcss', 'notify']);
     grunt.registerTask('default', ['base']);
     grunt.registerTask('build', ['base']);
     grunt.registerTask('runescape', ['base', 'watch']);
