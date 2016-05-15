@@ -4,7 +4,7 @@
 @import "common/mixins";
 
 [ng-cloak] {
-    display: none;
+    display: none !important;
 }
 
 .container{
@@ -54,9 +54,9 @@
             }
         }
     }
-    .overall-and-combat{
+    .overall-total-and-combat{
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
 
         width: 100%;
         max-width: 173px;

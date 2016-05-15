@@ -20,12 +20,15 @@
             </div>
             <div class="stats-container">
                 <div class="skills">
-                    <div ng-repeat="skill in skills track by $index" class="skill skill--{{ skill.name }}">
-                        <img class="skill__image skill_image--{{skill.name}}" ng-cloak ng-src="./Assets/images/{{skill.name}}.png" alt="">
-                        <div class="skill__level">1</div>
+                    <div ng-cloak ng-repeat="skill in skills track by $index" class="skill skill--{{ skill.skill }}" data-level="{{skill.level}}" data-experience="{{skill.experience | number}}" data-rank="{{skill.rank | number}}">
+                        <img class="skill__image skill_image--{{skill.skill}}" ng-src="./Assets/images/{{skill.skill}}.png" alt="">
+                        <div class="skill__level">{{skill.level}}</div>
                     </div>
                 </div>
-                <div class="overall-and-combat">overall: </div>
+                <div ng-cloak class="overall-total-and-combat">
+                    <span class="rank">rank: {{overall_rank | number}}</span>
+                    <span class="overall">overall: {{overall | number}}</span>
+                </div>
             </div>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
