@@ -12,23 +12,14 @@ router.get('/:username', function (req, res) {
         .then(logInfo)
         .catch(console.error)
 
-    let skills = new Array()
+    let skills = []
 
     function logInfo(info) {
         let player     = info.skills,
             activities = info.activities
 
         for(let index in player){
-            skills.push(
-                Skill(
-                    {
-                        skill:      index,
-                        rank:       player[index].rank,
-                        level:      player[index].level,
-                        experience: player[index].exp
-                    }
-                )
-            )
+            skills.push(Skill({skill: index,rank: player[index].rank, level: player[index].level, experience: player[index].exp}))
         }
 
         res.send(skills).status(200)
@@ -37,9 +28,7 @@ router.get('/:username', function (req, res) {
     function Skill(attributes){
         let defaults = {skill: '', rank: '', level: '', experience: ''}
 
-        let attribute = objectAssign({}, defaults, attributes)
-
-        return attribute;
+        return objectAssign({}, defaults, attributes)
     }
 })
 

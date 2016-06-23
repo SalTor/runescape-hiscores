@@ -4,6 +4,7 @@
 @import "common/mixins";
 
 [ng-cloak] {
+    // We pretty much have no choice at this point
     display: none !important;
 }
 
@@ -57,6 +58,7 @@
     .overall-total-and-combat{
         display: flex;
         justify-content: space-between;
+        flex-direction: column;
 
         width: 100%;
         max-width: 173px;

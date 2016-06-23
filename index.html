@@ -1,8 +1,9 @@
 <!doctype html>
 <html ng-app="runescapeHiscores">
     <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <link rel="stylesheet" href="Build/index.css">
+        <link rel="stylesheet" href="build/bootstrap.min.css">
+        <link rel="stylesheet" href="build/index.css">
+        <link rel="stylesheet" href="build/balloons.css">
     </head>
     <body>
         <div class="container" ng-controller="mainController">
@@ -20,22 +21,23 @@
             </div>
             <div class="stats-container">
                 <div class="skills">
-                    <div ng-cloak ng-repeat="skill in skills track by $index" class="skill skill--{{ skill.skill }}" data-level="{{skill.level}}" data-experience="{{skill.experience | number}}" data-rank="{{skill.rank | number}}">
-                        <img class="skill__image skill_image--{{skill.skill}}" ng-src="./Assets/images/{{skill.skill}}.png" alt="">
+                    <div ng-cloak ng-repeat="skill in skills track by $index" class="skill skill--{{ skill.skill }}">
+                        <img class="skill__image skill_image--{{skill.skill}}" ng-src="./Assets/images/{{skill.skill}}.png">
                         <div class="skill__level">{{skill.level}}</div>
                     </div>
                 </div>
                 <div ng-cloak class="overall-total-and-combat">
-                    <span class="rank">rank: {{overall_rank | number}}</span>
-                    <span class="overall">overall: {{overall | number}}</span>
+                    <span class="rank">
+                        Rank: <span class="rank__number">{{overall_rank | number}}</span>
+                    </span>
+                    <span class="overall">
+                        Overall: <span class="overall__number">{{overall | number}}</span>
+                    </span>
                 </div>
             </div>
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-        <script src="./node_modules/angular/angular.min.js"></script>
-        <script src="./node_modules/angular-animate/angular-animate.min.js"></script>
-        <script src="./node_modules/angular-route/angular-route.min.js"></script>
-        <script src="Build/index.min.js"></script>
+
+        <script src="./Build/app/index.min.js"></script>
+        <script src="//localhost:35729/livereload.js"></script>
     </body>
 </html>

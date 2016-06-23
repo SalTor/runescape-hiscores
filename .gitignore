@@ -1,5 +1,7 @@
 .sass-cache
-node_modules
 Build
 favicon.ico
 npm-debug.log
+node_modules
+.eslintrc.json
+.idea

@@ -5,20 +5,35 @@ module.exports = function(grunt){
                 sourceMap: true,
                 presets: ['babel-preset-es2015']
             },
-            dist: {
+            angular: {
                 files: {
-                    'Build/index.min.js': 'Development/scripts/index.js',
-                    'Build/api.min.js': 'Development/scripts/api.js',
-                    'Build/routes/player.js': 'Development/scripts/routes/player.js'
+                    'build/.tmp/app/index.min.js': 'development/js/app/index.js'
+                }
+            },
+            server: {
+                files: {
+                    'build/server/api.min.js': 'development/js/server/api.js',
+                    'build/server/routes/player.js': 'development/js/server/routes/player.js'
                 }
             }
         },
         uglify: {
-            babel: {
+            angular: {
                 files: {
-                    'Build/index.min.js': ['Build/index.min.js'],
-                    'Build/api.min.js':   ['Build/api.min.js'],
-                    'Build/routes/player.js': ['Build/routes/player.js']
+                    'build/app/index.min.js': [
+                        './node_modules/jquery/dist/jquery.min.js',
+                        './node_modules/bootstrap/dist/js/bootstrap.min.js',
+                        './node_modules/angular/angular.min.js',
+                        './node_modules/angular-animate/angular-animate.min.js',
+                        './node_modules/angular-route/angular-route.min.js',
+                        'build/.tmp/app/index.min.js'
+                    ]
+                }
+            },
+            server: {
+                files: {
+                    'build/server/api.min.js': ['build/.tmp/server/api.min.js'],
+                    'build/server/routes/player.js': ['build/.tmp/server/routes/player.js']
                 }
             }
         },
@@ -31,20 +46,7 @@ module.exports = function(grunt){
                     })
                 ]
             },
-            dist: {src: 'Build/index.css'}
-        },
-        sass : {
-            hiscores : {
-                options : {
-                    style : 'compressed',
-                    update : true,
-                    trace: true,
-                    loadPath: require('node-bourbon').includePaths
-                },
-                files : [
-                    {'Build/index.css' : 'Development/scss/index.scss'}
-                ]
-            }
+            dist: {src: 'build/index.css'}
         },
         notify: {
             build: {
@@ -54,14 +56,43 @@ module.exports = function(grunt){
                 }
             }
         },
+        clean: {
+            build: {
+                src: ["./build/.tmp"]
+            }
+        },
+        sass: {
+            hiscores : {
+                options : {
+                    style : 'compressed',
+                    update : true,
+                    trace: true,
+                    loadPath: require('node-bourbon').includePaths
+                },
+                files : [
+                    {'build/index.css' : 'development/scss/index.scss'}
+                ]
+            }
+        },
         watch: {
-            babel: {
-                files: ['Development/scripts/*.js', 'Development/scripts/routes/*.js'],
-                tasks: ['babel', 'notify']
+            server: {
+                files: ['development/js/server/*.js', 'development/js/server/**/*.js'],
+                tasks: ['babel:server', 'notify', 'clean']
+            },
+            angular_app: {
+                files: ['development/js/app/**/*.js', 'development/js/app/*.js'],
+                tasks: ['babel:angular', 'uglify:angular', 'notify', 'clean'],
+                options : {
+                    livereload: true
+                }
             },
             sass: {
-                files: ['Development/scss/index.scss', 'Development/scss/**/*.scss'],
-                tasks: ['sass', 'notify']
+                files: ['development/scss/index.scss', 'development/scss/**/*.scss'],
+                tasks: ['sass', 'notify'],
+                cacheLocation: false,
+                options : {
+                    livereload: true
+                }
             }
         }
     });
@@ -70,12 +101,12 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-notify');
     grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
-    grunt.registerTask('base', ['babel', 'sass', 'postcss', 'notify']);
-    grunt.registerTask('default', ['base']);
-    grunt.registerTask('build', ['base']);
-    grunt.registerTask('runescape', ['base', 'watch']);
+    grunt.registerTask('base',    ['babel', 'uglify:angular', 'sass', 'postcss', 'notify', 'clean']);
+    grunt.registerTask('default', ['base', 'watch']);
+    grunt.registerTask('build',   ['base']);
 };
