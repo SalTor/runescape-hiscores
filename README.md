@@ -11,7 +11,6 @@ Just a small interface I've been working on in my free time to display the stats
 $ git clone git@github.com:/SalTor/runescape-hiscores.git
 $ cd runescape-hiscores
 $ npm install
-$ grunt build
 $ npm start
 
 Go to http://localhost:3000
