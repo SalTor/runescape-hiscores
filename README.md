@@ -11,22 +11,17 @@ Just a small interface I've been working on in my free time to display the stats
 $ git clone git@github.com:/SalTor/runescape-hiscores.git
 $ cd runescape-hiscores
 $ npm install
-$ grunt runescape &
+$ grunt build
 $ npm start
 
 Go to http://localhost:3000
 ```
 
-### When You Want To Stop
-```bash
-$ ctrl + c
-$ sudo killall grunt
-```
-
 ## Moving Forward
-- Username checks to see if they're of valid form
-- Better front-end implementation, I've been looking into using Angular
-- Possibly a better workflow, this is just what works for me
+- [ ] Username checks to see if they're of valid form
+- [ ] Optimize code, queries take anywhere between .2s to 2s
+- [ ] Possibly a better workflow, this is just what works for me
+- [X] ~~Better front-end implementation, I've been looking into using Angular~~
 
 
 ## Disclaimer
