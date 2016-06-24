@@ -21,26 +21,35 @@
             </div>
 
             <div class="stats-container">
+                <h4 style="text-align: center; margin-top: 0;" ng-show="user">{{user}}</h4>
                 <div class="skills">
                     <div ng-cloak
                             ng-repeat="skill in skills track by $index"
                             class="skill skill--{{ skill.skill }}"
                             data-balloon="Rank {{skill.rank | number}} - {{skill.experience | number}} xp"
-                            ng-class="{'highest-skill': skill.highestSkill}">
+                            ng-class="
+                                {
+                                    'highest-skill': skill.highestSkill,
+                                    'closest-to-next-level': skill.closestToNextLevel,
+                                    'closest-non-combat-to-next-level': skill.closestNonCombatToLeveling
+                                }
+                            ">
                         <img class="skill__image skill_image--{{skill.skill}}" ng-src="./Assets/images/{{skill.skill}}.png">
                         <div class="skill__level">{{skill.level}}</div>
                     </div>
                 </div>
                 <div ng-cloak class="overall-total-and-combat">
-                    <span class="highest-skill" style="text-align: center;">
-                        Best Skill Is Gold
-                    </span>
                     <span class="rank">
                         Rank: <span class="rank__number">{{overall_rank | number}}</span>
                     </span>
                     <span class="overall">
                         Overall: <span class="overall__number">{{overall | number}}</span>
                     </span>
+                </div>
+                <div class="legend">
+                    <span class="legend__highest-skill">Best Skill</span>
+                    <span class="legend__closest-to-next-level">Closest To Leveling</span>
+                    <span class="legend__closest-non-combat-to-next-level">Closest Non-Combat</span>
                 </div>
             </div>
         </div>

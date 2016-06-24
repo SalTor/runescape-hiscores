@@ -66,6 +66,8 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
                 $scope.overall      = overall[0].level
                 $scope.overall_rank = overall[0].rank
 
+                $scope.user = user
+                
                 $scope.$digest()
 
                 console.groupEnd()

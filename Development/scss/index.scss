@@ -1,6 +1,7 @@
 @import "bourbon";
 
 @import "common/variables";
+@import "common/color-palette";
 @import "common/mixins";
 
 [ng-cloak] {
@@ -8,67 +9,88 @@
     display: none !important;
 }
 
-.container{
+.container {
     display: flex;
     justify-content: center;
 
     width: 80%;
     margin-top: 20px;
 
-    .form{
+    .form {
         height: 201px;
         width: 540px;
         border: 1px solid;
         padding: 20px;
         margin-right: 20px;
     }
-    .stats-container{
+    .stats-container {
         display: flex;
         flex-direction: column;
         justify-content: center;
         border: 1px solid;
         padding: 10px;
         width: 220px;
-    }
-    .skills{
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
-        border: 1px solid;
-        > .skill{
-            @include flex-centered();
-            width: 55px;
-            height: 30px;
-            margin: 5px;
-            padding: 2px;
-            @for $index from 1 through length($stats-order) {
-                $skill: nth($stats-order, $index);
-                &.skill--#{$skill}{
-                    order: #{$index};
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            border: 1px solid;
+            > .skill {
+                @include flex-centered();
+                width: 55px;
+                height: 30px;
+                margin: 5px;
+                padding: 2px;
+                @for $index from 1 through length($stats-order) {
+                    $skill: nth($stats-order, $index);
+                    &.skill--#{$skill} {
+                        order: #{$index};
+                    }
+                }
+                .skill__image,
+                .skill__level {
+                    @include flex-centered();
+                    height: 25px;
+                    width:  25px;
+                }
+                &.highest-skill {
+                    background-color: $highest-skill;
+                }
+                &.closest-to-next-level {
+                    background-color: $closest-to-next-level;
+                }
+                &.closest-non-combat-to-next-level {
+                    background-color: $closest-non-combat-to-next-level;
                 }
             }
-            .skill__image,
-            .skill__level {
-                @include flex-centered();
-                height: 25px;
-                width:  25px;
+        }
+        .overall-total-and-combat,
+        .legend {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+
+            width: 100%;
+            max-width: 173px;
+            margin: 5px;
+            padding: 5px;
+            border: 1px solid;
+            height: auto;
+            max-height: 100px;
+        }
+        .legend {
+            > span {
+                text-align: center;
+                &:not(:last-child) {
+                    margin-bottom: 5px;
+                }
+            }
+            &__highest-skill {background-color: $highest-skill;}
+            &__closest-to-next-level {background-color: $closest-to-next-level;}
+            &__closest-non-combat-to-next-level {
+                background-color: $closest-non-combat-to-next-level;
             }
         }
-    }
-    .highest-skill {
-        background-color: gold;
-    }
-    .overall-total-and-combat{
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-
-        width: 100%;
-        max-width: 173px;
-        margin: 5px;
-        padding: 5px;
-        border: 1px solid;
-        height: auto;
-        max-height: 100px;
     }
 }
