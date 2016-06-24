@@ -19,14 +19,22 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
+
             <div class="stats-container">
                 <div class="skills">
-                    <div ng-cloak ng-repeat="skill in skills track by $index" class="skill skill--{{ skill.skill }}">
+                    <div ng-cloak
+                            ng-repeat="skill in skills track by $index"
+                            class="skill skill--{{ skill.skill }}"
+                            data-balloon="Rank {{skill.rank | number}} - {{skill.experience | number}} xp"
+                            ng-class="{'highest-skill': skill.highestSkill}">
                         <img class="skill__image skill_image--{{skill.skill}}" ng-src="./Assets/images/{{skill.skill}}.png">
                         <div class="skill__level">{{skill.level}}</div>
                     </div>
                 </div>
                 <div ng-cloak class="overall-total-and-combat">
+                    <span class="highest-skill" style="text-align: center;">
+                        Best Skill Is Gold
+                    </span>
                     <span class="rank">
                         Rank: <span class="rank__number">{{overall_rank | number}}</span>
                     </span>

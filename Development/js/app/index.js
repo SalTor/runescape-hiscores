@@ -33,29 +33,36 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
 
             $("#form").submit(function(event){
                 event.preventDefault()
-
+                var start = new Date().getTime()
                 let that = this,
                     form = $(that),
                     user = $("#user-name").val()
 
                 $.get('/player/' + user, appendSkills)
-                    .success(() => form.trigger('reset'))
+                    .success(function() {
+                        var end = new Date().getTime()
+                        var time = end - start
+                        console.log('Retrieval time: ' + time)
+                        form.trigger('reset')
+                    })
                     .fail((error) => console.log('Not sure what happened exactly, but here\s the error report: ', error))
             })
 
-            function appendSkills(data) {
+            function appendSkills(stats) {
                 let user = $("#user-name").val()
 
                 console.groupCollapsed(user) // To organize our console logs
 
-                data.map( (index) => console.log(JSON.stringify(index, null, 4)) )
+                stats.map( (index) => console.log(JSON.stringify(index, null, 4)) )
 
                 let total_combt = []
 
-                let skills  = data.filter( (index) => index.skill !== 'overall' )
-                let overall = data.filter( (index) => index.skill  == 'overall' )
+                let skills  = stats.filter( (index) => index.skill !== 'overall' )
+                let overall = stats.filter( (index) => index.skill  == 'overall' )
 
                 $scope.skills  = skills;
+                $scope.highestSkill = skills.find( (index) => index.highestSkill )
+
                 $scope.overall      = overall[0].level
                 $scope.overall_rank = overall[0].rank
 
