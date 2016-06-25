@@ -1,0 +1,19 @@
+@mixin flex-centered($direction: row) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: center;
+    align-items:     center;
+}
+
+@mixin margin-centered($amount: auto) {
+    margin-right: $amount;
+    margin-left:  $amount;
+}
+
+@mixin absolute-top() {
+    position: absolute;
+
+    top:   0;
+    left:  0;
+    right: 0;
+}

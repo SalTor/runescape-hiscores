@@ -1,5 +1,10 @@
 angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
     .filter('safe', function ($sce) { return $sce.trustAsHtml })
+    .filter('capitalize', function () {
+        return function(input) {
+            return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+        }
+    })
     .controller('mainController', [ '$scope',
         function($scope) {
             $scope.skills = [
@@ -30,13 +35,20 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
 
             $scope.overall = 0
             $scope.overall_rank = 0
+            $scope.player = 'username'
+            $scope.skillFocusedName = 'sailing'
+            $scope.skillFocusedExperience = 0
+            $scope.skillFocusedLevel = 0
+            $scope.skillFocusedRank  = 0
+            $scope.skillFocusedProgressToNextLevel = 75
 
-            $("#form").submit(function(event){
+            $("#player__form").submit(function(event){
+                console.log("Form submitted")
                 event.preventDefault()
                 var start = new Date().getTime()
                 let that = this,
                     form = $(that),
-                    user = $("#user-name").val()
+                    user = $("#player__input").val()
 
                 $.get('/player/' + user, appendSkills)
                     .success(function() {
@@ -49,7 +61,7 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
             })
 
             function appendSkills(stats) {
-                let user = $("#user-name").val()
+                let user = $("#player__input").val()
 
                 console.groupCollapsed(user) // To organize our console logs
 
@@ -63,14 +75,35 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
                 $scope.skills  = skills;
                 $scope.highestSkill = skills.find( (index) => index.highestSkill )
 
-                $scope.overall      = overall[0].level
-                $scope.overall_rank = overall[0].rank
+                $scope.overall_total_level = overall[0].level
+                $scope.overall_rank        = overall[0].rank
 
                 $scope.user = user
-                
+
                 $scope.$digest()
 
                 console.groupEnd()
+            }
+
+            $scope.updateSkillHovered = function (skill) {
+                $scope.skillFocusedName = skill.skill
+                $scope.skillFocusedLevel = skill.level
+                $scope.skillFocusedExperience = skill.experience
+                $scope.skillFocusedVirtualLevel = skill.virtualLevel
+                $scope.skillFocusedRank = skill.rank
+                $scope.skillFocusedProgressToNextLevel = skill.progressToNextLevel
+            }
+
+            $scope.colorCodeProgress = function (percent) {
+                if(percent < 25) {
+                    return 'progress-bar-danger'
+                } else if(percent >= 25 && percent < 50) {
+                    return 'progress-bar-info'
+                } else if(percent >= 50 && percent < 75) {
+                    return 'progress-bar-warning'
+                } else if(percent >= 75) {
+                    return 'progress-bar-success'
+                }
             }
         }
     ]);

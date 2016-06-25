@@ -1,0 +1,88 @@
+//noinspection CssUnknownTarget
+@import "bourbon";
+
+@import "common/variables";
+@import "common/color-palette";
+@import "common/mixins";
+@import "common/blocks";
+
+#player__submission-container {
+    height: 201px;
+    width:  540px;
+
+    padding: 20px;
+    margin-right: 20px;
+
+    border: 1px solid;
+}
+
+#player__stats-container {
+    display: flex;
+    flex-direction: column;
+
+    padding: 5px;
+    border: 1px solid;
+
+    #player__summary {
+        display: flex;
+        justify-content: center;
+
+        #player__skills {
+            display: flex;
+            flex-wrap: wrap;
+
+            width: 197px;
+            border: 1px solid;
+        }
+        #player__details {
+            width: 220px;
+
+            margin-left: 5px;
+
+            > div {
+                width: 100%;
+
+                padding: 5px;
+                border: 1px solid;
+
+                &:not(:first-child) {
+                    margin-top: 5px;
+                }
+            }
+
+            #details__legend {
+                display: flex;
+                flex-direction: column;
+                > span {
+                    text-align: center;
+                    &:not(:last-child) {
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+            #details__overall {
+                display: flex;
+                justify-content: space-around;
+            }
+            #details__focused-skill {
+                display: flex;
+                flex-direction: column;
+
+                #skill__name {
+                    text-align: center;
+                    margin: 0;
+                }
+                #skill__experience-and-rank {
+                    display: flex;
+                    justify-content: space-between;
+
+                    padding-left:  5px;
+                    padding-right: 5px;
+                }
+                #skill__progress {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}

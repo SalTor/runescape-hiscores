@@ -4,57 +4,88 @@
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="build/index.css">
         <link rel="stylesheet" href="node_modules/balloon-css/balloon.min.css">
+        <title>
+            2007scape Hiscores
+        </title>
     </head>
     <body>
-        <div class="container" ng-controller="mainController">
-            <div class="form">
-                <form id="form" class="" role="form">
+        <div class="page-container" ng-controller="mainController">
+            <div id="player__submission-container">
+                <form id="player__form" role="form">
                     <legend>Hi-Scores Lookup</legend>
 
-                    <div class="form-group">
-                        <label>Username:</label>
-                        <input type="text" class="form-control" id="user-name" placeholder="Zezima">
+                    <div id="player__label-and-input" class="form-group">
+                        <label id="player__label">Username:</label>
+                        <input id="player__input" class="form-control" type="text" placeholder="Zezima">
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button id="player__submit" class="btn btn-primary" type="submit">Submit</button>
                 </form>
             </div>
 
-            <div class="stats-container">
-                <h4 style="text-align: center; margin-top: 0;" ng-show="user">{{user}}</h4>
-                <div class="skills">
-                    <div ng-cloak
-                            ng-repeat="skill in skills track by $index"
-                            class="skill skill--{{ skill.skill }}"
-                            data-balloon="Rank {{skill.rank | number}} - {{skill.experience | number}} xp"
-                            ng-class="
+            <div id="player__stats-container">
+                <h4 id="player__name" class="title title--center"
+                    ng-show="player"
+                    ng-cloak>
+                    {{player}}
+                </h4>
+                <div id="player__summary">
+                    <div id="player__skills">
+                        <div class="skill skill--{{ skill.skill }}"
+                             ng-repeat="skill in skills track by $index"
+                             ng-class="
                                 {
-                                    'highest-skill': skill.highestSkill,
-                                    'closest-to-next-level': skill.closestToNextLevel,
-                                    'closest-non-combat-to-next-level': skill.closestNonCombatToLeveling
+                                    'background-color background-color--highest-skill':                    skill.highestSkill,
+                                    'background-color background-color--closest-to-next-level':            skill.closestToNextLevel,
+                                    'background-color background-color--closest-non-combat-to-next-level': skill.closestNonCombatToLeveling
                                 }
-                            ">
-                        <img class="skill__image skill_image--{{skill.skill}}" ng-src="./Assets/images/{{skill.skill}}.png">
-                        <div class="skill__level">{{skill.level}}</div>
+                             "
+                             ng-mouseover="updateSkillHovered(skill)"
+                             ng-cloak>
+                            <img class="skill__icon skill_image--{{skill.skill}}"
+                                 ng-src="./Assets/skill-icons/{{skill.skill}}.png">
+                            <div class="skill__level">
+                                {{skill.level}}
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div ng-cloak class="overall-total-and-combat">
-                    <span class="rank">
-                        Rank: <span class="rank__number">{{overall_rank | number}}</span>
-                    </span>
-                    <span class="overall">
-                        Overall: <span class="overall__number">{{overall | number}}</span>
-                    </span>
-                </div>
-                <div class="legend">
-                    <span class="legend__highest-skill">Best Skill</span>
-                    <span class="legend__closest-to-next-level">Closest To Leveling</span>
-                    <span class="legend__closest-non-combat-to-next-level">Closest Non-Combat</span>
+                    <div id="player__details" class="other-side-bar-info">
+                        <div id="details__legend">
+                            <span class="background-color background-color--highest-skill">Best Skill</span>
+                            <span class="background-color background-color--closest-to-next-level">Closest To Leveling</span>
+                            <span class="background-color background-color--closest-non-combat-to-next-level">Closest Non-Combat</span>
+                        </div>
+                        <div id="details__overall" ng-cloak>
+                            <span id="overall__rank">
+                                Rank: {{overall_rank | number}}
+                            </span>
+                            <span id="overall__total-level">
+                                Total level: {{overall_total_level | number}}
+                            </span>
+                        </div>
+                        <div id="details__focused-skill" ng-cloak>
+                            <h4 id="skill__name" class="title title--center">
+                                {{skillFocusedName | capitalize}}
+                            </h4>
+                            <div id="skill__experience-and-rank" ng-cloak>
+                                <span id="experience">{{skillFocusedExperience | number}}xp</span>
+                                <span id="rank">Rank {{skillFocusedRank | number}}</span>
+                            </div>
+                            <div id="skill__progress" class="progress">
+                                <div class="progress-bar progress-bar-striped {{colorCodeProgress(skillFocusedProgressToNextLevel)}}"
+                                     role="progressbar" aria-valuenow="{{skillFocusedProgressToNextLevel}}"
+                                     aria-valuemin="0"  aria-valuemax="100">
+                                    <span>{{skillFocusedProgressToNextLevel}}%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <script src="./Build/app/index.min.js"></script>
+        <!--suppress JSUnresolvedLibraryURL -->
         <script src="//localhost:35729/livereload.js"></script>
     </body>
 </html>

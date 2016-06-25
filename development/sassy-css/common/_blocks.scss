@@ -1,0 +1,68 @@
+[ng-cloak] {
+    display: none !important;
+}
+
+.page-container {
+    display: flex;
+    justify-content: center;
+
+    width: 80%;
+    @include margin-centered();
+    margin-top: 20px;
+}
+
+.skill {
+    @include flex-centered();
+
+    width: 55px;
+    height: 30px;
+
+    margin: 5px;
+    padding: 2px;
+
+    .skill__icon, .skill__level {
+        @include flex-centered();
+        height: 25px;
+        width:  25px;
+    }
+
+    @for $index from 1 through length($stats-order) {
+        $skill: nth($stats-order, $index);
+
+        &.skill--#{$skill} {
+            order: #{$index};
+        }
+    }
+}
+
+.background-color {
+    &--highest-skill {
+        background-color: $highest-skill;
+    }
+    &--closest-to-next-level {
+        background-color: $closest-to-next-level;
+    }
+    &--closest-non-combat-to-next-level {
+        background-color: $closest-non-combat-to-next-level;
+    }
+}
+
+.title {
+    margin-top: 0;
+    margin-bottom: 5px;
+
+    &.title--center {
+        text-align: center;
+    }
+}
+
+.progress {
+    .progress-bar {
+        height: 25px;
+        @for $index from 0 through 100 {
+            &[aria-valuenow="#{$index}"] {
+                width: $index * 1%;
+            }
+        }
+    }
+}

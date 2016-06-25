@@ -222,8 +222,10 @@ router.get('/:username', function (req, res) {
             closestNonCombatToLeveling,
             experienceAtNextLevel,
             experienceUntilNextLevel,
+            percentProgressToNextLevel,
             currentSkill,
             currentLevel,
+            currentVirtualLevel,
             currentExperience,
             nextBracket,
             nextLevel,
@@ -237,10 +239,15 @@ router.get('/:username', function (req, res) {
             nextBracket = levels.find((index) => index.experience > currentExperience)
             nextBracket = (nextBracket == undefined) ? {level: 127, experience: 200000000} : nextBracket
             nextLevel = nextBracket.level
+            currentVirtualLevel = (currentExperience == 200000000) ? 127 : nextBracket.level - 1
             nextExperience = nextBracket.experience
             experienceUntilNextLevel = (currentExperience < 0) ? 83 : nextExperience - currentExperience
+            percentProgressToNextLevel = (currentExperience < 0) ? 0 : Math.floor((currentExperience / nextExperience) * 100)
 
             currentStat.experienceUntilNextLevel = experienceUntilNextLevel
+            currentStat.virtualLevel = currentVirtualLevel
+            currentStat.progressToNextLevel = (nextLevel == 127) ? 100 : percentProgressToNextLevel
+
             closestToLeveling.push(currentStat)
         })
 
@@ -263,6 +270,11 @@ router.get('/:username', function (req, res) {
         return Math.floor((1 + Math.random()) * 0x10000)
             .toString(16)
             .substring(1);
+    }
+
+    function roundNumber(number, places) {
+        let multiplier = Math.pow(10, places);
+        return Math.round(number * multiplier) / multiplier;
     }
 })
 

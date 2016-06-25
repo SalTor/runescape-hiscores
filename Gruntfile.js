@@ -7,13 +7,13 @@ module.exports = function(grunt){
             },
             angular: {
                 files: {
-                    'build/.tmp/app/index.min.js': 'development/js/app/index.js'
+                    'build/.tmp/app/index.min.js': 'development/javascript/app/index.js'
                 }
             },
             server: {
                 files: {
-                    'build/server/api.min.js': 'development/js/server/api.js',
-                    'build/server/routes/player.js': 'development/js/server/routes/player.js'
+                    'build/server/api.min.js': 'development/javascript/server/api.js',
+                    'build/server/routes/player.js': 'development/javascript/server/routes/player.js'
                 }
             }
         },
@@ -22,7 +22,7 @@ module.exports = function(grunt){
                 files: {
                     'build/app/index.min.js': [
                         './node_modules/jquery/dist/jquery.min.js',
-                        './node_modules/bootstrap/dist/js/bootstrap.min.js',
+                        './node_modules/bootstrap/dist/javascript/bootstrap.min.js',
                         './node_modules/angular/angular.min.js',
                         './node_modules/angular-animate/angular-animate.min.js',
                         './node_modules/angular-route/angular-route.min.js',
@@ -64,30 +64,30 @@ module.exports = function(grunt){
         sass: {
             hiscores : {
                 options : {
-                    style : 'compressed',
+                    style : 'expanded',
                     update : true,
                     trace: true,
                     loadPath: require('node-bourbon').includePaths
                 },
                 files : [
-                    {'build/index.css' : 'development/scss/index.scss'}
+                    {'build/index.css' : 'development/sassy-css/index.scss'}
                 ]
             }
         },
         watch: {
             server: {
-                files: ['development/js/server/*.js', 'development/js/server/**/*.js'],
+                files: ['development/javascript/server/*.js', 'development/javascript/server/**/*.js'],
                 tasks: ['babel:server', 'notify', 'clean']
             },
             angular_app: {
-                files: ['development/js/app/**/*.js', 'development/js/app/*.js'],
+                files: ['development/javascript/app/**/*.js', 'development/javascript/app/*.js'],
                 tasks: ['babel:angular', 'uglify:angular', 'notify', 'clean'],
                 options : {
                     livereload: true
                 }
             },
             sass: {
-                files: ['development/scss/index.scss', 'development/scss/**/*.scss'],
+                files: ['development/sassy-css/index.scss', 'development/sassy-css/**/*.scss'],
                 tasks: ['sass', 'notify'],
                 cacheLocation: false,
                 options : {
