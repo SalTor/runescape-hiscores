@@ -62,7 +62,15 @@
             }
             #details__overall {
                 display: flex;
-                justify-content: space-around;
+                flex-direction: column;
+
+                #rank_and_total_level {
+                    display: flex;
+                    justify-content: space-between;
+                }
+                #overall__experience {
+                    text-align: center;
+                }
             }
             #details__focused-skill {
                 display: flex;
@@ -81,6 +89,12 @@
                 }
                 #skill__progress {
                     margin-bottom: 0;
+                }
+                #skill__progress-and-experience-left {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    text-align: center;
                 }
             }
         }

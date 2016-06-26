@@ -56,11 +56,13 @@
                             <span class="background-color background-color--closest-non-combat-to-next-level">Closest Non-Combat</span>
                         </div>
                         <div id="details__overall" ng-cloak>
-                            <span id="overall__rank">
-                                Rank: {{overall_rank | number}}
-                            </span>
-                            <span id="overall__total-level">
-                                Total level: {{overall_total_level | number}}
+                            <div id="rank_and_total_level">
+                                <span ng-show="!form_empty" id="overall__rank">Rank: {{overall_rank | number}}</span>
+                                <span ng-show=" form_empty" id="overall__rank--no-name">Not ranked</span>
+                                <span id="overall__total-level">Total: {{overall_total_level | number}}</span>
+                            </div>
+                            <span id="overall__experience">
+                                {{overall_experience | number}}xp
                             </span>
                         </div>
                         <div id="details__focused-skill" ng-cloak>
@@ -69,14 +71,20 @@
                             </h4>
                             <div id="skill__experience-and-rank" ng-cloak>
                                 <span id="experience">{{skillFocusedExperience | number}}xp</span>
-                                <span id="rank">Rank {{skillFocusedRank | number}}</span>
+                                <span ng-show=" skillFocusedIsRanked" id="rank">Rank: {{skillFocusedRank | number}}</span>
+                                <span ng-show="!skillFocusedIsRanked" id="no-rank">Not ranked</span>
                             </div>
                             <div id="skill__progress" class="progress">
-                                <div class="progress-bar progress-bar-striped {{colorCodeProgress(skillFocusedProgressToNextLevel)}}"
-                                     role="progressbar" aria-valuenow="{{skillFocusedProgressToNextLevel}}"
+                                <div id="progress__bar" class="progress-bar progress-bar-striped {{colorCodeProgress(skillFocusedProgressToNextLevel)}}"
+                                     role="progressbar" aria-valuenow="{{roundDown(skillFocusedProgressToNextLevel)}}"
                                      aria-valuemin="0"  aria-valuemax="100">
-                                    <span>{{skillFocusedProgressToNextLevel}}%</span>
+                                    <span class="sr-only"></span>
                                 </div>
+                            </div>
+                            <div id="skill__progress-and-experience-left">
+                                <span ng-show="!skillFocusedIsMaxed" id="progress">{{skillFocusedProgressToNextLevel}}% towards level {{skillFocusedNextLevel}}</span>
+                                <span ng-show="!skillFocusedIsMaxed" id="experience-left">{{skillFocusedExperienceUntilNextLevel | number}}xp left!</span>
+                                <span ng-show=" skillFocusedIsMaxed" id="experience-left--maxed">{{skillFocusedExperienceUntilNextLevel}}</span>
                             </div>
                         </div>
                     </div>
