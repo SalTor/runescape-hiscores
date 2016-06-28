@@ -24,9 +24,7 @@
             </div>
 
             <div id="player__stats-container">
-                <h4 id="player__name" class="title title--center"
-                    ng-show="player"
-                    ng-cloak>
+                <h4 id="player__name" class="title title--center" ng-show="player" ng-cloak>
                     {{player}}
                 </h4>
                 <div id="player__summary">
@@ -42,11 +40,8 @@
                              "
                              ng-mouseover="updateSkillHovered(skill)"
                              ng-cloak>
-                            <img class="skill__icon skill_image--{{skill.skill}}"
-                                 ng-src="./Assets/skill-icons/{{skill.skill}}.png">
-                            <div class="skill__level">
-                                {{skill.level}}
-                            </div>
+                            <img class="skill__icon skill_image--{{skill.skill}}" ng-src="./Assets/skill-icons/{{skill.skill}}.png">
+                            <div class="skill__level">{{skill.level}}</div>
                         </div>
                     </div>
                     <div id="player__details" class="other-side-bar-info">

@@ -49,7 +49,6 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
             $scope.skillFocusedIsMaxed = false
             $scope.skillFocusedExperienceUntilNextLevel = 83
 
-
             $("#player__form").submit(function(event){
                 console.log("Form submitted")
                 event.preventDefault()

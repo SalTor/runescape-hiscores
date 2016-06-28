@@ -233,7 +233,8 @@ router.get('/:username', function (req, res) {
             nextLevel,
             nextExperience,
             indexOfNextBracket,
-            ifThereIsNoNextBracket
+            ifThereIsNoNextBracket,
+            nonCombatSkills
 
         allStats = allStats.filter((index) => index.skill !== 'overall')
 
@@ -274,7 +275,9 @@ router.get('/:username', function (req, res) {
             closestToLeveling.push(currentStat)
         })
 
-        closestNonCombatToLeveling = closestToLeveling.find((index) => index.experienceUntilNextLevel == Math.min.apply(Math, closestToLeveling.filter((index) => !index.skill.match(/(attack|strength|defence|hitpoints|magic|ranged|prayer)/i) && index.experienceUntilNextLevel !== 0).map((index) => index.experienceUntilNextLevel)))
+        nonCombatSkills = closestToLeveling.filter((index) => !index.skill.match(/(attack|strength|defence|hitpoints|magic|ranged|prayer)/i) && index.experienceUntilNextLevel !== 0)
+
+        closestNonCombatToLeveling = nonCombatSkills.find((index) => index.experienceUntilNextLevel == Math.min.apply(Math, nonCombatSkills.filter((index) => index.experienceUntilNextLevel !== 0).map((index) => index.experienceUntilNextLevel)))
 
         closestNonCombatToLeveling.closestNonCombatToLeveling = true
         
