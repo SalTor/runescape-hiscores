@@ -39,54 +39,63 @@ router.get('/:username', function (req, res) {
 
     function markHighestSkill(allStats) {
         let highestSkillsFound = [],
-            highestSkillExperienceFound = [],
-            highestLevelFound = 1,
-            highestExperienceFound = 0,
+            highestExperienceFound = [],
+            highestLevel = 1,
+            highestExperience = 0,
             highestExperienceFoundId,
             highestSkillFound,
             highestSkillBasedOnExperienceAndRank
 
-        allStats = allStats.filter((index) => index.skill !== 'overall')
+        allStats = filterOutOverall(allStats)
 
-        allStats.map(function (currentSkill) {
-            if(currentSkill.level > highestLevelFound){
-                highestLevelFound = currentSkill.level
+        updateHighestSkillFoundFrom(allStats)
+        updateHighestExperienceFoundFrom(highestSkillFound)
 
-                if(highestSkillsFound.length > 0) {
-                    highestSkillsFound.pop()
-                    highestSkillsFound.push(currentSkill)
-                    highestSkillFound = currentSkill.id
-                } else {
-                    highestSkillsFound.push(currentSkill)
-                    highestSkillFound = currentSkill.id
-                }
-            } else if(currentSkill.level == 99) {
-                highestSkillsFound.push(currentSkill)
-                highestSkillFound = currentSkill.id
-            }
-        })
-
-        highestSkillsFound.map(function (currentSkill) {
-            if(currentSkill.experience > highestExperienceFound){
-                highestExperienceFound = currentSkill.experience
-
-                if(highestSkillExperienceFound.length > 0) {
-                    highestSkillExperienceFound.pop()
-                    highestSkillExperienceFound.push(currentSkill)
-                    highestExperienceFoundId = currentSkill.id
-                } else {
-                    highestSkillExperienceFound.push(currentSkill)
-                    highestExperienceFoundId = currentSkill.id
-                }
-            } else if(currentSkill.experience == 200000000) {
-                highestSkillExperienceFound.push(currentSkill)
-                highestExperienceFoundId = currentSkill.id
-            }
-        })
-
-        highestSkillBasedOnExperienceAndRank = highestSkillExperienceFound.find((index) => index.rank == Math.min.apply(Math, highestSkillExperienceFound.map((index) => index.rank)))
+        highestSkillBasedOnExperienceAndRank = findSkillWithBestRankFrom(highestExperienceFound)
 
         highestSkillBasedOnExperienceAndRank.highestSkill = true
+
+        function updateHighestSkillFoundFrom(stats) {
+            stats.map(function (currentSkill) {
+                if(currentSkill.level > highestLevel){
+                    highestLevel = currentSkill.level
+
+                    if(highestSkillsFound.length > 0) {
+                        highestSkillsFound.pop()
+                        highestSkillsFound.push(currentSkill)
+                        highestSkillFound = currentSkill.id
+                    } else {
+                        highestSkillsFound.push(currentSkill)
+                        highestSkillFound = currentSkill.id
+                    }
+                } else if(currentSkill.level == 99) {
+                    highestSkillsFound.push(currentSkill)
+                    highestSkillFound = currentSkill.id
+                }
+            })
+        }
+        function updateHighestExperienceFoundFrom(stats) {
+            stats.map(function (currentSkill) {
+                if(currentSkill.experience > highestExperience){
+                    highestExperience = currentSkill.experience
+
+                    if(highestExperienceFound.length > 0) {
+                        highestExperienceFound.pop()
+                        highestExperienceFound.push(currentSkill)
+                        highestExperienceFoundId = currentSkill.id
+                    } else {
+                        highestExperienceFound.push(currentSkill)
+                        highestExperienceFoundId = currentSkill.id
+                    }
+                } else if(currentSkill.experience == 200000000) {
+                    highestExperienceFound.push(currentSkill)
+                    highestExperienceFoundId = currentSkill.id
+                }
+            })
+        }
+        function findSkillWithBestRankFrom(stats) {
+            return stats.find((index) => index.rank == Math.min.apply(Math, highestExperienceFound.map((index) => index.rank)))
+        }
     }
     function markClosestToLeveling(allStats) {
         let levels = [
@@ -236,7 +245,7 @@ router.get('/:username', function (req, res) {
             ifThereIsNoNextBracket,
             nonCombatSkills
 
-        allStats = allStats.filter((index) => index.skill !== 'overall')
+        allStats = filterOutOverall(allStats)
 
         allStats.map(function (currentStat) {
             currentSkill = currentStat.skill
@@ -284,6 +293,11 @@ router.get('/:username', function (req, res) {
         closestToLeveling = closestToLeveling.find((index) => index.experienceUntilNextLevel == Math.min.apply(Math, closestToLeveling.filter((index) => index.experienceUntilNextLevel !== 0).map((index) => index.experienceUntilNextLevel)))
         
         closestToLeveling.closestToNextLevel = true
+    }
+
+
+    function filterOutOverall(stats) {
+        return stats.filter((index) => index.skill !== 'overall')
     }
 
     function createUniqueId() {
