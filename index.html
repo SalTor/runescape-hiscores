@@ -33,9 +33,10 @@
                              ng-repeat="skill in skills track by $index"
                              ng-class="
                                 {
-                                    'background-color background-color--highest-skill':                    skill.highestSkill,
+                                    'background-color background-color--level-ninety-nine':                skill.isLevel99,
+                                    'background-color background-color--closest-non-combat-to-next-level': skill.closestNonCombatToLeveling,
                                     'background-color background-color--closest-to-next-level':            skill.closestToNextLevel,
-                                    'background-color background-color--closest-non-combat-to-next-level': skill.closestNonCombatToLeveling
+                                    'background-color background-color--highest-skill':                    skill.highestSkill,
                                 }
                              "
                              ng-mouseover="updateSkillHovered(skill)"
@@ -70,7 +71,7 @@
                                 <span ng-show="!skillFocusedIsRanked" id="no-rank">Not ranked</span>
                             </div>
                             <div id="skill__progress" class="progress">
-                                <div id="progress__bar" class="progress-bar progress-bar-striped {{colorCodeProgress(skillFocusedProgressToNextLevel)}}"
+                                <div id="progress__bar" class="progress-bar progress-bar-striped progress-bar-success"
                                      role="progressbar" aria-valuenow="{{roundDown(skillFocusedProgressToNextLevel)}}"
                                      aria-valuemin="0"  aria-valuemax="100">
                                     <span class="sr-only"></span>
