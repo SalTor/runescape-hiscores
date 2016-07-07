@@ -12,7 +12,9 @@ router.get('/:username', function (req, res) {
         .then(logInfo)
         .catch(console.error)
 
-    let skills = []
+    let skills = [],
+        maxExperience = 200000000
+
     function logInfo(info) {
         let player = info.skills
         for(let index in player){
@@ -49,7 +51,7 @@ router.get('/:username', function (req, res) {
         allStats = filterOutOverall(allStats)
 
         updateHighestSkillFoundFrom(allStats)
-        updateHighestExperienceFoundFrom(highestSkillFound)
+        updateHighestExperienceFoundFrom(highestSkillsFound)
 
         highestSkillBasedOnExperienceAndRank = findSkillWithBestRankFrom(highestExperienceFound)
 
@@ -87,7 +89,7 @@ router.get('/:username', function (req, res) {
                         highestExperienceFound.push(currentSkill)
                         highestExperienceFoundId = currentSkill.id
                     }
-                } else if(currentSkill.experience == 200000000) {
+                } else if(currentSkill.experience == maxExperience) {
                     highestExperienceFound.push(currentSkill)
                     highestExperienceFoundId = currentSkill.id
                 }
@@ -225,15 +227,15 @@ router.get('/:username', function (req, res) {
                 {level: 124, experience: 154948977},
                 {level: 125, experience: 171077457},
                 {level: 126, experience: 188884740},
-                {level: 127, experience: 200000000}
+                {level: 127, experience: maxExperience}
             ],
             closestToLeveling = [],
             closestNonCombatToLeveling,
             experienceDifferenceForLevel,
             experienceUntilNextLevel,
             percentProgressToNextLevel,
-            currentSkill,
             currentVirtualLevel,
+            currentSkill,
             currentExperience,
             currentLevel,
             currentExperienceBracket,
@@ -243,46 +245,13 @@ router.get('/:username', function (req, res) {
             nextExperience,
             indexOfNextBracket,
             ifThereIsNoNextBracket,
-            nonCombatSkills
+            nonCombatSkills,
+            theNextBracket,
+            isLevel99
 
         allStats = filterOutOverall(allStats)
 
-        allStats.map(function (currentStat) {
-            currentSkill = currentStat.skill
-            currentExperience = currentStat.experience
-            currentLevel = currentStat.level
-
-            nextBracket = levels.find((index) => index.experience > currentExperience)
-            ifThereIsNoNextBracket = (nextBracket === undefined)
-            nextBracket = ifThereIsNoNextBracket ? {level: 127, experience: 200000000} : nextBracket
-
-            indexOfNextBracket = levels.indexOf(nextBracket)
-
-            nextLevel = nextBracket.level
-            currentBracket = ifThereIsNoNextBracket ? {level: 127, experience: 200000000} : levels[indexOfNextBracket - 1]
-            currentVirtualLevel = currentBracket.level
-
-            nextExperience = nextBracket.experience
-
-            experienceUntilNextLevel = nextExperience - currentExperience
-
-            experienceDifferenceForLevel = nextExperience - currentBracket.experience
-            percentProgressToNextLevel = (experienceUntilNextLevel == 0) ? 100 : roundNumber(((experienceDifferenceForLevel - experienceUntilNextLevel) / experienceDifferenceForLevel) * 100, 1)
-
-            currentStat.experienceUntilNextLevel = experienceUntilNextLevel
-            currentStat.virtualLevel = currentVirtualLevel
-            currentStat.progressToNextLevel = percentProgressToNextLevel
-
-            // console.log(`${currentSkill} level: ${currentVirtualLevel}`)
-            // console.log(`\tCurrent bracket: ${JSON.stringify(currentBracket)}`)
-            // console.log(`\tNext bracket: ${JSON.stringify(nextBracket)}`)
-            // console.log(`\tNext level at: ${nextExperience}`)
-            // console.log(`\tFrom start to finish there is ${experienceDifferenceForLevel}xp between ${currentVirtualLevel} and ${nextLevel}`)
-            // console.log(`\t${experienceUntilNextLevel}xp to go!`)
-            // console.log(`\t${percentProgressToNextLevel}% of the way to ${nextLevel}!\n`)
-
-            closestToLeveling.push(currentStat)
-        })
+        findClosestSkillsToLeveling(allStats)
 
         nonCombatSkills = closestToLeveling.filter((index) => !index.skill.match(/(attack|strength|defence|hitpoints|magic|ranged|prayer)/i) && index.experienceUntilNextLevel !== 0)
 
@@ -293,6 +262,49 @@ router.get('/:username', function (req, res) {
         closestToLeveling = closestToLeveling.find((index) => index.experienceUntilNextLevel == Math.min.apply(Math, closestToLeveling.filter((index) => index.experienceUntilNextLevel !== 0).map((index) => index.experienceUntilNextLevel)))
         
         closestToLeveling.closestToNextLevel = true
+
+        function findClosestSkillsToLeveling(stats) {
+            stats.map(function (currentStat) {
+                currentSkill = currentStat.skill
+                currentExperience = (currentStat.experience >= 0) ? currentStat.experience : 0
+                currentLevel = currentStat.level
+
+                nextBracket = levels.find((index) => index.experience > currentExperience || index.experience == maxExperience)
+                ifThereIsNoNextBracket = (nextBracket < 0)
+                theNextBracket = ifThereIsNoNextBracket ? {level: 127, experience: maxExperience} : nextBracket
+
+                indexOfNextBracket = levels.indexOf(ifThereIsNoNextBracket ? {level: 127, experience: maxExperience} : nextBracket)
+
+                nextLevel = theNextBracket.level
+
+                currentBracket = ifThereIsNoNextBracket ? {level: 127, experience: maxExperience} : levels[indexOfNextBracket - 1]
+                currentVirtualLevel = currentBracket.level
+
+                nextExperience = theNextBracket.experience
+
+                experienceUntilNextLevel = nextExperience - currentExperience
+
+                experienceDifferenceForLevel = nextExperience - currentBracket.experience
+                percentProgressToNextLevel = (experienceUntilNextLevel == 0) ? 100 : roundNumber(((experienceDifferenceForLevel - experienceUntilNextLevel) / experienceDifferenceForLevel) * 100, 1)
+
+                isLevel99 = (currentLevel == 99)
+                
+                currentStat.experienceUntilNextLevel = experienceUntilNextLevel
+                currentStat.virtualLevel = currentVirtualLevel
+                currentStat.progressToNextLevel = percentProgressToNextLevel
+                currentStat.isLevel99 = isLevel99
+
+                // console.log(`${currentSkill} level: ${currentVirtualLevel}`)
+                // console.log(`\tCurrent bracket: ${JSON.stringify(currentBracket)}`)
+                // console.log(`\tNext bracket: ${JSON.stringify(nextBracket)}`)
+                // console.log(`\tNext level at: ${nextExperience}`)
+                // console.log(`\tFrom start to finish there is ${experienceDifferenceForLevel}xp between ${currentVirtualLevel} and ${nextLevel}`)
+                // console.log(`\t${experienceUntilNextLevel}xp to go!`)
+                // console.log(`\t${percentProgressToNextLevel}% of the way to ${nextLevel}!\n`)
+
+                closestToLeveling.push(currentStat)
+            })
+        }
     }
 
 
