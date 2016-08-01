@@ -17,7 +17,9 @@ router.get('/:username', function (req, res) {
 
     function logInfo(info) {
         let player = info.skills
-        for(let index in player){
+        console.log("poop")
+
+        for(let index in player) {
             skills.push(
                 objectAssign(
                     {},

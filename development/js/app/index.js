@@ -49,15 +49,17 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
             $scope.skillFocusedIsMaxed = false
             $scope.skillFocusedExperienceUntilNextLevel = 83
 
-            $("#player__form").submit(function(event){
+            $("#player__form").submit(function(event) {
                 console.log("Form submitted")
                 event.preventDefault()
-                var start = new Date().getTime()
+
                 let that = this,
                     form = $(that),
-                    user = $("#player__input").val()
+                    user = $("#player__input").val(),
+                    start = new Date().getTime()
 
-                $.get('/player/' + user, appendSkills)
+                $.get('/player/' + 'zezima', appendSkills)
+                // $.get('/player/' + user, appendSkills)
                     .success(function() {
                         var end = new Date().getTime()
                         var time = end - start
