@@ -58,8 +58,7 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
                     user = $("#player__input").val(),
                     start = new Date().getTime()
 
-                $.get('/player/' + 'zezima', appendSkills)
-                // $.get('/player/' + user, appendSkills)
+                $.get('/player/' + user, appendSkills)
                     .success(function() {
                         var end = new Date().getTime()
                         var time = end - start
