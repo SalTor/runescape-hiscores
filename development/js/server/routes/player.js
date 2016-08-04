@@ -6,7 +6,7 @@ const objectAssign = require('object-assign')
 router.get('/:username', function (req, res) {
     let username = req.params.username
 
-    console.log("The player page has been requested for: " + username)
+    console.log(`\n\nThe player page has been requested for: ${username}\n`)
 
     api.osrs.hiscores.player(username)
         .then(logInfo)
