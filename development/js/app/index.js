@@ -33,8 +33,8 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
                 {skill: "hunter",       level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1}
             ]
 
-            $scope.overall_total_level = 32
-            $scope.overall_experience  = 1154
+            $scope.overall_total_level = $scope.skills.map((index) => index.level).reduce( (prev, curr) => prev + curr )
+            $scope.overall_experience  = $scope.skills.map((index) => index.experience).reduce( (prev, curr) => prev + curr )
             $scope.player = 'username'
             $scope.form_empty = true
 
