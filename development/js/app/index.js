@@ -81,8 +81,8 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
                 let skills  = stats.filter( (index) => index.skill !== 'overall' )
                 let overall = stats.filter( (index) => index.skill  == 'overall' )
 
-                $scope.skills  = skills;
-                $scope.highestSkill = skills.find( (index) => index.highestSkill )
+                $scope.skills  = skills
+                $scope.bestSkill = skills.find( (index) => index.highestSkill )
 
                 $scope.overall_total_level = overall[0].level
                 $scope.overall_experience  = overall[0].experience
@@ -90,6 +90,8 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
 
                 $scope.player = user
                 $scope.form_empty = false
+
+                $scope.updateSkillHovered($scope.bestSkill)
 
                 $scope.$digest()
 
