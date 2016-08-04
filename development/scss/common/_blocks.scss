@@ -37,16 +37,16 @@
 
 .background-color {
     &--level-ninety-nine {
-        background-color: $level-ninety-nine;
+        background-color: $color--level-ninety-nine;
     }
     &--closest-non-combat-to-next-level {
-        background-color: $closest-non-combat-to-next-level;
+        background-color: $color--closest-non-combat-to-next-level;
     }
     &--closest-to-next-level {
-        background-color: $closest-to-next-level;
+        background-color: $color--closest-to-next-level;
     }
-    &--highest-skill {
-        background-color: $highest-skill;
+    &--best-skill {
+        background-color: $color--best-skill;
     }
 }
 
