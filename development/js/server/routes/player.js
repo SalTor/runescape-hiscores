@@ -230,7 +230,7 @@ router.get('/:username', function (req, res) {
                 {level: 126, experience: 188884740},
                 {level: 127, experience: maxExperience}
             ],
-            closestToLeveling = [],
+            closestToLeveling,
             closestNonCombatToLeveling,
             experienceDifferenceForLevel,
             experienceUntilNextLevel,
@@ -248,23 +248,28 @@ router.get('/:username', function (req, res) {
             ifThereIsNoNextBracket,
             nonCombatSkills,
             theNextBracket,
-            isLevel99
+            isLevel99,
+            combatFilter = /(attack|strength|defence|hitpoints|magic|ranged|prayer)/i
 
         allStats = filterOutOverall(allStats)
 
-        findClosestSkillsToLeveling(allStats)
+        addMoreDetailsTo(allStats)
 
-        nonCombatSkills = closestToLeveling.filter((index) => !index.skill.match(/(attack|strength|defence|hitpoints|magic|ranged|prayer)/i) && index.experienceUntilNextLevel !== 0)
+        nonCombatSkills = allStats.filter( (index) => !index.skill.match(combatFilter) )
 
-        closestNonCombatToLeveling = nonCombatSkills.find((index) => index.experienceUntilNextLevel == Math.min.apply(Math, nonCombatSkills.filter((index) => index.experienceUntilNextLevel !== 0).map((index) => index.experienceUntilNextLevel)))
+        closestToLeveling = allStats.find(function (index) {
+            return index.experienceUntilNextLevel == findMinFrom(allStats)
+        })
 
-        closestNonCombatToLeveling.closestNonCombatToLeveling = true
-        
-        closestToLeveling = closestToLeveling.find((index) => index.experienceUntilNextLevel == Math.min.apply(Math, closestToLeveling.filter((index) => index.experienceUntilNextLevel !== 0).map((index) => index.experienceUntilNextLevel)))
-        
         closestToLeveling.closestToNextLevel = true
 
-        function findClosestSkillsToLeveling(stats) {
+        closestNonCombatToLeveling = nonCombatSkills.find(function (index) {
+            return index.experienceUntilNextLevel == findMinFrom(nonCombatSkills)
+        })
+
+        closestNonCombatToLeveling.closestNonCombatToLeveling = true
+
+        function addMoreDetailsTo(stats) {
             stats.map(function (currentStat) {
                 currentSkill = currentStat.skill
                 currentExperience = (currentStat.experience >= 0) ? currentStat.experience : 0
@@ -289,25 +294,26 @@ router.get('/:username', function (req, res) {
                 percentProgressToNextLevel = (experienceUntilNextLevel == 0) ? 100 : roundNumber(((experienceDifferenceForLevel - experienceUntilNextLevel) / experienceDifferenceForLevel) * 100, 1)
 
                 isLevel99 = (currentLevel == 99)
-                
+
                 currentStat.experienceUntilNextLevel = experienceUntilNextLevel
                 currentStat.virtualLevel = currentVirtualLevel
                 currentStat.progressToNextLevel = percentProgressToNextLevel
                 currentStat.isLevel99 = isLevel99
-
-                // console.log(`${currentSkill} level: ${currentVirtualLevel}`)
-                // console.log(`\tCurrent bracket: ${JSON.stringify(currentBracket)}`)
-                // console.log(`\tNext bracket: ${JSON.stringify(nextBracket)}`)
-                // console.log(`\tNext level at: ${nextExperience}`)
-                // console.log(`\tFrom start to finish there is ${experienceDifferenceForLevel}xp between ${currentVirtualLevel} and ${nextLevel}`)
-                // console.log(`\t${experienceUntilNextLevel}xp to go!`)
-                // console.log(`\t${percentProgressToNextLevel}% of the way to ${nextLevel}!\n`)
-
-                closestToLeveling.push(currentStat)
             })
         }
     }
 
+    function findMinFrom(skills) {
+        return Math.min.apply(Math, experienceLeft(skills))
+    }
+
+    function experienceLeft(skills) {
+        return non200mSkills(skills).map((index) => index.experienceUntilNextLevel)
+    }
+
+    function non200mSkills(skills) {
+        return skills.filter((index) => index.experienceUntilNextLevel !== 0)
+    }
 
     function filterOutOverall(stats) {
         return stats.filter((index) => index.skill !== 'overall')
