@@ -34,6 +34,9 @@ module.exports = function(grunt){
                 files: {
                     'build/server/api.min.js': ['build/.tmp/server/api.min.js'],
                     'build/server/routes/player.js': ['build/.tmp/server/routes/player.js']
+                },
+                options: {
+                    sourceMap: true
                 }
             }
         },
