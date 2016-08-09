@@ -55,14 +55,10 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
 
                 let that = this,
                     form = $(that),
-                    user = $("#player__input").val(),
-                    start = new Date().getTime()
+                    user = $("#player__input").val()
 
                 $.get('/player/' + user, appendSkills)
                     .success(function() {
-                        var end = new Date().getTime()
-                        var time = end - start
-                        console.log('Retrieval time: ' + time)
                         form.trigger('reset')
                     })
                     .fail((error) => console.log('Not sure what happened exactly, but here\s the error report: ', error))
