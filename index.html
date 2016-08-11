@@ -24,9 +24,11 @@
             </div>
 
             <div id="player__stats-container">
-                <h4 id="player__name" class="title title--center" ng-show="player" ng-cloak>
-                    {{player}}
-                </h4>
+                <div id="name_and_cb_level">
+                    <h4 id="player__name" class="title title--center" ng-show="player" ng-cloak>
+                        {{player}} &mdash; lvl {{overall__combat_level}}
+                    </h4>
+                </div>
                 <div id="player__summary">
                     <div id="player__skills">
                         <div class="skill skill--{{ skill.skill }}"

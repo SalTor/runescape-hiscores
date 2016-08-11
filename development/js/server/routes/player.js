@@ -16,7 +16,8 @@ router.get('/:username', function (req, res) {
         maxExperience = 200000000
 
     function logInfo(info) {
-        let player = info.skills
+        let player = info.skills,
+            combatFilter = /(attack|strength|defence|hitpoints|magic|ranged|prayer)/i
 
         for(let index in player) {
             skills.push(
@@ -36,6 +37,8 @@ router.get('/:username', function (req, res) {
 
         markHighestSkill(skills)
         markClosestToLeveling(skills)
+
+        calculateAndSetCombatLevel(skills.filter( (index) => index.skill.match(combatFilter) || index.skill == 'overall'))
 
         res.send(skills).status(200)
     }
@@ -100,6 +103,7 @@ router.get('/:username', function (req, res) {
             return stats.find((index) => index.rank == Math.min.apply(Math, highestExperienceFound.map((index) => index.rank)))
         }
     }
+
     function markClosestToLeveling(allStats) {
         let levels = [
                 {level: 1, experience: 0},
@@ -301,6 +305,32 @@ router.get('/:username', function (req, res) {
                 currentStat.isLevel99 = isLevel99
             })
         }
+    }
+
+    function calculateAndSetCombatLevel (skills) {
+        var hitpoints = skills.find( (index) => index.skill == "hitpoints").level,
+            strength  = skills.find( (index) => index.skill == "strength" ).level,
+            defence   = skills.find( (index) => index.skill == "defence"  ).level,
+            prayer    = skills.find( (index) => index.skill == "prayer"   ).level,
+            attack    = skills.find( (index) => index.skill == "attack"   ).level,
+            ranged    = skills.find( (index) => index.skill == "ranged"   ).level,
+            magic     = skills.find( (index) => index.skill == "magic"    ).level,
+            overall   = skills.find( (index) => index.skill == "overall"  ),
+            combat_level
+
+        combat_level = Math.floor(
+            0.25 * (defence + hitpoints + Math.floor(prayer / 2))
+            +
+            Math.max(
+                0.325 * (attack + strength),
+                Math.max(
+                    0.325 * (Math.floor(ranged / 2) + ranged),
+                    0.325 * (Math.floor(magic  / 2) + magic)
+                )
+            )
+        )
+
+        overall.combat_level = combat_level
     }
 
     function findMinFrom(skills) {

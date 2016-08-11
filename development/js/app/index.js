@@ -48,6 +48,7 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
             $scope.skillFocusedNextLevel = 2
             $scope.skillFocusedIsMaxed = false
             $scope.skillFocusedExperienceUntilNextLevel = 83
+            $scope.overall__combat_level = 3
 
             $("#player__form").submit(function(event) {
                 console.log("Form submitted")
@@ -85,6 +86,8 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
 
                 $scope.player = user
                 $scope.form_empty = false
+
+                $scope.overall__combat_level = overall[0].combat_level
 
                 $scope.updateSkillHovered($scope.bestSkill)
 
