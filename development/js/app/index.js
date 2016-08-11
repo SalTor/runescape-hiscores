@@ -40,14 +40,14 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
 
             $scope.skillFocusedName = 'sailing'
             $scope.skillFocusedLevel = 0
-            $scope.skillFocusedExperience = 0
+            $scope.skillFocusedExperience = undefined
             $scope.skillFocusedVirtualLevel = 1
             $scope.skillFocusedIsRanked = false
             $scope.skillFocusedRank = -1
             $scope.skillFocusedProgressToNextLevel = 0
             $scope.skillFocusedNextLevel = 2
             $scope.skillFocusedIsMaxed = false
-            $scope.skillFocusedExperienceUntilNextLevel = 83
+            $scope.skillFocusedExperienceUntilNextLevel = undefined
             $scope.overall__combat_level = 3
 
             $("#player__form").submit(function(event) {
@@ -99,14 +99,14 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
             $scope.updateSkillHovered = function (skill) {
                 $scope.skillFocusedName = skill.skill
                 $scope.skillFocusedLevel = skill.level
-                $scope.skillFocusedExperience = skill.experience
+                $scope.skillFocusedExperience = (skill.experience == -1) ? undefined : skill.experience
                 $scope.skillFocusedVirtualLevel = skill.virtualLevel
                 $scope.skillFocusedIsRanked = skill.rank != -1
                 $scope.skillFocusedRank = skill.rank
                 $scope.skillFocusedProgressToNextLevel = skill.progressToNextLevel
                 $scope.skillFocusedNextLevel = (skill.virtualLevel == 127) ? 127 : skill.virtualLevel + 1
                 $scope.skillFocusedIsMaxed = skill.experienceUntilNextLevel == 0
-                $scope.skillFocusedExperienceUntilNextLevel = $scope.skillFocusedIsMaxed ? `This skill has been maxed!` : skill.experienceUntilNextLevel
+                $scope.skillFocusedExperienceUntilNextLevel = $scope.skillFocusedIsMaxed ? `This skill has been maxed!` : (skill.experience == -1) ? undefined : skill.experienceUntilNextLevel
             }
 
             $scope.colorCodeProgress = function (percent) {

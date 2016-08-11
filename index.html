@@ -60,7 +60,7 @@
                                 <span id="overall__total-level">Total: {{overall_total_level | number}}</span>
                             </div>
                             <span id="overall__experience">
-                                {{overall_experience | number}}xp
+                                {{overall_experience | number}} xp
                             </span>
                         </div>
                         <div id="details__focused-skill" ng-cloak>
@@ -68,7 +68,10 @@
                                 {{skillFocusedName | capitalize}}
                             </h4>
                             <div id="skill__experience-and-rank" ng-cloak>
-                                <span id="experience">{{skillFocusedExperience | number}}xp</span>
+                                <span id="experience">
+                                    <span ng-if="skillFocusedExperience != undefined">{{skillFocusedExperience | number}} xp</span>
+                                    <span ng-if="skillFocusedExperience == undefined">??? xp</span>
+                                </span>
                                 <span ng-show=" skillFocusedIsRanked" id="rank">Rank: {{skillFocusedRank | number}}</span>
                                 <span ng-show="!skillFocusedIsRanked" id="no-rank">Not ranked</span>
                             </div>
@@ -81,7 +84,11 @@
                             </div>
                             <div id="skill__progress-and-experience-left">
                                 <span ng-show="!skillFocusedIsMaxed" id="progress">{{skillFocusedProgressToNextLevel}}% towards level {{skillFocusedNextLevel}}</span>
-                                <span ng-show="!skillFocusedIsMaxed" id="experience-left">{{skillFocusedExperienceUntilNextLevel | number}}xp left!</span>
+                                <span ng-show="!skillFocusedIsMaxed"
+                                      id="experience-left">
+                                    <span ng-if="skillFocusedExperienceUntilNextLevel != undefined">{{skillFocusedExperienceUntilNextLevel | number}} xp left!</span>
+                                    <span ng-if="skillFocusedExperienceUntilNextLevel == undefined">??? xp left!</span>
+                                </span>
                                 <span ng-show=" skillFocusedIsMaxed" id="experience-left--maxed">{{skillFocusedExperienceUntilNextLevel}}</span>
                             </div>
                         </div>
