@@ -1,3 +1,4 @@
+
 angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
     .filter('safe', function ($sce) { return $sce.trustAsHtml })
     .filter('capitalize', function () {
@@ -36,7 +37,7 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
             $scope.overall_total_level = $scope.skills.map((index) => index.level).reduce( (prev, curr) => prev + curr )
             $scope.overall_experience  = $scope.skills.map((index) => index.experience).reduce( (prev, curr) => prev + curr )
             $scope.player = 'username'
-            $scope.form_empty = true
+            $scope.username = 'username'
 
             $scope.skillFocusedName = 'sailing'
             $scope.skillFocusedLevel = 0
@@ -56,13 +57,25 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
 
                 let that = this,
                     form = $(that),
-                    user = $("#player__input").val()
+                    user = $("#player__input").val(),
+                    timeout = 1000
 
-                $.get('/player/' + user, appendSkills)
-                    .success(function() {
+                $.ajax({
+                    timeout: timeout,
+                    url: '/player/' + user,
+                    success: function (data) {
+                        appendSkills(data)
+                    },
+                    error: function (error) {
+                        console.log(`Sorry, no user with the name ${user} was found`)
+                        console.log(`Not sure what happened exactly, but here's the error report: `, error)
+                    },
+                    complete: function () {
+                        $scope.username = user
+
                         form.trigger('reset')
-                    })
-                    .fail((error) => console.log('Not sure what happened exactly, but here\s the error report: ', error))
+                    }
+                })
             })
 
             function appendSkills(stats) {
