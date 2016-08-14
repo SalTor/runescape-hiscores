@@ -11,12 +11,12 @@
     <body>
         <div class="page-container" ng-controller="mainController">
             <div id="player__submission-container">
-                <form id="player__form" role="form">
+                <form id="player__form" role="form" name="user_lookup">
                     <legend>Hi-Scores Lookup</legend>
 
                     <div id="player__label-and-input" class="form-group">
                         <label id="player__label">Username:</label>
-                        <input id="player__input" class="form-control" type="text" placeholder="Zezima" required>
+                        <input id="player__input" class="form-control" type="text" placeholder="Zezima" name="username" required>
                     </div>
 
                     <button id="player__submit" class="btn btn-primary" type="submit">Submit</button>
