@@ -17,7 +17,8 @@ Go to http://localhost:3000
 ```
 
 ## Moving Forward
-- [ ] Username checks to see if they're of valid form
+- [X] ~~Username checks to see if they're of valid form~~
+    - [ ] Currently handled with a timeout, but is there a hidden way Jagex does it?
 - [ ] Optimize code, queries take anywhere between .2s to 2s
 - [ ] Possibly a better workflow, this is just what works for me
 - [X] ~~Better front-end implementation, I've been looking into using Angular~~
