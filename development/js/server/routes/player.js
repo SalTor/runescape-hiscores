@@ -49,7 +49,7 @@ router.get('/:username', function (req, res) {
             highestLevel = 1,
             highestExperience = 0,
             highestExperienceFoundId,
-            highestSkillFound,
+            highestSkillFound = {experience: 0},
             highestSkillBasedOnExperienceAndRank
 
         allStats = filterOutOverall(allStats)
@@ -69,14 +69,19 @@ router.get('/:username', function (req, res) {
                     if(highestSkillsFound.length > 0) {
                         highestSkillsFound.pop()
                         highestSkillsFound.push(currentSkill)
-                        highestSkillFound = currentSkill.id
+                        highestSkillFound = currentSkill
                     } else {
                         highestSkillsFound.push(currentSkill)
-                        highestSkillFound = currentSkill.id
+                        highestSkillFound = currentSkill
                     }
                 } else if(currentSkill.level == 99) {
                     highestSkillsFound.push(currentSkill)
-                    highestSkillFound = currentSkill.id
+                    highestSkillFound = currentSkill
+                } else if(currentSkill.level == highestLevel) {
+                    if(currentSkill.experience > highestSkillFound.experience) {
+                        highestSkillsFound.push(currentSkill)
+                        highestSkillFound = currentSkill
+                    }
                 }
             })
         }
