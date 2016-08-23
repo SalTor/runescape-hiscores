@@ -58,7 +58,7 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
                 let that = this,
                     form = $(that),
                     user = $("#player__input").val(),
-                    timeout = 1000
+                    timeout = 1250
 
                 $.ajax({
                     timeout: timeout,
