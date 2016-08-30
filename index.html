@@ -42,7 +42,7 @@
                              "
                              ng-mouseover="updateSkillHovered(skill)"
                              ng-cloak>
-                            <img class="skill__icon skill_image--{{skill.skill}}" ng-src="./Assets/skill-icons/{{skill.skill}}.png">
+                            <img class="skill__icon skill_image--{{skill.skill}}" ng-src="./assets/skill-icons/{{skill.skill | capitalize}}.png">
                             <div class="skill__level">{{skill.level}}</div>
                         </div>
                     </div>
