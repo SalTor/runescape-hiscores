@@ -68,7 +68,7 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
                     },
                     error: function (error) {
                         console.log(`Sorry, no user with the name ${user} was found`)
-                        console.log(`Not sure what happened exactly, but here's the error report: `, error)
+                        console.log(`Not sure what happened exactly, but here's the error report: `, JSON.stringify(error, null, 4))
                     },
                     complete: function () {
                         $scope.username = user
