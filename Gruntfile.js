@@ -33,7 +33,10 @@ module.exports = function(grunt){
             server: {
                 files: {
                     'build/server/api.min.js': ['build/.tmp/server/api.min.js'],
-                    'build/server/routes/player.js': ['build/.tmp/server/routes/player.js']
+                    'build/server/routes/player.js': [
+                        './node_modules/array-find-polyfill/index.js',
+                        'build/.tmp/server/routes/player.js'
+                    ]
                 },
                 options: {
                     sourceMap: true
