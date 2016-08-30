@@ -62,7 +62,7 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
 
                 $.ajax({
                     timeout: timeout,
-                    url: '/player/' + user,
+                    url: 'http://projects.saltor.nyc:3030/player/' + user,
                     success: function (data) {
                         appendSkills(data)
                     },
