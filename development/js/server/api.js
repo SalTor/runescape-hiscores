@@ -15,6 +15,6 @@ app.get('/', function(req, res){
     res.sendFile("index.html")
 })
 
-app.listen(3000, function(){
-    console.log("\nServer is now listening on port 3000, visit localhost:3000")
+app.listen(3030, function(){
+    console.log("\nServer is now listening on port 3030, visit localhost:3030")
 })
