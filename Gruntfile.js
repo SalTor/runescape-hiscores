@@ -101,7 +101,7 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
-    grunt.registerTask('base',    ['babel', 'uglify:angular', 'sass', 'notify', 'clean']);
+    grunt.registerTask('base',    ['babel', 'uglify', 'sass', 'notify', 'clean']);
     grunt.registerTask('default', ['base', 'watch']);
     grunt.registerTask('build',   ['base']);
 };
