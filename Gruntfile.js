@@ -40,17 +40,6 @@ module.exports = function(grunt){
                 }
             }
         },
-        postcss: {
-            options: {
-                map: true,
-                processors: [
-                    require('autoprefixer')({
-                        browsers: ['last 2 versions']
-                    })
-                ]
-            },
-            dist: {src: 'build/index.css'}
-        },
         notify: {
             build: {
                 options: {
@@ -109,7 +98,7 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
-    grunt.registerTask('base',    ['babel', 'uglify:angular', 'sass', 'postcss', 'notify', 'clean']);
+    grunt.registerTask('base',    ['babel', 'uglify:angular', 'sass', 'notify', 'clean']);
     grunt.registerTask('default', ['base', 'watch']);
     grunt.registerTask('build',   ['base']);
 };
