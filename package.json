@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently 'grunt' 'nodemon --verbose --watch build/server/api.min.js'"
   },
-  "respository": "git@github.com:/SalTor/runescape-hiscores.git",
+  "repository": "git@github.com:/SalTor/runescape-hiscores.git",
   "author": "Sal Torcivia",
   "license": "ISC",
   "devDependencies": {
