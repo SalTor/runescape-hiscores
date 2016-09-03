@@ -79,17 +79,6 @@ module.exports = function(grunt){
                 }
             }
         },
-        postcss: {
-            options: {
-                map: true,
-                processors: [
-                    require('autoprefixer')({browsers: ['last 4 versions']})
-                ]
-            },
-            dist: {
-                src: './build/css/index.css'
-            }
-        },
         watch: {
             server: {
                 files: ['development/js/server/*.js', 'development/js/server/**/*.js'],
@@ -104,7 +93,7 @@ module.exports = function(grunt){
             },
             sass: {
                 files: ['development/scss/index.scss', 'development/scss/**/*.scss'],
-                tasks: ['sass', 'postcss', 'notify'],
+                tasks: ['sass', 'notify'],
                 cacheLocation: false,
                 options : {
                     livereload: true
@@ -120,9 +109,8 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-postcss');
 
-    grunt.registerTask('base',    ['babel', 'uglify', 'sass', 'postcss', 'notify']);
+    grunt.registerTask('base',    ['babel', 'uglify', 'sass', 'notify']);
     grunt.registerTask('default', ['base', 'browserSync', 'watch']);
     grunt.registerTask('build',   ['base']);
 };
