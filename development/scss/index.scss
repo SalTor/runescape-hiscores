@@ -6,14 +6,24 @@
 @import "common/blocks";
 @import "common/typography";
 
+.page-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 #player__submission-container {
     height: 201px;
     width: 540px;
 
     padding: 20px;
-    margin-right: 20px;
 
     border: 1px solid;
+
+    margin-bottom: 20px;
+    @media all and (min-width: 768px) {
+        margin-right: 20px;
+    }
 }
 
 #player__stats-container {
@@ -31,6 +41,7 @@
     #player__summary {
         display: flex;
         justify-content: center;
+        flex-wrap: wrap;
 
         #player__skills {
             display: flex;
@@ -38,6 +49,10 @@
 
             width: 197px;
             border: 1px solid;
+
+            @media all and (max-width: 767px) {
+                margin-bottom: 5px;
+            }
         }
         #player__details {
             width: 220px;
