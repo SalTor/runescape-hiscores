@@ -10,13 +10,16 @@ Just a small interface I've been working on in my free time to display the stats
 ```bash
 $ git clone git@github.com:/SalTor/runescape-hiscores.git
 $ cd runescape-hiscores
-$ npm install
-$ npm start
-
-Go to http://localhost:3000
+$ grunt
+$
+You will be redirected to http://localhost:some-available-port
+depending on which ports are available
 ```
 
+
+
 ## Moving Forward
+- [ ] Separate out server from this repo
 - [X] ~~Username checks to see if they're of valid form~~
     - [ ] Currently handled with a timeout, but is there a hidden way Jagex does it?
 - [ ] Optimize code, queries take anywhere between .2s to 2s

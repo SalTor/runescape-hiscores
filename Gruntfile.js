@@ -20,7 +20,7 @@ module.exports = function(grunt){
         uglify: {
             angular: {
                 files: {
-                    'build/app/index.min.js': [
+                    'build/js/app/index.min.js': [
                         './node_modules/jquery/dist/jquery.min.js',
                         './node_modules/bootstrap/dist/js/bootstrap.min.js',
                         './node_modules/angular/angular.min.js',
@@ -32,7 +32,7 @@ module.exports = function(grunt){
             },
             server: {
                 files: {
-                    'build/server/api.min.js': ['build/.tmp/server/api.min.js'],
+                    'build/js/server/api.min.js': ['build/.tmp/server/api.min.js'],
                     'build/server/routes/player.js': [
                         './node_modules/array-find-polyfill/index.js',
                         'build/.tmp/server/routes/player.js'
@@ -65,8 +65,23 @@ module.exports = function(grunt){
                     loadPath: require('node-bourbon').includePaths
                 },
                 files : [
-                    {'build/index.css' : 'development/scss/index.scss'}
+                    {'build/css/index.css' : 'development/scss/index.scss'}
                 ]
+            }
+        },
+        browserSync: {
+            dev: {
+                bsFiles: {
+                    src: [
+                        './index.html',
+                        './build/js/app/index.min.js',
+                        './build/css/index.css'
+                    ]
+                },
+                options: {
+                    watchTask: true,
+                    server: '.'
+                }
             }
         },
         watch: {
@@ -96,11 +111,12 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-notify');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-browser-sync');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
     grunt.registerTask('base',    ['babel', 'uglify', 'sass', 'notify', 'clean']);
-    grunt.registerTask('default', ['base', 'watch']);
+    grunt.registerTask('default', ['base', 'browserSync', 'watch']);
     grunt.registerTask('build',   ['base']);
 };
