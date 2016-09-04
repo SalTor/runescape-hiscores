@@ -525,9 +525,14 @@
 }
 
 #player__submission-container {
-  width: 540px;
   padding: 20px;
+  width: 540px;
   margin-bottom: 0;
+}
+@media all and (max-width: 540px) {
+  #player__submission-container {
+    width: 100%;
+  }
 }
 @media all and (min-width: 768px) {
   #player__submission-container {
