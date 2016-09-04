@@ -11,11 +11,10 @@
     <body>
         <div class="page-container" ng-controller="mainController">
             <div id="player__submission-container">
-                <form id="player__form" role="form" name="user_lookup">
+                <form id="player__form" role="form" name="user_lookup" class="form-inline">
                     <legend>Hi-Scores Lookup</legend>
 
                     <div id="player__label-and-input" class="form-group">
-                        <label id="player__label">Username:</label>
                         <input id="player__input" class="form-control" type="text" placeholder="Zezima" name="username" required>
                     </div>
 
@@ -50,16 +49,16 @@
                     <div id="player__details" class="other-side-bar-info">
                         <div id="details__legend">
                             <span class="background-color background-color--best-skill">Best Skill</span>
-                            <span class="background-color background-color--closest-to-next-level">Closest To Leveling</span>
-                            <span class="background-color background-color--closest-non-combat-to-next-level">Closest Non-Combat</span>
+                            <span class="background-color background-color--closest-to-next-level hide-on-collapse">Closest To Leveling</span>
+                            <span class="background-color background-color--closest-non-combat-to-next-level hide-on-collapse">Closest Non-Combat</span>
                         </div>
                         <div id="details__overall" ng-cloak>
-                            <div id="rank_and_total_level">
-                                <span ng-show="!form_empty" id="overall__rank">Rank: {{overall_rank | number}}</span>
-                                <span ng-show=" form_empty" id="overall__rank--no-name">Not ranked</span>
-                                <span id="overall__total-level">Total: {{overall_total_level | number}}</span>
+                            <div class="rank_and_total_level">
+                                <span ng-hide="form_empty" class="overall__rank">Rank: {{overall_rank | number}}</span>
+                                <span ng-show="form_empty" class="overall__rank--no-name">Not ranked</span>
+                                <span class="overall__total-level">Total: {{overall_total_level | number}}</span>
                             </div>
-                            <span id="overall__experience">
+                            <span class="overall__experience">
                                 {{overall_experience | number}} xp
                             </span>
                         </div>

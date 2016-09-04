@@ -29,9 +29,16 @@
 #player__stats-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     padding: 5px;
+    margin-bottom: 20px;
     border: 1px solid;
+
+    @media all and (max-width: $size__collapse) {
+        width: 100%;
+    }
 
     #name_and_cb_level {
         display: flex;
@@ -41,7 +48,10 @@
     #player__summary {
         display: flex;
         justify-content: center;
-        flex-wrap: wrap;
+
+        @media all and (max-width: $size__collapse) {
+            flex-direction: column;
+        }
 
         #player__skills {
             display: flex;
@@ -49,15 +59,17 @@
 
             width: 197px;
             border: 1px solid;
-
-            @media all and (max-width: 767px) {
-                margin-bottom: 5px;
-            }
         }
-        #player__details {
-            width: 220px;
 
-            margin-left: 5px;
+        #player__details {
+            width: 197px;
+
+            display: flex;
+            flex-direction: column;
+
+            @media all and (min-width: $size__collapse + 1px) {
+                margin-left: 5px;
+            }
 
             > div {
                 width: 100%;
@@ -65,8 +77,12 @@
                 padding: 5px;
                 border: 1px solid;
 
-                &:not(:first-child) {
-                    margin-top: 5px;
+                margin-top: 5px;
+
+                @media all and (min-width: $size__collapse + 1px) {
+                    &:first-child {
+                        margin-top: 0;
+                    }
                 }
             }
 
@@ -76,8 +92,8 @@
 
                 > span {
                     text-align: center;
-                    &:not(:last-child) {
-                        margin-bottom: 5px;
+                    &:not(:first-child) {
+                        margin-top: 5px;
                     }
                 }
             }
@@ -86,12 +102,12 @@
                 display: flex;
                 flex-direction: column;
 
-                #rank_and_total_level {
+                .rank_and_total_level {
                     display: flex;
                     justify-content: space-between;
                 }
 
-                #overall__experience {
+                .overall__experience {
                     text-align: center;
                 }
             }
@@ -122,6 +138,18 @@
                     flex-direction: column;
                     justify-content: center;
                     text-align: center;
+                }
+            }
+
+            @media all and (max-width: $size__collapse) {
+                #details__legend {
+                    order: 2;
+                }
+                #details__overall {
+                    order: 3;
+                }
+                #details__focused-skill {
+                    order: 1;
                 }
             }
         }

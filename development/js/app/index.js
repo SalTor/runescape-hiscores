@@ -39,6 +39,8 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
             $scope.player = 'username'
             $scope.username = 'username'
 
+            $scope.form_empty = true
+
             $scope.skillFocusedName = 'sailing'
             $scope.skillFocusedLevel = 0
             $scope.skillFocusedExperience = undefined

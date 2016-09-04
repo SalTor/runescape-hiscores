@@ -36,15 +36,18 @@
 }
 
 .background-color {
-    &--level-ninety-nine {
-        background-color: $color--level-ninety-nine;
+    @media all and (min-width: $size__collapse + 1px) {
+        &--level-ninety-nine {
+            background-color: $color--level-ninety-nine;
+        }
+        &--closest-non-combat-to-next-level {
+            background-color: $color--closest-non-combat-to-next-level;
+        }
+        &--closest-to-next-level {
+            background-color: $color--closest-to-next-level;
+        }
     }
-    &--closest-non-combat-to-next-level {
-        background-color: $color--closest-non-combat-to-next-level;
-    }
-    &--closest-to-next-level {
-        background-color: $color--closest-to-next-level;
-    }
+
     &--best-skill {
         background-color: $color--best-skill;
     }
@@ -67,5 +70,17 @@
                 width: $index * 1%;
             }
         }
+    }
+}
+
+.hide-on-collapse {
+    @media all and (max-width: $size__collapse) {
+        display: none !important;
+    }
+}
+
+.show-on-collapse {
+    @media all and (min-width: $size__collapse + 1px) {
+        display: none !important;
     }
 }
