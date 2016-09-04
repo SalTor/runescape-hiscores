@@ -8,8 +8,8 @@
 
 .page-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 #player__submission-container {
@@ -63,6 +63,7 @@
 }
 
 #player__stats-container {
+    width: 411px;
     display: flex;
     flex-direction: column;
     justify-content: center;

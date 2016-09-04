@@ -1,0 +1,758 @@
+@import url("//fonts.googleapis.com/css?family=Open+Sans");
+[ng-cloak] {
+  display: none !important;
+}
+
+.page-container {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
+}
+
+.skill {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 55px;
+  height: 30px;
+  margin: 5px;
+  padding: 2px;
+}
+.skill .skill__icon, .skill .skill__level {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 25px;
+  width: 25px;
+}
+.skill.skill--attack {
+  -webkit-order: 1;
+      -ms-flex-order: 1;
+          order: 1;
+}
+.skill.skill--hitpoints {
+  -webkit-order: 2;
+      -ms-flex-order: 2;
+          order: 2;
+}
+.skill.skill--mining {
+  -webkit-order: 3;
+      -ms-flex-order: 3;
+          order: 3;
+}
+.skill.skill--strength {
+  -webkit-order: 4;
+      -ms-flex-order: 4;
+          order: 4;
+}
+.skill.skill--agility {
+  -webkit-order: 5;
+      -ms-flex-order: 5;
+          order: 5;
+}
+.skill.skill--smithing {
+  -webkit-order: 6;
+      -ms-flex-order: 6;
+          order: 6;
+}
+.skill.skill--defence {
+  -webkit-order: 7;
+      -ms-flex-order: 7;
+          order: 7;
+}
+.skill.skill--herblore {
+  -webkit-order: 8;
+      -ms-flex-order: 8;
+          order: 8;
+}
+.skill.skill--fishing {
+  -webkit-order: 9;
+      -ms-flex-order: 9;
+          order: 9;
+}
+.skill.skill--ranged {
+  -webkit-order: 10;
+      -ms-flex-order: 10;
+          order: 10;
+}
+.skill.skill--thieving {
+  -webkit-order: 11;
+      -ms-flex-order: 11;
+          order: 11;
+}
+.skill.skill--cooking {
+  -webkit-order: 12;
+      -ms-flex-order: 12;
+          order: 12;
+}
+.skill.skill--prayer {
+  -webkit-order: 13;
+      -ms-flex-order: 13;
+          order: 13;
+}
+.skill.skill--crafting {
+  -webkit-order: 14;
+      -ms-flex-order: 14;
+          order: 14;
+}
+.skill.skill--firemaking {
+  -webkit-order: 15;
+      -ms-flex-order: 15;
+          order: 15;
+}
+.skill.skill--magic {
+  -webkit-order: 16;
+      -ms-flex-order: 16;
+          order: 16;
+}
+.skill.skill--fletching {
+  -webkit-order: 17;
+      -ms-flex-order: 17;
+          order: 17;
+}
+.skill.skill--woodcutting {
+  -webkit-order: 18;
+      -ms-flex-order: 18;
+          order: 18;
+}
+.skill.skill--runecrafting {
+  -webkit-order: 19;
+      -ms-flex-order: 19;
+          order: 19;
+}
+.skill.skill--slayer {
+  -webkit-order: 20;
+      -ms-flex-order: 20;
+          order: 20;
+}
+.skill.skill--farming {
+  -webkit-order: 21;
+      -ms-flex-order: 21;
+          order: 21;
+}
+.skill.skill--construction {
+  -webkit-order: 22;
+      -ms-flex-order: 22;
+          order: 22;
+}
+.skill.skill--hunter {
+  -webkit-order: 23;
+      -ms-flex-order: 23;
+          order: 23;
+}
+
+@media all and (min-width: 514px) {
+  .background-color--level-ninety-nine {
+    background-color: rgba(152, 229, 229, 0.29);
+  }
+  .background-color--closest-non-combat-to-next-level {
+    background-color: orange;
+  }
+  .background-color--closest-to-next-level {
+    background-color: aquamarine;
+  }
+}
+.background-color--best-skill {
+  background-color: gold;
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.title.title--center {
+  text-align: center;
+}
+
+.progress .progress-bar {
+  height: 25px;
+}
+.progress .progress-bar[aria-valuenow="0"] {
+  width: 0%;
+}
+.progress .progress-bar[aria-valuenow="1"] {
+  width: 1%;
+}
+.progress .progress-bar[aria-valuenow="2"] {
+  width: 2%;
+}
+.progress .progress-bar[aria-valuenow="3"] {
+  width: 3%;
+}
+.progress .progress-bar[aria-valuenow="4"] {
+  width: 4%;
+}
+.progress .progress-bar[aria-valuenow="5"] {
+  width: 5%;
+}
+.progress .progress-bar[aria-valuenow="6"] {
+  width: 6%;
+}
+.progress .progress-bar[aria-valuenow="7"] {
+  width: 7%;
+}
+.progress .progress-bar[aria-valuenow="8"] {
+  width: 8%;
+}
+.progress .progress-bar[aria-valuenow="9"] {
+  width: 9%;
+}
+.progress .progress-bar[aria-valuenow="10"] {
+  width: 10%;
+}
+.progress .progress-bar[aria-valuenow="11"] {
+  width: 11%;
+}
+.progress .progress-bar[aria-valuenow="12"] {
+  width: 12%;
+}
+.progress .progress-bar[aria-valuenow="13"] {
+  width: 13%;
+}
+.progress .progress-bar[aria-valuenow="14"] {
+  width: 14%;
+}
+.progress .progress-bar[aria-valuenow="15"] {
+  width: 15%;
+}
+.progress .progress-bar[aria-valuenow="16"] {
+  width: 16%;
+}
+.progress .progress-bar[aria-valuenow="17"] {
+  width: 17%;
+}
+.progress .progress-bar[aria-valuenow="18"] {
+  width: 18%;
+}
+.progress .progress-bar[aria-valuenow="19"] {
+  width: 19%;
+}
+.progress .progress-bar[aria-valuenow="20"] {
+  width: 20%;
+}
+.progress .progress-bar[aria-valuenow="21"] {
+  width: 21%;
+}
+.progress .progress-bar[aria-valuenow="22"] {
+  width: 22%;
+}
+.progress .progress-bar[aria-valuenow="23"] {
+  width: 23%;
+}
+.progress .progress-bar[aria-valuenow="24"] {
+  width: 24%;
+}
+.progress .progress-bar[aria-valuenow="25"] {
+  width: 25%;
+}
+.progress .progress-bar[aria-valuenow="26"] {
+  width: 26%;
+}
+.progress .progress-bar[aria-valuenow="27"] {
+  width: 27%;
+}
+.progress .progress-bar[aria-valuenow="28"] {
+  width: 28%;
+}
+.progress .progress-bar[aria-valuenow="29"] {
+  width: 29%;
+}
+.progress .progress-bar[aria-valuenow="30"] {
+  width: 30%;
+}
+.progress .progress-bar[aria-valuenow="31"] {
+  width: 31%;
+}
+.progress .progress-bar[aria-valuenow="32"] {
+  width: 32%;
+}
+.progress .progress-bar[aria-valuenow="33"] {
+  width: 33%;
+}
+.progress .progress-bar[aria-valuenow="34"] {
+  width: 34%;
+}
+.progress .progress-bar[aria-valuenow="35"] {
+  width: 35%;
+}
+.progress .progress-bar[aria-valuenow="36"] {
+  width: 36%;
+}
+.progress .progress-bar[aria-valuenow="37"] {
+  width: 37%;
+}
+.progress .progress-bar[aria-valuenow="38"] {
+  width: 38%;
+}
+.progress .progress-bar[aria-valuenow="39"] {
+  width: 39%;
+}
+.progress .progress-bar[aria-valuenow="40"] {
+  width: 40%;
+}
+.progress .progress-bar[aria-valuenow="41"] {
+  width: 41%;
+}
+.progress .progress-bar[aria-valuenow="42"] {
+  width: 42%;
+}
+.progress .progress-bar[aria-valuenow="43"] {
+  width: 43%;
+}
+.progress .progress-bar[aria-valuenow="44"] {
+  width: 44%;
+}
+.progress .progress-bar[aria-valuenow="45"] {
+  width: 45%;
+}
+.progress .progress-bar[aria-valuenow="46"] {
+  width: 46%;
+}
+.progress .progress-bar[aria-valuenow="47"] {
+  width: 47%;
+}
+.progress .progress-bar[aria-valuenow="48"] {
+  width: 48%;
+}
+.progress .progress-bar[aria-valuenow="49"] {
+  width: 49%;
+}
+.progress .progress-bar[aria-valuenow="50"] {
+  width: 50%;
+}
+.progress .progress-bar[aria-valuenow="51"] {
+  width: 51%;
+}
+.progress .progress-bar[aria-valuenow="52"] {
+  width: 52%;
+}
+.progress .progress-bar[aria-valuenow="53"] {
+  width: 53%;
+}
+.progress .progress-bar[aria-valuenow="54"] {
+  width: 54%;
+}
+.progress .progress-bar[aria-valuenow="55"] {
+  width: 55%;
+}
+.progress .progress-bar[aria-valuenow="56"] {
+  width: 56%;
+}
+.progress .progress-bar[aria-valuenow="57"] {
+  width: 57%;
+}
+.progress .progress-bar[aria-valuenow="58"] {
+  width: 58%;
+}
+.progress .progress-bar[aria-valuenow="59"] {
+  width: 59%;
+}
+.progress .progress-bar[aria-valuenow="60"] {
+  width: 60%;
+}
+.progress .progress-bar[aria-valuenow="61"] {
+  width: 61%;
+}
+.progress .progress-bar[aria-valuenow="62"] {
+  width: 62%;
+}
+.progress .progress-bar[aria-valuenow="63"] {
+  width: 63%;
+}
+.progress .progress-bar[aria-valuenow="64"] {
+  width: 64%;
+}
+.progress .progress-bar[aria-valuenow="65"] {
+  width: 65%;
+}
+.progress .progress-bar[aria-valuenow="66"] {
+  width: 66%;
+}
+.progress .progress-bar[aria-valuenow="67"] {
+  width: 67%;
+}
+.progress .progress-bar[aria-valuenow="68"] {
+  width: 68%;
+}
+.progress .progress-bar[aria-valuenow="69"] {
+  width: 69%;
+}
+.progress .progress-bar[aria-valuenow="70"] {
+  width: 70%;
+}
+.progress .progress-bar[aria-valuenow="71"] {
+  width: 71%;
+}
+.progress .progress-bar[aria-valuenow="72"] {
+  width: 72%;
+}
+.progress .progress-bar[aria-valuenow="73"] {
+  width: 73%;
+}
+.progress .progress-bar[aria-valuenow="74"] {
+  width: 74%;
+}
+.progress .progress-bar[aria-valuenow="75"] {
+  width: 75%;
+}
+.progress .progress-bar[aria-valuenow="76"] {
+  width: 76%;
+}
+.progress .progress-bar[aria-valuenow="77"] {
+  width: 77%;
+}
+.progress .progress-bar[aria-valuenow="78"] {
+  width: 78%;
+}
+.progress .progress-bar[aria-valuenow="79"] {
+  width: 79%;
+}
+.progress .progress-bar[aria-valuenow="80"] {
+  width: 80%;
+}
+.progress .progress-bar[aria-valuenow="81"] {
+  width: 81%;
+}
+.progress .progress-bar[aria-valuenow="82"] {
+  width: 82%;
+}
+.progress .progress-bar[aria-valuenow="83"] {
+  width: 83%;
+}
+.progress .progress-bar[aria-valuenow="84"] {
+  width: 84%;
+}
+.progress .progress-bar[aria-valuenow="85"] {
+  width: 85%;
+}
+.progress .progress-bar[aria-valuenow="86"] {
+  width: 86%;
+}
+.progress .progress-bar[aria-valuenow="87"] {
+  width: 87%;
+}
+.progress .progress-bar[aria-valuenow="88"] {
+  width: 88%;
+}
+.progress .progress-bar[aria-valuenow="89"] {
+  width: 89%;
+}
+.progress .progress-bar[aria-valuenow="90"] {
+  width: 90%;
+}
+.progress .progress-bar[aria-valuenow="91"] {
+  width: 91%;
+}
+.progress .progress-bar[aria-valuenow="92"] {
+  width: 92%;
+}
+.progress .progress-bar[aria-valuenow="93"] {
+  width: 93%;
+}
+.progress .progress-bar[aria-valuenow="94"] {
+  width: 94%;
+}
+.progress .progress-bar[aria-valuenow="95"] {
+  width: 95%;
+}
+.progress .progress-bar[aria-valuenow="96"] {
+  width: 96%;
+}
+.progress .progress-bar[aria-valuenow="97"] {
+  width: 97%;
+}
+.progress .progress-bar[aria-valuenow="98"] {
+  width: 98%;
+}
+.progress .progress-bar[aria-valuenow="99"] {
+  width: 99%;
+}
+.progress .progress-bar[aria-valuenow="100"] {
+  width: 100%;
+}
+
+@media all and (max-width: 513px) {
+  .hide-on-collapse {
+    display: none !important;
+  }
+}
+
+@media all and (min-width: 514px) {
+  .show-on-collapse {
+    display: none !important;
+  }
+}
+
+* {
+  font-family: "Open Sans";
+}
+
+.page-container {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#player__submission-container {
+  width: 540px;
+  padding: 20px;
+  margin-bottom: 0;
+}
+@media all and (min-width: 768px) {
+  #player__submission-container {
+    margin-right: 20px;
+  }
+}
+@media all and (max-width: 513px) {
+  #player__submission-container {
+    border: none;
+  }
+  #player__submission-container legend {
+    display: none;
+  }
+}
+#player__submission-container #player__label-and-input {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+#player__submission-container #player__label-and-input #player__input {
+  width: auto;
+  max-width: 172px;
+}
+#player__submission-container #player__label-and-input #player__submit {
+  height: 35px;
+  width: 70px;
+  padding: 0;
+  margin-left: 5px;
+}
+@media all and (min-width: 514px) {
+  #player__submission-container #player__label-and-input {
+    -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+                -ms-grid-row-align: flex-start;
+            align-items: flex-start;
+  }
+  #player__submission-container #player__label-and-input #player__input {
+    max-width: 180px;
+  }
+}
+@media all and (max-width: 513px) {
+  #player__submission-container #player__label-and-input #player__submit {
+    margin-left: 5px;
+  }
+}
+
+#player__stats-container {
+  width: 411px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px;
+  margin-bottom: 20px;
+}
+@media all and (max-width: 513px) {
+  #player__stats-container {
+    width: 100%;
+  }
+}
+@media all and (min-width: 514px) {
+  #player__stats-container {
+    border: 1px solid;
+  }
+}
+#player__stats-container #name_and_cb_level {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+#player__stats-container #player__summary {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+@media all and (max-width: 513px) {
+  #player__stats-container #player__summary {
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+#player__stats-container #player__summary #player__skills {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  width: 197px;
+  border: 1px solid;
+}
+#player__stats-container #player__summary #player__details {
+  width: 197px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+@media all and (min-width: 514px) {
+  #player__stats-container #player__summary #player__details {
+    margin-left: 5px;
+  }
+}
+#player__stats-container #player__summary #player__details > div {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid;
+  margin-top: 5px;
+}
+@media all and (min-width: 514px) {
+  #player__stats-container #player__summary #player__details > div:first-child {
+    margin-top: 0;
+  }
+}
+#player__stats-container #player__summary #player__details #details__legend {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+#player__stats-container #player__summary #player__details #details__legend > span {
+  text-align: center;
+}
+#player__stats-container #player__summary #player__details #details__legend > span:not(:first-child) {
+  margin-top: 5px;
+}
+#player__stats-container #player__summary #player__details #details__overall {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+#player__stats-container #player__summary #player__details #details__overall .rank_and_total_level {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+#player__stats-container #player__summary #player__details #details__overall .overall__experience {
+  text-align: center;
+}
+#player__stats-container #player__summary #player__details #details__focused-skill {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+#player__stats-container #player__summary #player__details #details__focused-skill #skill__name {
+  text-align: center;
+  margin: 0;
+}
+#player__stats-container #player__summary #player__details #details__focused-skill #skill__experience-and-rank {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+#player__stats-container #player__summary #player__details #details__focused-skill #skill__progress {
+  margin-bottom: 0;
+}
+#player__stats-container #player__summary #player__details #details__focused-skill #skill__progress-and-experience-left {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+}
+@media all and (max-width: 513px) {
+  #player__stats-container #player__summary #player__details #details__focused-skill {
+    border: none;
+  }
+}
+@media all and (max-width: 513px) {
+  #player__stats-container #player__summary #player__details #details__legend {
+    -webkit-order: 2;
+        -ms-flex-order: 2;
+            order: 2;
+  }
+  #player__stats-container #player__summary #player__details #details__overall {
+    -webkit-order: 3;
+        -ms-flex-order: 3;
+            order: 3;
+  }
+  #player__stats-container #player__summary #player__details #details__focused-skill {
+    -webkit-order: 1;
+        -ms-flex-order: 1;
+            order: 1;
+  }
+}
+
+/*# sourceMappingURL=index.css.map */
