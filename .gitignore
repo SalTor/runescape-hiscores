@@ -1,6 +1,5 @@
 .sass-cache
-build/js
-build/.tmp
+build
 favicon.ico
 npm-debug.log
 node_modules
