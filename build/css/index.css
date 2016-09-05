@@ -4,8 +4,12 @@
 }
 
 .page-container {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 80%;
   margin-right: auto;
   margin-left: auto;
@@ -13,91 +17,153 @@
 }
 
 .skill {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 55px;
   height: 30px;
   margin: 5px;
   padding: 2px;
 }
 .skill .skill__icon, .skill .skill__level {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 25px;
   width: 25px;
 }
 .skill.skill--attack {
-  order: 1;
+  -webkit-order: 1;
+      -ms-flex-order: 1;
+          order: 1;
 }
 .skill.skill--hitpoints {
-  order: 2;
+  -webkit-order: 2;
+      -ms-flex-order: 2;
+          order: 2;
 }
 .skill.skill--mining {
-  order: 3;
+  -webkit-order: 3;
+      -ms-flex-order: 3;
+          order: 3;
 }
 .skill.skill--strength {
-  order: 4;
+  -webkit-order: 4;
+      -ms-flex-order: 4;
+          order: 4;
 }
 .skill.skill--agility {
-  order: 5;
+  -webkit-order: 5;
+      -ms-flex-order: 5;
+          order: 5;
 }
 .skill.skill--smithing {
-  order: 6;
+  -webkit-order: 6;
+      -ms-flex-order: 6;
+          order: 6;
 }
 .skill.skill--defence {
-  order: 7;
+  -webkit-order: 7;
+      -ms-flex-order: 7;
+          order: 7;
 }
 .skill.skill--herblore {
-  order: 8;
+  -webkit-order: 8;
+      -ms-flex-order: 8;
+          order: 8;
 }
 .skill.skill--fishing {
-  order: 9;
+  -webkit-order: 9;
+      -ms-flex-order: 9;
+          order: 9;
 }
 .skill.skill--ranged {
-  order: 10;
+  -webkit-order: 10;
+      -ms-flex-order: 10;
+          order: 10;
 }
 .skill.skill--thieving {
-  order: 11;
+  -webkit-order: 11;
+      -ms-flex-order: 11;
+          order: 11;
 }
 .skill.skill--cooking {
-  order: 12;
+  -webkit-order: 12;
+      -ms-flex-order: 12;
+          order: 12;
 }
 .skill.skill--prayer {
-  order: 13;
+  -webkit-order: 13;
+      -ms-flex-order: 13;
+          order: 13;
 }
 .skill.skill--crafting {
-  order: 14;
+  -webkit-order: 14;
+      -ms-flex-order: 14;
+          order: 14;
 }
 .skill.skill--firemaking {
-  order: 15;
+  -webkit-order: 15;
+      -ms-flex-order: 15;
+          order: 15;
 }
 .skill.skill--magic {
-  order: 16;
+  -webkit-order: 16;
+      -ms-flex-order: 16;
+          order: 16;
 }
 .skill.skill--fletching {
-  order: 17;
+  -webkit-order: 17;
+      -ms-flex-order: 17;
+          order: 17;
 }
 .skill.skill--woodcutting {
-  order: 18;
+  -webkit-order: 18;
+      -ms-flex-order: 18;
+          order: 18;
 }
 .skill.skill--runecrafting {
-  order: 19;
+  -webkit-order: 19;
+      -ms-flex-order: 19;
+          order: 19;
 }
 .skill.skill--slayer {
-  order: 20;
+  -webkit-order: 20;
+      -ms-flex-order: 20;
+          order: 20;
 }
 .skill.skill--farming {
-  order: 21;
+  -webkit-order: 21;
+      -ms-flex-order: 21;
+          order: 21;
 }
 .skill.skill--construction {
-  order: 22;
+  -webkit-order: 22;
+      -ms-flex-order: 22;
+          order: 22;
 }
 .skill.skill--hunter {
-  order: 23;
+  -webkit-order: 23;
+      -ms-flex-order: 23;
+          order: 23;
 }
 
 @media all and (min-width: 514px) {
@@ -447,9 +513,15 @@
 }
 
 .page-container {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 #player__submission-container {
@@ -476,8 +548,12 @@
   }
 }
 #player__submission-container #player__label-and-input {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 #player__submission-container #player__label-and-input #player__input {
   width: auto;
@@ -491,7 +567,10 @@
 }
 @media all and (min-width: 514px) {
   #player__submission-container #player__label-and-input {
-    align-items: flex-start;
+    -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+                -ms-grid-row-align: flex-start;
+            align-items: flex-start;
   }
   #player__submission-container #player__label-and-input #player__input {
     max-width: 180px;
@@ -505,10 +584,18 @@
 
 #player__stats-container {
   width: 411px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 5px;
   margin-bottom: 20px;
 }
@@ -523,29 +610,47 @@
   }
 }
 #player__stats-container #name_and_cb_level {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 #player__stats-container #player__summary {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 @media all and (max-width: 513px) {
   #player__stats-container #player__summary {
-    flex-direction: column;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
   }
 }
 #player__stats-container #player__summary #player__skills {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   width: 197px;
   border: 1px solid;
 }
 #player__stats-container #player__summary #player__details {
   width: 197px;
   height: 322px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   position: relative;
 }
 @media all and (min-width: 514px) {
@@ -560,9 +665,15 @@
   margin-top: 5px;
 }
 #player__stats-container #player__summary #player__details #details__legend {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  order: 4;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-order: 4;
+      -ms-flex-order: 4;
+          order: 4;
 }
 #player__stats-container #player__summary #player__details #details__legend > span {
   text-align: center;
@@ -571,30 +682,48 @@
   margin-top: 5px;
 }
 #player__stats-container #player__summary #player__details #details__overall {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  order: 3;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-order: 3;
+      -ms-flex-order: 3;
+          order: 3;
 }
 #player__stats-container #player__summary #player__details #details__overall .rank_and_total_level #overall-stats {
   text-align: center;
   margin: 0;
 }
 #player__stats-container #player__summary #player__details #details__overall .rank_and_total_level #overall-stats__details {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 #player__stats-container #player__summary #player__details #details__overall .overall__experience {
   text-align: center;
 }
 #player__stats-container #player__summary #player__details #invisible-spacer {
-  order: 2;
+  -webkit-order: 2;
+      -ms-flex-order: 2;
+          order: 2;
   height: 43px;
   border: none;
 }
 #player__stats-container #player__summary #player__details #details__focused-skill {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  order: 1;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-order: 1;
+      -ms-flex-order: 1;
+          order: 1;
   margin-top: 0;
 }
 #player__stats-container #player__summary #player__details #details__focused-skill #skill__name {
@@ -602,8 +731,12 @@
   margin: 0;
 }
 #player__stats-container #player__summary #player__details #details__focused-skill #skill__experience-and-rank {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   padding-left: 5px;
   padding-right: 5px;
 }
@@ -611,9 +744,15 @@
   margin-bottom: 0;
 }
 #player__stats-container #player__summary #player__details #details__focused-skill #skill__progress-and-experience-left {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   text-align: center;
 }
 @media all and (max-width: 513px) {
@@ -623,15 +762,21 @@
 }
 @media all and (max-width: 513px) {
   #player__stats-container #player__summary #player__details #details__legend {
-    order: 2;
+    -webkit-order: 2;
+        -ms-flex-order: 2;
+            order: 2;
     border: none;
     padding: 0;
   }
   #player__stats-container #player__summary #player__details #details__overall {
-    order: 3;
+    -webkit-order: 3;
+        -ms-flex-order: 3;
+            order: 3;
   }
   #player__stats-container #player__summary #player__details #details__focused-skill {
-    order: 1;
+    -webkit-order: 1;
+        -ms-flex-order: 1;
+            order: 1;
   }
 }
 
