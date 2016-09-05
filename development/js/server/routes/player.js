@@ -368,7 +368,7 @@ router.get('/:username', function (req, res) {
 
     function roundNumber(number, places) {
         let multiplier = Math.pow(10, places);
-        return (number == 100) ? 100 : Math.round(number * multiplier) / multiplier
+        return (number == 100) ? 100 : Math.floor(number * multiplier) / multiplier
     }
 })
 
