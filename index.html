@@ -53,14 +53,18 @@
                         </div>
                         <div id="details__overall" ng-cloak>
                             <div class="rank_and_total_level">
-                                <span ng-hide="form_empty" class="overall__rank">Rank: {{overall_rank | number}}</span>
-                                <span ng-show="form_empty" class="overall__rank--no-name">Not ranked</span>
-                                <span class="overall__total-level">Total: {{overall_total_level | number}}</span>
+                                <h4 id="overall-stats">Overall</h4>
+                                <div id="overall-stats__details">
+                                    <span ng-hide="form_empty" class="overall__rank">Rank: {{overall_rank | number}}</span>
+                                    <span ng-show="form_empty" class="overall__rank--no-name">Not ranked</span>
+                                    <span class="overall__total-level">Total: {{overall_total_level | number}}</span>
+                                </div>
                             </div>
                             <span class="overall__experience">
                                 {{overall_experience | number}} xp
                             </span>
                         </div>
+                        <div id="invisible-spacer" class="hide-on-collapse"></div>
                         <div id="details__focused-skill" ng-cloak>
                             <h4 id="skill__name" class="title title--center">
                                 {{skillFocusedName | capitalize}}
