@@ -24,8 +24,18 @@
             <div id="player__stats-container">
                 <div id="name_and_cb_level">
                     <h4 id="player__name" class="title title--center" ng-show="player" ng-cloak>
-                        {{player}} &mdash; lvl {{overall__combat_level}}
+                        {{player}}
                     </h4>
+
+                    <div id="details__overall" ng-cloak>
+                        <span class="combat-level">
+                            <img src="./assets/other-icons/combat.png" alt=""> <span>{{overall__combat_level}}</span>
+                        </span>
+
+                        <span class="overall__total-level" ng-mouseover="updateSkillHovered(overall)">
+                            <img src="./assets/other-icons/overall.png" alt=""> <span>{{overall_total_level | number}}</span>
+                        </span>
+                    </div>
                 </div>
                 <div id="player__summary">
                     <div id="player__skills">
@@ -45,30 +55,18 @@
                             <div class="skill__level">{{skill.level}}</div>
                         </div>
                     </div>
+
                     <div id="player__details" class="other-side-bar-info">
                         <div id="details__legend">
                             <span class="background-color background-color--best-skill">Best Skill</span>
                             <span class="background-color background-color--closest-to-next-level hide-on-collapse">Closest To Leveling</span>
                             <span class="background-color background-color--closest-non-combat-to-next-level hide-on-collapse">Closest Non-Combat</span>
                         </div>
-                        <div id="details__overall" ng-cloak>
-                            <div class="rank_and_total_level">
-                                <h4 id="overall-stats">Overall</h4>
-                                <div id="overall-stats__details">
-                                    <span ng-hide="form_empty" class="overall__rank">Rank: {{overall_rank | number}}</span>
-                                    <span ng-show="form_empty" class="overall__rank--no-name">Not ranked</span>
-                                    <span class="overall__total-level">Total: {{overall_total_level | number}}</span>
-                                </div>
-                            </div>
-                            <span class="overall__experience">
-                                {{overall_experience | number}} xp
-                            </span>
-                        </div>
                         <div id="details__focused-skill" ng-cloak>
                             <h4 id="skill__name" class="title title--center">
                                 {{skillFocusedName | capitalize}}
                             </h4>
-                            <div id="skill__experience-and-rank" ng-cloak>
+                            <div id="skill__experience-and-rank" ng-class="{'skill-overall': overall_hovered}" ng-cloak>
                                 <span id="experience">
                                     <span ng-if="skillFocusedExperience != undefined">{{skillFocusedExperience | number}} xp</span>
                                     <span ng-if="skillFocusedExperience == undefined">??? xp</span>
@@ -76,14 +74,14 @@
                                 <span ng-show=" skillFocusedIsRanked" id="rank">Rank: {{skillFocusedRank | number}}</span>
                                 <span ng-show="!skillFocusedIsRanked" id="no-rank">Not ranked</span>
                             </div>
-                            <div id="skill__progress" class="progress">
+                            <div ng-hide="overall_hovered" id="skill__progress" class="progress">
                                 <div id="progress__bar" class="progress-bar progress-bar-striped progress-bar-success"
                                      role="progressbar" aria-valuenow="{{roundDown(skillFocusedProgressToNextLevel)}}"
                                      aria-valuemin="0"  aria-valuemax="100">
                                     <span class="sr-only"></span>
                                 </div>
                             </div>
-                            <div id="skill__progress-and-experience-left">
+                            <div ng-hide="overall_hovered" id="skill__progress-and-experience-left">
                                 <span ng-show="!skillFocusedIsMaxed" id="progress">{{skillFocusedProgressToNextLevel}}% towards level {{skillFocusedNextLevel}}</span>
                                 <span ng-show="!skillFocusedIsMaxed"
                                       id="experience-left">

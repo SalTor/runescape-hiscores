@@ -1,16 +1,16 @@
-@mixin flex-centered($direction: row) {
+@mixin mixins__flex-centered($direction: row) {
     display: flex;
     flex-direction: $direction;
     justify-content: center;
     align-items:     center;
 }
 
-@mixin margin-centered($amount: auto) {
+@mixin mixins__margin-centered($amount: auto) {
     margin-right: $amount;
     margin-left:  $amount;
 }
 
-@mixin absolute-top() {
+@mixin mixins__absolute-top() {
     position: absolute;
 
     top:   0;

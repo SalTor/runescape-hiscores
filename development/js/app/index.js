@@ -39,6 +39,12 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
             $scope.player = 'username'
             $scope.username = 'username'
 
+            $scope.overall = {}
+            $scope.overall.skill = 'overall'
+            $scope.overall.level = $scope.overall_total_level
+            $scope.overall.experiernce = $scope.overall_experience
+            $scope.overall.rank = -1
+
             $scope.form_empty = true
 
             $scope.skillFocusedName = 'sailing'
@@ -95,9 +101,10 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
                 $scope.skills  = skills
                 $scope.bestSkill = skills.find( (index) => index.highestSkill )
 
-                $scope.overall_total_level = overall[0].level
-                $scope.overall_experience  = overall[0].experience
-                $scope.overall_rank        = overall[0].rank
+                $scope.overall = overall[0]
+                $scope.overall_total_level = $scope.overall.level
+                $scope.overall_experience  = $scope.overall.experience
+                $scope.overall_rank        = $scope.overall.rank
 
                 $scope.player = user
                 $scope.form_empty = false
@@ -111,17 +118,28 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
                 console.groupEnd()
             }
 
-            $scope.updateSkillHovered = function (skill) {
-                $scope.skillFocusedName = skill.skill
-                $scope.skillFocusedLevel = skill.level
-                $scope.skillFocusedExperience = (skill.experience == -1) ? undefined : skill.experience
-                $scope.skillFocusedVirtualLevel = skill.virtualLevel
-                $scope.skillFocusedIsRanked = skill.rank != -1
-                $scope.skillFocusedRank = skill.rank
-                $scope.skillFocusedProgressToNextLevel = skill.progressToNextLevel
-                $scope.skillFocusedNextLevel = (skill.virtualLevel == 127) ? 127 : skill.virtualLevel + 1
-                $scope.skillFocusedIsMaxed = skill.experienceUntilNextLevel == 0
-                $scope.skillFocusedExperienceUntilNextLevel = $scope.skillFocusedIsMaxed ? `This skill has been maxed!` : (skill.experience == -1) ? undefined : skill.experienceUntilNextLevel
+            $scope.updateSkillHovered = function (stat) {
+                if (stat.skill !== 'overall') {
+                    $scope.overall_hovered = false
+
+                    $scope.skillFocusedName = stat.skill
+                    $scope.skillFocusedLevel = stat.level
+                    $scope.skillFocusedExperience = (stat.experience == -1) ? undefined : stat.experience
+                    $scope.skillFocusedVirtualLevel = stat.virtualLevel
+                    $scope.skillFocusedIsRanked = stat.rank != -1
+                    $scope.skillFocusedRank = stat.rank
+                    $scope.skillFocusedProgressToNextLevel = stat.progressToNextLevel
+                    $scope.skillFocusedNextLevel = (stat.virtualLevel == 127) ? 127 : stat.virtualLevel + 1
+                    $scope.skillFocusedIsMaxed = stat.experienceUntilNextLevel == 0
+                    $scope.skillFocusedExperienceUntilNextLevel = $scope.skillFocusedIsMaxed ? `This skill has been maxed!` : (stat.experience == -1) ? undefined : stat.experienceUntilNextLevel
+                } else {
+                    $scope.overall_hovered = true
+
+                    $scope.skillFocusedName = 'Overall'
+                    $scope.skillFocusedLevel = stat.level
+                    $scope.skillFocusedExperience = (stat.experience == -1) ? undefined : stat.experience
+                    $scope.skillFocusedRank = stat.rank
+                }
             }
 
             $scope.colorCodeProgress = function (percent) {
