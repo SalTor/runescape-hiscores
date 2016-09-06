@@ -6,8 +6,8 @@
 }
 
 @mixin mixins__margin-centered($amount: auto) {
-    margin-right: $amount;
     margin-left:  $amount;
+    margin-right: $amount;
 }
 
 @mixin mixins__absolute-top() {
