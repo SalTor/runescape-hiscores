@@ -85,7 +85,20 @@
     #name_and_cb_level {
         display: flex;
         align-items: center;
+        justify-content: center;
         margin-bottom: 5px;
+        height: 30px;
+
+        @media all and (max-width: $size__collapse) {
+            flex-direction: column;
+            height: auto;
+        }
+
+        #player__name {
+            margin: 0;
+            padding: 0;
+            height: 25px;
+        }
 
         #details__overall {
             display: flex;
@@ -106,6 +119,12 @@
 
                 span {
                     text-align: center;
+                }
+            }
+
+            @media all and (max-width: $size__collapse) {
+                .combat-level {
+                    margin-left: 0;
                 }
             }
         }
