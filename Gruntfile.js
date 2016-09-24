@@ -1,5 +1,6 @@
 module.exports = function(grunt){
     grunt.initConfig({
+        server_config: grunt.file.readJSON('grunt-ssh.json'),
         babel: {
             options: {
                 sourceMap: true,
@@ -17,10 +18,27 @@ module.exports = function(grunt){
                 }
             }
         },
+        rsync: {
+            options: {
+                args: ["--verbose"],
+                exclude: [".git*","*.scss","node_modules"],
+                recursive: true
+            },
+            production: {
+                options: {
+                    src: [
+                        "./build/css/"
+                    ],
+                    host: "<%= server_config.user %>@<%= server_config.host %>",
+                    dest: "<%= server_config.dest %>"
+                }
+            }
+        },
         uglify: {
             angular: {
                 files: {
                     'build/js/app/index.min.js': [
+                        './node_modules/lodash/lodash.min.js',
                         './node_modules/jquery/dist/jquery.min.js',
                         './node_modules/bootstrap/dist/js/bootstrap.min.js',
                         './node_modules/angular/angular.min.js',
@@ -41,13 +59,46 @@ module.exports = function(grunt){
                 options: {
                     sourceMap: true
                 }
+            },
+            release: {
+                files: {
+                    'build/js/app/index.min.js': [
+                        './node_modules/lodash/lodash.min.js',
+                        './node_modules/jquery/dist/jquery.min.js',
+                        './node_modules/bootstrap/dist/js/bootstrap.min.js',
+                        './node_modules/angular/angular.min.js',
+                        './node_modules/angular-animate/angular-animate.min.js',
+                        './node_modules/angular-route/angular-route.min.js',
+                        'build/.tmp/app/index.min.js'
+                    ],
+                    'build/js/server/api.min.js': ['build/.tmp/server/api.min.js'],
+                    'build/js/server/routes/player.js': [
+                        './node_modules/array-find-polyfill/index.js',
+                        'build/.tmp/server/routes/player.js'
+                    ]
+                },
+                options: {
+                    mangle: false,
+                    enclose: {},
+                    compress: {
+                        drop_console: true,
+                        unused: true,
+                        warnings: true
+                    }
+                }
             }
         },
         notify: {
             build: {
                 options: {
-                    title: 'RuneScape Hiscores App',
+                    title: 'RuneScape HiScores App',
                     message: 'Files have been updated'
+                }
+            },
+            release: {
+                options: {
+                    title: 'RuneScape HiScores App',
+                    message: 'Files have been deployed'
                 }
             }
         },
@@ -93,18 +144,18 @@ module.exports = function(grunt){
         watch: {
             server: {
                 files: ['development/js/server/*.js', 'development/js/server/**/*.js'],
-                tasks: ['babel:server', 'uglify:server', 'notify']
+                tasks: ['babel:server', 'uglify:server', 'notify:build']
             },
             angular_app: {
                 files: ['development/js/app/**/*.js', 'development/js/app/*.js'],
-                tasks: ['babel:angular', 'uglify:angular', 'notify'],
+                tasks: ['babel:angular', 'uglify:angular', 'notify:build'],
                 options : {
                     livereload: true
                 }
             },
             sass: {
                 files: ['development/scss/index.scss', 'development/scss/**/*.scss'],
-                tasks: ['sass', 'notify'],
+                tasks: ['sass', 'notify:build'],
                 cacheLocation: false,
                 options : {
                     livereload: true
@@ -121,9 +172,12 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-postcss');
+    grunt.loadNpmTasks('grunt-rsync');
 
-    grunt.registerTask('base',    ['babel', 'uglify', 'sass', 'notify']);
+    grunt.registerTask('base', ['babel', 'uglify:angular', 'uglify:server', 'sass', 'notify:build']);
+
     grunt.registerTask('default', ['base', 'browserSync', 'watch']);
     grunt.registerTask('build',   ['base']);
-    grunt.registerTask('release', ['base', 'postcss']);
+
+    grunt.registerTask('release', ['base', 'postcss', 'rsync', 'notify:release']);
 };

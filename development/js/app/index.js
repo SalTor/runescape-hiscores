@@ -3,39 +3,19 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
     .filter('safe', function ($sce) { return $sce.trustAsHtml })
     .filter('capitalize', function () {
         return function(input) {
-            return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+            return (!!input) ? _.toUpper(input.charAt(0)) + _.toLower(input.substr(1)) : '';
         }
     })
     .controller('mainController', [ '$scope', 'numberFilter',
         function($scope, numberFilter) {
-            $scope.skills = [
-                {skill: "attack",       level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "hitpoints",    level: 10, experience: 1154, progressToNextLevel: 0, virtualLevel: 10, experienceUntilNextLevel: 204, rank: -1},
-                {skill: "mining",       level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "strength",     level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "agility",      level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "smithing",     level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "defence",      level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "herblore",     level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "fishing",      level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "ranged",       level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "thieving",     level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "cooking",      level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "prayer",       level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "crafting",     level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "firemaking",   level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "magic",        level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "fletching",    level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "woodcutting",  level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "runecrafting", level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "slayer",       level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "farming",      level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "construction", level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1},
-                {skill: "hunter",       level:  1, experience:    0, progressToNextLevel: 0, virtualLevel:  1, experienceUntilNextLevel:  83, rank: -1}
-            ]
+            let skillName = ["attack", "hitpoints", "mining", "strength", "agility", "smithing", "defence", "herblore", "fishing", "ranged", "thieving", "cooking", "prayer", "crafting", "firemaking", "magic", "fletching", "woodcutting", "runecrafting", "slayer", "farming", "construction", "hunter"]
 
-            $scope.overall_total_level = $scope.skills.map((index) => index.level).reduce( (prev, curr) => prev + curr )
-            $scope.overall_experience  = $scope.skills.map((index) => index.experience).reduce( (prev, curr) => prev + curr )
+            $scope.skills = _.map(skillName, (index) => _.assign({}, {skill: index, level: 1, experience: 0, progressToNextLevel: 0, virtualLevel: 1, experienceUntilNextLevel: 83, rank: -1}))
+
+            _.assign(_.find($scope.skills, {skill: "hitpoints"}), {level: 10, virtualLevel: 10, experience: 1154})
+
+            $scope.overall_total_level = _.sum(_.map($scope.skills, 'level'))
+            $scope.overall_experience  = _.sum(_.map($scope.skills, 'experience'))
             $scope.player = 'username'
             $scope.username = 'username'
 
@@ -95,11 +75,11 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
 
                 let total_combt = []
 
-                let skills  = stats.filter( (index) => index.skill !== 'overall' )
-                let overall = stats.filter( (index) => index.skill  == 'overall' )
+                let skills  = _.reject(stats, {skill: 'overall'})
+                let overall = _.filter(stats, {skill: 'overall'})
 
                 $scope.skills  = skills
-                $scope.bestSkill = skills.find( (index) => index.highestSkill )
+                $scope.bestSkill = _.find(skills, 'highestSkill')
 
                 $scope.overall = overall[0]
                 $scope.overall_total_level = $scope.overall.level
@@ -137,7 +117,7 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
 
                     $scope.skillFocusedName = 'Overall'
                     $scope.skillFocusedLevel = stat.level
-                    $scope.skillFocusedExperience = (stat.experience == -1) ? undefined : stat.experience
+                    $scope.skillFocusedExperience = ($scope.username == 'username') ? $scope.overall_experience : stat.experience
                     $scope.skillFocusedRank = stat.rank
                 }
             }
@@ -156,7 +136,7 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
             }
 
             $scope.roundDown = function (valueToFloor) {
-                return Math.floor(valueToFloor)
+                return _.floor(valueToFloor)
             }
         }
     ]);
