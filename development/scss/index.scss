@@ -7,9 +7,13 @@
 @import "common/typography";
 
 .page-container {
+    @include mixins__margin-centered();
+    max-width: 815px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
 }
 
 #player__submission-container {
@@ -23,6 +27,11 @@
     margin-bottom: 0;
     @media all and (min-width: 768px) {
         margin-right: 20px;
+    }
+
+    legend {
+        color: black;
+        text-align: center;
     }
 
     @media all and (max-width: $size__collapse) {
@@ -66,28 +75,31 @@
 }
 
 #player__stats-container {
-    width: 411px;
+    width: 100%;
+    max-width: 460px;
+
+    position: relative;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    padding: 5px;
-    margin-bottom: 20px;
-
     @media all and (max-width: $size__collapse) {
         width: 100%;
     }
     @media all and (min-width: $size__collapse + 1px) {
-        border: 1px solid;
+        background-size: 100% auto;
     }
 
     #name_and_cb_level {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 5px;
+        padding-bottom: 5px;
+
         height: 30px;
+        width: inherit;
 
         @media all and (max-width: $size__collapse) {
             flex-direction: column;
@@ -139,6 +151,7 @@
 
         @media all and (max-width: $size__collapse) {
             flex-direction: column;
+            align-items: center;
         }
 
         #player__skills {

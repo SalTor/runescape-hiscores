@@ -3,12 +3,15 @@
 }
 
 .page-container {
+    @include mixins__margin-centered();
+    @media all and (min-width: $size__collapse + 1px) {
+        width: 80%;
+    }
+
     display: flex;
     justify-content: center;
 
-    width: 80%;
-    @include mixins__margin-centered();
-    margin-top: 20px;
+    padding-top: 20px;
 }
 
 .skill {
