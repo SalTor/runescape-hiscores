@@ -47,6 +47,8 @@
                                     'background-color background-color--closest-non-combat-to-next-level': skill.closestNonCombatToLeveling,
                                     'background-color background-color--closest-to-next-level':            skill.closestToNextLevel,
                                     'background-color background-color--best-skill':                       skill.highestSkill,
+                                    'background-color background-color--max-experience':                   skill.maxExperience,
+                                    'background-color background-color--rank-first':                       skill.rankFirst
                                 }
                              "
                              ng-mouseover="updateSkillHovered(skill)"
@@ -60,7 +62,10 @@
 
                     <div id="player__details" class="other-side-bar-info">
                         <div id="details__legend">
-                            <span class="background-color background-color--best-skill">Best Skill</span>
+                            <span class="background-color background-color--level-ninety-nine">lvl 99</span>
+                            <span class="background-color background-color--rank-first">Rank 1</span>
+                            <span class="background-color background-color--max-experience">200m xp</span>
+                            <span class="background-color background-color--best-skill">Next Best Skill</span>
                             <span class="background-color background-color--closest-to-next-level hide-on-collapse">Closest To Leveling</span>
                             <span class="background-color background-color--closest-non-combat-to-next-level hide-on-collapse">Closest Non-Combat</span>
                         </div>

@@ -78,7 +78,7 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
                 let skills  = _.reject(stats, {skill: 'overall'})
                 let overall = _.filter(stats, {skill: 'overall'})
 
-                $scope.skills  = skills
+                $scope.skills = skills
                 $scope.bestSkill = _.find(skills, 'highestSkill')
 
                 $scope.overall = overall[0]

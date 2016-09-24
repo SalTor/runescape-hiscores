@@ -39,6 +39,13 @@
 }
 
 .background-color {
+    $stop1: 31%;
+    $stop2: 37%;
+    $stop3: 43%;
+    $stop4: 50%;
+    $stop5: 62%;
+    $stop6: 81%;
+
     @media all and (min-width: $size__collapse + 1px) {
         &--level-ninety-nine {
             background-color: $color--level-ninety-nine;
@@ -53,6 +60,14 @@
 
     &--best-skill {
         background-color: $color--best-skill;
+    }
+
+    &--max-experience {
+        background-color: $color--max-experience;
+    }
+
+    &--rank-first {
+        background-color: $color--rank-first;
     }
 }
 

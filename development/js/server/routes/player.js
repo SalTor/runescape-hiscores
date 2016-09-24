@@ -37,7 +37,7 @@ router.get('/:username', function (req, res) {
     }
 
     function markHighestSkill(allStats) {
-        const findSkillWithBestRankFrom = (stats) => _.find(stats, {rank: _.min(_.map(highestExperienceFound, 'rank'))})
+        const findSkillWithBestRankFrom = (stats) => _.find(stats, {rank: _.min(_.map(stats, 'rank'))})
 
         let highestSkillsFound = [],
             highestExperienceFound = [],
@@ -52,9 +52,12 @@ router.get('/:username', function (req, res) {
         updateHighestSkillFoundFrom(allStats)
         updateHighestExperienceFoundFrom(highestSkillsFound)
 
-        highestSkillBasedOnExperienceAndRank = findSkillWithBestRankFrom(highestExperienceFound)
+        highestSkillBasedOnExperienceAndRank = findSkillWithBestRankFrom(_.reject(highestExperienceFound, {rank: 1}))
 
         highestSkillBasedOnExperienceAndRank.highestSkill = true
+
+        _.each(_.filter(allStats, {rank: 1}), (index) => _.assign(index, {rankFirst: true}))
+        _.each(_.filter(allStats, {experience: maxExperience}), (index) => _.assign(index, {maxExperience: true}))
 
         function updateHighestSkillFoundFrom(stats) {
             stats.map(function (currentSkill) {
@@ -82,7 +85,7 @@ router.get('/:username', function (req, res) {
         }
         function updateHighestExperienceFoundFrom(stats) {
             stats.map(function (currentSkill) {
-                if(currentSkill.experience > highestExperience){
+                if(currentSkill.experience > highestExperience && currentSkill.experience !== maxExperience){
                     highestExperience = currentSkill.experience
 
                     if(highestExperienceFound.length > 0) {
@@ -93,9 +96,6 @@ router.get('/:username', function (req, res) {
                         highestExperienceFound.push(currentSkill)
                         highestExperienceFoundId = currentSkill.id
                     }
-                } else if(currentSkill.experience == maxExperience) {
-                    highestExperienceFound.push(currentSkill)
-                    highestExperienceFoundId = currentSkill.id
                 }
             })
         }

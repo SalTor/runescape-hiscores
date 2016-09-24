@@ -12,7 +12,7 @@ app.use('/player', player)
 
 app.get('/', function(req, res){
     console.log("\nThe homepage has been requested")
-    res.send(200)
+    res.sendStatus(200)
 })
 
 app.listen(3030, function(){

@@ -38,6 +38,7 @@
     "load-grunt-tasks": "^3.5.0",
     "lodash": "^4.16.1",
     "node-bourbon": "^4.2.3",
+    "object-assign": "^4.1.0",
     "runescape-api": "^1.0.6"
   }
 }
