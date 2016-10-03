@@ -46,11 +46,12 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
                 let that = this,
                     form = $(that),
                     user = $("#player__input").val(),
-                    timeout = 1250
+                    timeout = 1250,
+                    domain = window.location.hostname
 
                 $.ajax({
                     timeout: timeout,
-                    url: 'http://projects.saltor.nyc:3030/player/' + user,
+                    url: `http://${domain}:3030/player/${user}`,
                     success: function (data) {
                         appendSkills(data)
                     },
