@@ -39,23 +39,17 @@
 }
 
 .background-color {
-    $stop1: 31%;
-    $stop2: 37%;
-    $stop3: 43%;
-    $stop4: 50%;
-    $stop5: 62%;
-    $stop6: 81%;
-
     @media all and (min-width: $size__collapse + 1px) {
-        &--level-ninety-nine {
-            background-color: $color--level-ninety-nine;
-        }
         &--closest-non-combat-to-next-level {
             background-color: $color--closest-non-combat-to-next-level;
         }
         &--closest-to-next-level {
             background-color: $color--closest-to-next-level;
         }
+    }
+
+    &--level-ninety-nine {
+        background-color: $color--level-ninety-nine;
     }
 
     &--best-skill {
