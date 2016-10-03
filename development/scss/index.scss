@@ -98,7 +98,7 @@
         justify-content: center;
         padding-bottom: 5px;
 
-        height: 30px;
+        height: 3em;
         width: inherit;
 
         @media all and (max-width: $size__collapse) {
@@ -109,14 +109,16 @@
         #player__name {
             margin: 0;
             padding: 0;
+            font-size: 1.4em;
 
             @media all and (max-width: $size__collapse) {
-                font-size: 18px;
+                font-size: 1.8em;
             }
         }
 
         #details__overall {
             display: flex;
+            font-size: 1.4em;
 
             .combat-level,
             .overall__total-level {
@@ -160,6 +162,7 @@
 
             width: 197px;
             border: 1px solid;
+            font-size: 1.4em;
         }
 
         #player__details {
@@ -170,6 +173,7 @@
             flex-direction: column;
 
             position: relative;
+            font-size: 1.4em;
 
             @media all and (min-width: $size__collapse + 1px) {
                 margin-left: 5px;
