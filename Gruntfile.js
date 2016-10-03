@@ -36,6 +36,16 @@ module.exports = function(grunt){
         },
         uglify: {
             angular: {
+                options: {
+                    except: [
+                        './node_modules/lodash/lodash.min.js',
+                        './node_modules/jquery/dist/jquery.min.js',
+                        './node_modules/bootstrap/dist/js/bootstrap.min.js',
+                        './node_modules/angular/angular.min.js',
+                        './node_modules/angular-animate/angular-animate.min.js',
+                        './node_modules/angular-route/angular-route.min.js'
+                    ]
+                },
                 files: {
                     'build/js/app/index.min.js': [
                         './node_modules/lodash/lodash.min.js',
@@ -49,6 +59,9 @@ module.exports = function(grunt){
                 }
             },
             server: {
+                except: [
+                    './node_modules/array-find-polyfill/index.js'
+                ],
                 files: {
                     'build/js/server/api.min.js': ['build/.tmp/server/api.min.js'],
                     'build/js/server/routes/player.js': [
@@ -84,7 +97,16 @@ module.exports = function(grunt){
                         drop_console: true,
                         unused: true,
                         warnings: true
-                    }
+                    },
+                    except: [
+                        './node_modules/lodash/lodash.min.js',
+                        './node_modules/jquery/dist/jquery.min.js',
+                        './node_modules/bootstrap/dist/js/bootstrap.min.js',
+                        './node_modules/angular/angular.min.js',
+                        './node_modules/angular-animate/angular-animate.min.js',
+                        './node_modules/angular-route/angular-route.min.js',
+                        './node_modules/array-find-polyfill/index.js'
+                    ]
                 }
             }
         },
