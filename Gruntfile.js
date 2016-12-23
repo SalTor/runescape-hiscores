@@ -196,10 +196,11 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks('grunt-rsync');
 
-    grunt.registerTask('base', ['babel', 'uglify:angular', 'uglify:server', 'sass', 'notify:build']);
+    grunt.registerTask('base-release', ['babel', 'uglify:release', 'sass', 'notify:build']);
+    grunt.registerTask('base-dev',     ['babel', 'uglify:angular', 'uglify:server', 'sass', 'notify:build']);
 
-    grunt.registerTask('default', ['base', 'browserSync', 'watch']);
-    grunt.registerTask('build',   ['base']);
+    grunt.registerTask('default', ['base-dev', 'browserSync', 'watch']);
+    grunt.registerTask('build-watch',   ['browserSync', 'watch']);
 
-    grunt.registerTask('release', ['base', 'postcss', 'rsync', 'notify:release']);
+    grunt.registerTask('release', ['base-release', 'postcss', 'rsync', 'notify:release']);
 };
