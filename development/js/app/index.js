@@ -1,4 +1,3 @@
-
 angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
     .filter('safe', function ($sce) { return $sce.trustAsHtml })
     .filter('capitalize', function () {
@@ -52,14 +51,14 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
                 $.ajax({
                     timeout: timeout,
                     url: `http://${domain}:3030/player/${user}`,
-                    success: function (data) {
+                    success(data) {
                         appendSkills(data)
                     },
-                    error: function (error) {
+                    error(error) {
                         console.log(`Sorry, no user with the name ${user} was found`)
                         console.log(`Not sure what happened exactly, but here's the error report: `, JSON.stringify(error, null, 4))
                     },
-                    complete: function () {
+                    complete() {
                         $scope.username = user
 
                         form.trigger('reset')
@@ -72,12 +71,11 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
 
                 console.groupCollapsed(user) // To organize our console logs
 
-                stats.map( (index) => console.log(JSON.stringify(index, null, 4)) )
+                stats.map(index => console.log(JSON.stringify(index, null, 4)))
 
-                let total_combt = []
-
-                let skills  = _.reject(stats, {skill: 'overall'})
-                let overall = _.filter(stats, {skill: 'overall'})
+                let total_combat = [],
+                    skills  = _.reject(stats, {skill: 'overall'}),
+                    overall = _.filter(stats, {skill: 'overall'})
 
                 $scope.skills = skills
                 $scope.bestSkill = _.find(skills, 'highestSkill')

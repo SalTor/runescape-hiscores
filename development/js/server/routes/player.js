@@ -21,30 +21,32 @@ router.get('/:username', function (req, res) {
         const player = info.skills
         const keys = _.keys(player)
 
-        skills = _.values(player).map( (index, position) => _.assign({skill: keys[position], id: createUniqueId()}, index) )
+        skills = _.values(player).map((index, position) => {
+            let object = { skill: keys[position], id: createUniqueId(), experience: index.exp }
+            _.unset(index, 'exp')
 
-        _.each(_.keys(skills), function (key) {
-            skills[key].experience = skills[key].exp;
-            delete skills[key].exp;
-        });
+            return _.assign(object, index)
+        })
 
         markHighestSkill(skills)
         markClosestToLeveling(skills)
 
-        calculateAndSetCombatLevel(_.filter(skills, (index) => index.skill.match(combatFilter) || index.skill == 'overall'))
+        calculateAndSetCombatLevel(_.filter(skills, index => index.skill.match(combatFilter) || index.skill === 'overall'))
 
         res.send(skills).status(200)
     }
 
     function markHighestSkill(allStats) {
-        const findSkillWithBestRankFrom = (stats) => _.find(stats, {rank: _.min(_.map(stats, 'rank'))})
+        const findSkillWithBestRankFrom = (stats) => {
+            return _.find(stats, { rank: _.min(_.map(stats, 'rank')) })
+        }
 
         let highestSkillsFound = [],
             highestExperienceFound = [],
             highestLevel = 1,
             highestExperience = 0,
             highestExperienceFoundId,
-            highestSkillFound = {experience: 0},
+            highestSkillFound = { experience: 0 },
             highestSkillBasedOnExperienceAndRank
 
         allStats = filterOutOverall(allStats)
@@ -52,12 +54,19 @@ router.get('/:username', function (req, res) {
         updateHighestSkillFoundFrom(allStats)
         updateHighestExperienceFoundFrom(highestSkillsFound)
 
-        highestSkillBasedOnExperienceAndRank = findSkillWithBestRankFrom(_.reject(highestExperienceFound, {rank: 1}))
+        highestSkillBasedOnExperienceAndRank = findSkillWithBestRankFrom(_.reject(highestExperienceFound, { rank: 1 }))
 
         highestSkillBasedOnExperienceAndRank.highestSkill = true
 
-        _.each(_.filter(allStats, {rank: 1}), (index) => _.assign(index, {rankFirst: true}))
-        _.each(_.filter(allStats, {experience: maxExperience}), (index) => _.assign(index, {maxExperience: true}))
+        // Find skills with rank 1 and add add the rankFirst attribtue to them
+        _.each(_.filter(allStats, { rank: 1 }), index => {
+            return _.assign(index, { rankFirst: true })
+        })
+
+        // Find skills with max experience and add the maxExperience attribute to them
+        _.each(_.filter(allStats, { experience: maxExperience }), index => {
+            return _.assign(index, { maxExperience: true })
+        })
 
         function updateHighestSkillFoundFrom(stats) {
             stats.map(function (currentSkill) {
@@ -72,10 +81,10 @@ router.get('/:username', function (req, res) {
                         highestSkillsFound.push(currentSkill)
                         highestSkillFound = currentSkill
                     }
-                } else if(currentSkill.level == 99) {
+                } else if(currentSkill.level === 99) {
                     highestSkillsFound.push(currentSkill)
                     highestSkillFound = currentSkill
-                } else if(currentSkill.level == highestLevel) {
+                } else if(currentSkill.level === highestLevel) {
                     if(currentSkill.experience > highestSkillFound.experience) {
                         highestSkillsFound.push(currentSkill)
                         highestSkillFound = currentSkill
@@ -255,32 +264,32 @@ router.get('/:username', function (req, res) {
 
         addMoreDetailsTo(allStats)
 
-        nonCombatSkills = allStats.filter( (index) => !index.skill.match(combatFilter) )
+        nonCombatSkills = allStats.filter(index => !index.skill.match(combatFilter))
 
-        closestToLeveling = _.find(allStats, {experienceUntilNextLevel: findMinFrom(allStats)})
+        closestToLeveling = _.find(allStats, { experienceUntilNextLevel: findMinFrom(allStats) })
 
         closestToLeveling.closestToNextLevel = true
 
-        closestNonCombatToLeveling = _.find(nonCombatSkills, {experienceUntilNextLevel: findMinFrom(nonCombatSkills)})
+        closestNonCombatToLeveling = _.find(nonCombatSkills, { experienceUntilNextLevel: findMinFrom(nonCombatSkills) })
 
         closestNonCombatToLeveling.closestNonCombatToLeveling = true
 
         function addMoreDetailsTo(stats) {
-            stats.map(function (currentStat) {
+            stats.map(currentStat => {
                 currentSkill = currentStat.skill
                 currentExperience = (currentStat.experience >= 0) ? currentStat.experience : 0
                 currentLevel = currentStat.level
 
-                nextBracket = levels.find((index) => index.experience > currentExperience || index.experience == maxExperience)
+                nextBracket = levels.find(index => index.experience > currentExperience || index.experience === maxExperience)
 
                 ifThereIsNoNextBracket = (nextBracket < 0)
-                theNextBracket = ifThereIsNoNextBracket ? {level: 127, experience: maxExperience} : nextBracket
+                theNextBracket = ifThereIsNoNextBracket ? { level: 127, experience: maxExperience } : nextBracket
 
-                indexOfNextBracket = levels.indexOf(ifThereIsNoNextBracket ? {level: 127, experience: maxExperience} : nextBracket)
+                indexOfNextBracket = levels.indexOf(ifThereIsNoNextBracket ? { level: 127, experience: maxExperience } : nextBracket)
 
                 nextLevel = theNextBracket.level
 
-                currentBracket = ifThereIsNoNextBracket ? {level: 127, experience: maxExperience} : levels[indexOfNextBracket - 1]
+                currentBracket = ifThereIsNoNextBracket ? { level: 127, experience: maxExperience } : levels[indexOfNextBracket - 1]
                 currentVirtualLevel = currentBracket.level
 
                 nextExperience = theNextBracket.experience
@@ -288,9 +297,9 @@ router.get('/:username', function (req, res) {
                 experienceUntilNextLevel = nextExperience - currentExperience
 
                 experienceDifferenceForLevel = nextExperience - currentBracket.experience
-                percentProgressToNextLevel = (experienceUntilNextLevel == 0) ? 100 : roundNumber(((experienceDifferenceForLevel - experienceUntilNextLevel) / experienceDifferenceForLevel) * 100, 1)
+                percentProgressToNextLevel = (experienceUntilNextLevel === 0) ? 100 : roundNumber(((experienceDifferenceForLevel - experienceUntilNextLevel) / experienceDifferenceForLevel) * 100, 1)
 
-                isLevel99 = (currentLevel == 99)
+                isLevel99 = (currentLevel === 99)
 
                 currentStat.experienceUntilNextLevel = experienceUntilNextLevel
                 currentStat.virtualLevel = currentVirtualLevel
@@ -300,17 +309,19 @@ router.get('/:username', function (req, res) {
         }
     }
 
-    const findSkill = (name) => _.find(skills, {skill: name})
+    const findSkill = (name) => {
+        return _.find(skills, {skill: name})
+    }
 
     function calculateAndSetCombatLevel (skills) {
         var hitpoints = findSkill("hitpoints").level,
-            strength  = findSkill("strength").level,
-            defence   = findSkill("defence").level,
-            prayer    = findSkill("prayer").level,
-            attack    = findSkill("attack").level,
-            ranged    = findSkill("ranged").level,
-            magic     = findSkill("magic").level,
-            overall   = findSkill("overall")
+            strength  =  findSkill("strength").level,
+            defence   =   findSkill("defence").level,
+            prayer    =    findSkill("prayer").level,
+            attack    =    findSkill("attack").level,
+            ranged    =    findSkill("ranged").level,
+            magic     =     findSkill("magic").level,
+            overall   =     findSkill("overall")
 
         overall.combat_level = _.floor(0.25 * (defence + hitpoints + _.floor(prayer / 2)) + _.max([0.325 * (attack + strength), _.max([0.325 * (_.floor(ranged / 2) + ranged), 0.325 * (_.floor(magic  / 2) + magic)])]))
     }
@@ -334,7 +345,7 @@ router.get('/:username', function (req, res) {
 
     function roundNumber(number, places) {
         let multiplier = Math.pow(10, places);
-        return (number == 100) ? 100 : Math.floor(number * multiplier) / multiplier
+        return (number === 100) ? 100 : Math.floor(number * multiplier) / multiplier
     }
 })
 
