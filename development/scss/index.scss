@@ -16,7 +16,7 @@
     justify-content: flex-start;
 }
 
-#player__submission-container {
+.player__submission-container {
     padding: 20px;
 
     width: 540px;
@@ -25,9 +25,6 @@
     }
 
     margin-bottom: 0;
-    @media all and (min-width: 768px) {
-        margin-right: 20px;
-    }
 
     legend {
         color: black;
@@ -46,35 +43,45 @@
         display: flex;
         justify-content: center;
 
-        #player__input {
-            width: auto;
-            max-width: 172px;
-        }
+        label {
+            position: relative;
 
-        #player__submit {
-            height: 35px;
-            width: 70px;
-            padding: 0;
+            .player__input {
+                width: 100%;
+                max-width: 180px;
+                margin-right: 71px;
+            }
 
-            margin-left: 5px;
+            .player__submit {
+                position: absolute;
+                right: 0;
+                top: 0;
+                height: 34px;
+                width: 70px;
+                padding: 0;
+
+                margin-left: 5px;
+                border-bottom-left-radius: 0;
+                border-top-left-radius:    0;
+            }
         }
 
         @media all and (min-width: $size__collapse + 1px) {
             align-items: flex-start;
 
-            #player__input {
+            .player__input {
                 max-width: 180px;
             }
         }
         @media all and (max-width: $size__collapse) {
-            #player__submit {
+            .player__submit {
                 margin-left: 5px;
             }
         }
     }
 }
 
-#player__stats-container {
+.player__stats-container {
     width: 100%;
     max-width: 460px;
 
@@ -85,14 +92,10 @@
     justify-content: center;
     align-items: center;
 
-    @media all and (max-width: $size__collapse) {
-        width: 100%;
-    }
-    @media all and (min-width: $size__collapse + 1px) {
-        background-size: 100% auto;
-    }
+    @media all and (max-width: $size__collapse) { width: 100%; }
+    @media all and (min-width: $size__collapse + 1px) { background-size: 100% auto; }
 
-    #name_and_cb_level {
+    .name_and_cb_level {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -106,7 +109,7 @@
             height: auto;
         }
 
-        #player__name {
+        .player__name {
             margin: 0;
             padding: 0;
             font-size: 1.4em;
@@ -116,7 +119,7 @@
             }
         }
 
-        #details__overall {
+        .details__overall {
             display: flex;
             font-size: 1.4em;
 
@@ -147,7 +150,7 @@
         }
     }
 
-    #player__summary {
+    .player__summary {
         display: flex;
         justify-content: center;
 
@@ -156,7 +159,7 @@
             align-items: center;
         }
 
-        #player__skills {
+        .player__skills {
             display: flex;
             flex-wrap: wrap;
 
@@ -165,7 +168,7 @@
             font-size: 1.4em;
         }
 
-        #player__details {
+        .player__details {
             width: 197px;
             height: 322px;
 
@@ -175,49 +178,32 @@
             position: relative;
             font-size: 1.4em;
 
-            @media all and (min-width: $size__collapse + 1px) {
-                margin-left: 5px;
-            }
+            @media all and (min-width: $size__collapse + 1px) { margin-left: 5px; }
 
             > div {
                 width: 100%;
 
                 padding: 5px;
                 border: 1px solid;
-
-                margin-top: 5px;
             }
 
-            #details__legend {
-                display: flex;
-                flex-direction: column;
-
-                order: 1;
-
-                margin-top: 0;
-
-                > span {
-                    text-align: center;
-                    &:not(:first-child) {
-                        margin-top: 5px;
-                    }
+            .details__focused-skill {
+                @media (max-width: $size__collapse) {
+                    margin-top: 5px;
                 }
-            }
-
-            #details__focused-skill {
                 display: flex;
                 flex-direction: column;
 
                 order: 2;
 
-                #skill__name {
+                .skill__name {
                     text-align: center;
 
                     margin: 0;
                     margin-bottom: 2px;
                 }
 
-                #skill__experience-and-rank {
+                .skill__experience-and-rank {
                     display: flex;
                     justify-content: space-between;
 
@@ -230,12 +216,12 @@
                     }
                 }
 
-                #skill__progress {
+                .skill__progress {
                     margin-top: 5px;
                     margin-bottom: 5px;
                 }
 
-                #skill__progress-and-experience-left {
+                .skill__progress-and-experience-left {
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
@@ -244,18 +230,7 @@
             }
 
             @media all and (max-width: $size__collapse) {
-                #details__legend {
-                    order: 2;
-
-                    padding: 0;
-                    margin-top: 5px;
-                }
-                #details__overall {
-                    order: 3;
-                }
-                #details__focused-skill {
-                    order: 1;
-                }
+                .details__focused-skill { order: 1; }
             }
         }
     }
