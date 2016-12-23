@@ -92,6 +92,8 @@
     justify-content: center;
     align-items: center;
 
+    padding-bottom: 50px;
+
     @media all and (max-width: $size__collapse) { width: 100%; }
     @media all and (min-width: $size__collapse + 1px) { background-size: 100% auto; }
 
@@ -170,7 +172,6 @@
 
         .player__details {
             width: 197px;
-            height: 322px;
 
             display: flex;
             flex-direction: column;
@@ -188,13 +189,14 @@
             }
 
             .details__focused-skill {
-                @media (max-width: $size__collapse) {
-                    margin-top: 5px;
-                }
                 display: flex;
                 flex-direction: column;
 
                 order: 2;
+                @media (max-width: $size__collapse) {
+                    order: 1;
+                    margin-top: 5px;
+                }
 
                 .skill__name {
                     text-align: center;
@@ -227,10 +229,6 @@
                     justify-content: center;
                     text-align: center;
                 }
-            }
-
-            @media all and (max-width: $size__collapse) {
-                .details__focused-skill { order: 1; }
             }
         }
     }
