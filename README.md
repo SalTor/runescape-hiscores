@@ -10,7 +10,7 @@ Just a small interface I've been working on in my free time to display the stats
 ```bash
 $ git clone git@github.com:/SalTor/runescape-hiscores.git
 $ cd runescape-hiscores
-$ grunt
+$ npm start
 $
 You will be redirected to http://localhost:some-available-port
 depending on which ports are available
@@ -18,7 +18,7 @@ depending on which ports are available
 
 
 ## Live Example
-You can find this app running live [here](project.saltor.nyc/RuneScape%20HiScores)
+You can find this app running live [here](http://projects.saltor.nyc/RuneScape-HiScores).
 
 
 ## Moving Forward
