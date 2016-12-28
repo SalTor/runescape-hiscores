@@ -17,7 +17,7 @@
 }
 
 .player__submission-container {
-    padding: 20px;
+    padding: 20px 20px 10px;
 
     width: 540px;
     @media all and (max-width: 540px) {
@@ -39,12 +39,38 @@
         }
     }
 
-    #player__label-and-input {
+    .player__label-and-input {
         display: flex;
         justify-content: center;
 
-        label {
+        .player__input-label {
             position: relative;
+
+            &:after {
+                display: block;
+                content: "Example: Zezima";
+                font-size: 1.1em;
+            }
+            &:before {
+                display: block;
+                transition: opacity .5s ease-in-out;
+
+                $size: 1.4em;
+                position: absolute;
+                top: -$size;
+                left: 0;
+
+                content: "Username not found.";
+
+                font-size: $size;
+                color: red;
+
+                opacity: 0;
+            }
+
+            &.username-not-found::before {
+                opacity: 1;
+            }
 
             .player__input {
                 width: 100%;

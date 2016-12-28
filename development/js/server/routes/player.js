@@ -10,14 +10,30 @@ router.get('/:username', function (req, res) {
 
     api.osrs.hiscores.player(username)
         .then(logInfo)
-        .catch(console.error)
+        .catch(logError)
 
     let skills = []
 
     const maxExperience = 200000000
     const combatFilter  = /(attack|strength|defence|hitpoints|magic|ranged|prayer)/i
 
+    function logError(params) {
+        let code = params[`statusCode`], message
+
+        switch(code) {
+            case 404:
+                message = `No account with that username was found.`
+                break
+            default:
+                message = `Unexpected error.`
+                break
+        }
+
+        res.send({ code, message }).status(200)
+    }
+
     function logInfo(info) {
+
         const player = info.skills
         const keys = _.keys(player)
 
@@ -33,7 +49,7 @@ router.get('/:username', function (req, res) {
 
         calculateAndSetCombatLevel(_.filter(skills, index => index.skill.match(combatFilter) || index.skill === 'overall'))
 
-        res.send(skills).status(200)
+        res.send({ code: 200, skills }).status(200)
     }
 
     function markHighestSkill(allStats) {

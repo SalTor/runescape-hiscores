@@ -13,6 +13,8 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
 
             _.assign(_.find($scope.skills, {skill: "hitpoints"}), {level: 10, virtualLevel: 10, experience: 1154})
 
+            $scope.username_not_found = false
+
             $scope.overall_total_level = _.sum(_.map($scope.skills, 'level'))
             $scope.overall_experience  = _.sum(_.map($scope.skills, 'experience'))
             $scope.player = 'username'
@@ -39,46 +41,58 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
             $scope.overall__combat_level = 3
 
             $("#player__form").submit(function(event) {
-                console.log("Form submitted")
                 event.preventDefault()
 
                 let that = this,
                     form = $(that),
                     user = $("#player__input").val(),
-                    timeout = 1250,
                     domain = window.location.hostname
 
                 $.ajax({
-                    timeout: timeout,
                     url: `http://${domain}:3030/player/${user}`,
                     success(data) {
-                        appendSkills(data)
+                        let { code, skills } = data
+
+                        if(code === 200) {
+                            appendSkills(skills)
+
+                            $scope.username = user
+
+                            form.trigger('reset')
+                        } else if(code === 404) {
+                            triggerWarning()
+                        }
                     },
                     error(error) {
-                        console.log(`Sorry, no user with the name ${user} was found`)
-                        console.log(`Not sure what happened exactly, but here's the error report: `, JSON.stringify(error, null, 4))
-                    },
-                    complete() {
-                        $scope.username = user
-
-                        form.trigger('reset')
+                        let { status, responseText } = error
+                        console.error(`ERROR (${status}): ${responseText}`)
                     }
                 })
             })
 
-            function appendSkills(stats) {
+            function triggerWarning() {
+                $scope.username_not_found = true
+                $scope.$digest()
+
+                setTimeout(function () {
+                    $scope.username_not_found = false
+                    $scope.$digest()
+                }, 1000)
+            }
+
+            function appendSkills(skills) {
                 let user = $("#player__input").val()
 
                 console.groupCollapsed(user) // To organize our console logs
 
-                stats.map(index => console.log(JSON.stringify(index, null, 4)))
+                skills.map(index => console.log(JSON.stringify(index, null, 4)))
 
                 let total_combat = [],
-                    skills  = _.reject(stats, {skill: 'overall'}),
-                    overall = _.filter(stats, {skill: 'overall'})
+                    stats   = _.reject(skills, {skill: 'overall'}),
+                    overall = _.filter(skills, {skill: 'overall'})
 
-                $scope.skills = skills
-                $scope.bestSkill = _.find(skills, 'highestSkill')
+                $scope.skills = stats
+                $scope.bestSkill = _.find(stats, 'highestSkill')
 
                 $scope.overall = overall[0]
                 $scope.overall_total_level = $scope.overall.level

@@ -4,10 +4,9 @@
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="build/css/index.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>
-            2007scape Hiscores
-        </title>
+        <title>2007scape Hiscores</title>
     </head>
+
     <body>
         <div class="page-container" ng-controller="mainController">
             <div id="player__submission-container" class="player__submission-container">
@@ -15,8 +14,8 @@
                     <legend>OSRS Hi-Scores Lookup</legend>
 
                     <div id="player__label-and-input" class="player__label-and-input">
-                        <label for="player__input">
-                            <input  id="player__input"  class="player__input form-control"     type="text" placeholder="Zezima" name="username" required>
+                        <label for="player__input" class="player__input-label" ng-class="{'username-not-found': username_not_found}">
+                            <input  id="player__input"  class="player__input form-control"     type="text" placeholder="Username" name="username" required>
                             <button id="player__submit" class="player__submit btn btn-primary" type="submit">Submit</button>
                         </label>
                     </div>
@@ -39,6 +38,7 @@
                         </span>
                     </div>
                 </div>
+
                 <div class="player__summary">
                     <div class="player__skills">
                         <div class="skill skill--{{ skill.skill }}"
