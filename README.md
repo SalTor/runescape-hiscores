@@ -1,5 +1,5 @@
 # OSRS (Old School RuneScape) Hiscores
-Just a small interface I've been working on in my free time to display the stats of users of the legacy MMORPG RuneScape. (The version of the game initially based on the 2007 version of the game.)
+Just a small interface I've been working on in my free time to display the stats of users for the legacy version of the MMORPG RuneScape--as it was in 2007.
 
 ## What You Will Need
 - [node.js](https://nodejs.org/en/)
@@ -12,8 +12,7 @@ $ git clone git@github.com:/SalTor/runescape-hiscores.git
 $ cd runescape-hiscores
 $ npm start
 $
-You will be redirected to http://localhost:some-available-port
-depending on which ports are available
+You will be directed to a localhost session with the contents of index.html
 ```
 
 
@@ -29,5 +28,5 @@ You can find this app running live [here](http://projects.saltor.nyc/RuneScape-H
 
 ## Disclaimer
 - I do not claim to own any information related to RuneScape.
-  - That includes any information that is returned from submitting this hiscores form as well as the information that is transformed from said returned info into states that the original payload didn't include.
-- At the end of the day, this is just a side project I embarked on for fun and out of curiosity.
+  - This includes info. in the hiscores response as well as info. not included in the original hiscores response.
+- At the end of the day, this is just a side project I embarked on for fun out of curiosity.
