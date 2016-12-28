@@ -1,5 +1,5 @@
-# RuneScape Hiscores
-Just a small interface I've been working on in my free time to display the stats of users of the MMORPG RuneScape
+# OSRS (Old School RuneScape) Hiscores
+Just a small interface I've been working on in my free time to display the stats of users of the legacy MMORPG RuneScape. (The version of the game initially based on the 2007 version of the game.)
 
 ## What You Will Need
 - [node.js](https://nodejs.org/en/)
@@ -23,14 +23,11 @@ You can find this app running live [here](http://projects.saltor.nyc/RuneScape-H
 
 ## Moving Forward
 - [ ] Separate out server from this repo
-- [X] ~~Username checks to see if they're of valid form~~
-    - [ ] Currently handled with a timeout, but is there a hidden way Jagex does it?
-- [ ] Optimize code, queries take anywhere between .2s to 2s
-- [ ] Possibly a better workflow, this is just what works for me
+- [ ] A better workflow, this is just what works for me
 - [X] ~~Better front-end implementation, I've been looking into using Angular~~
 
 
 ## Disclaimer
-- I do not claim to own any information related to RuneScape
-- This is just a side project I embarked on to see if I could do it
-- I've been wanting to start using ES6 more, so if you want to contribute, please write your code in ES6 when possible
+- I do not claim to own any information related to RuneScape.
+  - That includes any information that is returned from submitting this hiscores form as well as the information that is transformed from said returned info into states that the original payload didn't include.
+- At the end of the day, this is just a side project I embarked on for fun and out of curiosity.
