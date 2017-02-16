@@ -36,32 +36,15 @@
             order: #{$index};
         }
     }
+
+    &:hover {
+        background-color: $color--wet-asphalt;
+    }
 }
 
 .background-color {
-    @media all and (min-width: $size__collapse + 1px) {
-        &--closest-non-combat-to-next-level {
-            background-color: $color--closest-non-combat-to-next-level;
-        }
-        &--closest-to-next-level {
-            background-color: $color--closest-to-next-level;
-        }
-    }
-
-    &--level-ninety-nine {
-        background-color: $color--level-ninety-nine;
-    }
-
     &--best-skill {
-        background-color: $color--best-skill;
-    }
-
-    &--max-experience {
-        background-color: $color--max-experience;
-    }
-
-    &--rank-first {
-        background-color: $color--rank-first;
+        background-color: $color--wet-asphalt;
     }
 }
 
@@ -75,7 +58,11 @@
 }
 
 .progress {
+    background-color: $color--midnight-blue;
+    border: 2px solid $color--wet-asphalt;
+    box-shadow: none;
     .progress-bar {
+        background-color: $color--wet-asphalt;
         height: 25px;
         @for $index from 0 through 100 {
             &[aria-valuenow="#{$index}"] {

@@ -8,7 +8,7 @@
     </head>
 
     <body>
-        <div class="page-container" ng-controller="mainController">
+        <main role="main" class="page-container" ng-controller="mainController">
             <div id="player__submission-container" class="player__submission-container">
                 <form id="player__form" class="player__form form-inline" role="form" name="user_lookup">
                     <legend>OSRS Hi-Scores Lookup</legend>
@@ -16,7 +16,7 @@
                     <div id="player__label-and-input" class="player__label-and-input">
                         <label for="player__input" class="player__input-label" ng-class="{'username-not-found': username_not_found}">
                             <input  id="player__input"  class="player__input form-control"     type="text" placeholder="Username" name="username" required>
-                            <button id="player__submit" class="player__submit btn btn-primary" type="submit">Submit</button>
+                            <button id="player__submit" class="player__submit btn" type="submit">Submit</button>
                         </label>
                     </div>
                 </form>
@@ -43,16 +43,7 @@
                     <div class="player__skills">
                         <div class="skill skill--{{ skill.skill }}"
                              ng-repeat="skill in skills track by $index"
-                             ng-class="
-                                {
-                                    'background-color background-color--level-ninety-nine':                skill.isLevel99,
-                                    'background-color background-color--closest-non-combat-to-next-level': skill.closestNonCombatToLeveling,
-                                    'background-color background-color--closest-to-next-level':            skill.closestToNextLevel,
-                                    'background-color background-color--best-skill':                       skill.highestSkill,
-                                    'background-color background-color--max-experience':                   skill.maxExperience,
-                                    'background-color background-color--rank-first':                       skill.rankFirst
-                                }
-                             "
+                             ng-class="{ 'background-color background-color--best-skill': skill.highestSkill }"
                              ng-mouseover="updateSkillHovered(skill)" ng-cloak>
 
                             <img class="skill__icon skill_image--{{skill.skill}}" ng-src="./assets/skill-icons/{{skill.skill | capitalize}}.png">
@@ -69,7 +60,7 @@
 
                             <div class="skill__experience-and-rank" ng-class="{'skill-overall': overall_hovered}" ng-cloak>
                                 <span id="experience">
-                                    <span ng-if="skillFocusedExperience != undefined">{{skillFocusedExperience | number}} xp</span>
+                                    <span ng-if="skillFocusedExperience != undefined">{{skillFocusedExperience | number}}xp</span>
                                     <span ng-if="skillFocusedExperience == undefined">??? xp</span>
                                 </span>
 
@@ -79,7 +70,7 @@
                             </div>
 
                             <div ng-hide="overall_hovered" class="skill__progress progress">
-                                <div id="progress__bar" class="progress-bar progress-bar-striped progress-bar-success"
+                                <div id="progress__bar" class="progress-bar progress-bar-striped"
                                      role="progressbar" aria-valuenow="{{roundDown(skillFocusedProgressToNextLevel)}}"
                                      aria-valuemin="0"  aria-valuemax="100">
                                     <span class="sr-only"></span>
@@ -91,7 +82,7 @@
 
                                 <span ng-show="!skillFocusedIsMaxed"
                                       id="experience-left">
-                                    <span ng-if="skillFocusedExperienceUntilNextLevel != undefined">{{skillFocusedExperienceUntilNextLevel | number}} xp left!</span>
+                                    <span ng-if="skillFocusedExperienceUntilNextLevel != undefined">{{skillFocusedExperienceUntilNextLevel | number}}xp left!</span>
 
                                     <span ng-if="skillFocusedExperienceUntilNextLevel == undefined">??? xp left!</span>
                                 </span>
@@ -102,7 +93,11 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
+
+        <footer>
+            Created by <a href="http://saltor.nyc">Sal Torcivia</a>
+        </footer>
 
         <script src="./build/js/app/index.min.js"></script>
     </body>
