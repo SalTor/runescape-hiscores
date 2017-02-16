@@ -89,6 +89,8 @@ a {
 
         .player__input-label {
             position: relative;
+            display: flex;
+            align-items: center;
 
             &:after {
                 display: block;
@@ -129,20 +131,24 @@ a {
 
             input.player__input {
                 width: 100%;
-                max-width: 222px;
-                margin-right: 107px;
+                max-width: 250px;
+                margin-left: 7px;
                 &::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+                    font-weight: 400;
                     color: white;
                 }
                 &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+                    font-weight: 400;
                     color: white;
                     opacity:  1;
                 }
                 &::-moz-placeholder { /* Mozilla Firefox 19+ */
+                    font-weight: 400;
                     color: white;
                     opacity:  1;
                 }
                 &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+                    font-weight: 400;
                     color: white;
                 }
             }
@@ -150,13 +156,12 @@ a {
             .player__submit {
                 transition: all .25s ease;
                 position: absolute;
-                right: 0;
+                right: 7px;
                 top: 0;
                 height: 34px;
                 width: 70px;
                 padding: 0;
 
-                margin-left: 5px;
                 border-bottom-left-radius: 0;
                 border-top-left-radius:    0;
 
