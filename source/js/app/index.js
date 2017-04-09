@@ -48,6 +48,8 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
                     user = $("#player__input").val(),
                     domain = window.location.hostname
 
+                console.info("[ app ] retrieving stats")
+
                 $.ajax({
                     url: `http://${domain}:3030/player/${user}`,
                     success(data) {

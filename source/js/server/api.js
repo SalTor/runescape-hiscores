@@ -7,7 +7,7 @@ const player  = require("./routes/player")
 const cors    = require("cors")
 
 app.use(cors());
-app.use('/', express.static(path.join(__dirname, "../../")))
+app.use('/', express.static(path.join(__dirname, "../../public/")))
 app.use('/player', player)
 
 app.get('/', function(req, res){

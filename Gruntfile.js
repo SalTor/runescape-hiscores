@@ -8,13 +8,7 @@ module.exports = function(grunt){
             },
             angular: {
                 files: {
-                    'build/.tmp/app/index.min.js': 'development/js/app/index.js'
-                }
-            },
-            server: {
-                files: {
-                    'build/.tmp/server/api.min.js': 'development/js/server/api.js',
-                    'build/.tmp/server/routes/player.js': 'development/js/server/routes/player.js'
+                    'public/build/.tmp/app/index.min.js': 'source/js/app/index.js'
                 }
             }
         },
@@ -27,7 +21,7 @@ module.exports = function(grunt){
             production: {
                 options: {
                     src: [
-                        "./build/css/"
+                        "./public/build/css/"
                     ],
                     host: "<%= server_config.user %>@<%= server_config.host %>",
                     dest: "<%= server_config.dest %>"
@@ -35,7 +29,7 @@ module.exports = function(grunt){
             }
         },
         uglify: {
-            angular: {
+            dev: {
                 options: {
                     except: [
                         './node_modules/lodash/lodash.min.js',
@@ -47,47 +41,27 @@ module.exports = function(grunt){
                     ]
                 },
                 files: {
-                    'build/js/app/index.min.js': [
+                    'public/build/js/app/index.min.js': [
                         './node_modules/lodash/lodash.min.js',
                         './node_modules/jquery/dist/jquery.min.js',
                         './node_modules/bootstrap/dist/js/bootstrap.min.js',
                         './node_modules/angular/angular.min.js',
                         './node_modules/angular-animate/angular-animate.min.js',
                         './node_modules/angular-route/angular-route.min.js',
-                        'build/.tmp/app/index.min.js'
+                        'public/build/.tmp/app/index.min.js'
                     ]
-                }
-            },
-            server: {
-                except: [
-                    './node_modules/array-find-polyfill/index.js'
-                ],
-                files: {
-                    'build/js/server/api.min.js': ['build/.tmp/server/api.min.js'],
-                    'build/js/server/routes/player.js': [
-                        './node_modules/array-find-polyfill/index.js',
-                        'build/.tmp/server/routes/player.js'
-                    ]
-                },
-                options: {
-                    sourceMap: true
                 }
             },
             release: {
                 files: {
-                    'build/js/app/index.min.js': [
+                    'public/build/js/app/index.min.js': [
                         './node_modules/lodash/lodash.min.js',
                         './node_modules/jquery/dist/jquery.min.js',
                         './node_modules/bootstrap/dist/js/bootstrap.min.js',
                         './node_modules/angular/angular.min.js',
                         './node_modules/angular-animate/angular-animate.min.js',
                         './node_modules/angular-route/angular-route.min.js',
-                        'build/.tmp/app/index.min.js'
-                    ],
-                    'build/js/server/api.min.js': ['build/.tmp/server/api.min.js'],
-                    'build/js/server/routes/player.js': [
-                        './node_modules/array-find-polyfill/index.js',
-                        'build/.tmp/server/routes/player.js'
+                        'public/build/.tmp/app/index.min.js'
                     ]
                 },
                 options: {
@@ -97,16 +71,7 @@ module.exports = function(grunt){
                         drop_console: true,
                         unused: true,
                         warnings: true
-                    },
-                    except: [
-                        './node_modules/lodash/lodash.min.js',
-                        './node_modules/jquery/dist/jquery.min.js',
-                        './node_modules/bootstrap/dist/js/bootstrap.min.js',
-                        './node_modules/angular/angular.min.js',
-                        './node_modules/angular-animate/angular-animate.min.js',
-                        './node_modules/angular-route/angular-route.min.js',
-                        './node_modules/array-find-polyfill/index.js'
-                    ]
+                    }
                 }
             }
         },
@@ -133,7 +98,7 @@ module.exports = function(grunt){
                     loadPath: require('node-bourbon').includePaths
                 },
                 files : [
-                    {'build/css/index.css' : 'development/scss/index.scss'}
+                    {'public/build/css/index.css' : 'source/scss/index.scss'}
                 ]
             }
         },
@@ -141,14 +106,14 @@ module.exports = function(grunt){
             dev: {
                 bsFiles: {
                     src: [
-                        './index.html',
-                        './build/js/app/index.min.js',
-                        './build/css/index.css'
+                        './public/index.html',
+                        './public/build/js/app/index.min.js',
+                        './public/build/css/index.css'
                     ]
                 },
                 options: {
                     watchTask: true,
-                    server: '.'
+                    server: './public'
                 }
             }
         },
@@ -160,23 +125,19 @@ module.exports = function(grunt){
                 ]
             },
             dist: {
-                src: './build/css/index.css'
+                src: './public/build/css/index.css'
             }
         },
         watch: {
-            server: {
-                files: ['development/js/server/*.js', 'development/js/server/**/*.js'],
-                tasks: ['babel:server', 'uglify:server', 'notify:build']
-            },
             angular_app: {
-                files: ['development/js/app/**/*.js', 'development/js/app/*.js'],
-                tasks: ['babel:angular', 'uglify:angular', 'notify:build'],
+                files: ['source/js/app/**/*.js', 'source/js/app/*.js'],
+                tasks: ['babel', 'uglify:dev', 'notify:build'],
                 options : {
                     livereload: true
                 }
             },
             sass: {
-                files: ['development/scss/index.scss', 'development/scss/**/*.scss'],
+                files: ['source/scss/index.scss', 'source/scss/**/*.scss'],
                 tasks: ['sass', 'notify:build'],
                 cacheLocation: false,
                 options : {
@@ -196,11 +157,9 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks('grunt-rsync');
 
-    grunt.registerTask('base-release', ['babel', 'uglify:release', 'sass', 'notify:build']);
-    grunt.registerTask('base-dev',     ['babel', 'uglify:angular', 'uglify:server', 'sass', 'notify:build']);
+    grunt.registerTask('default', ['dev']);
 
-    grunt.registerTask('default', ['base-dev', 'browserSync', 'watch']);
-    grunt.registerTask('build-watch',   ['browserSync', 'watch']);
+    grunt.registerTask('dev', ['babel', 'uglify:dev', 'sass', 'browserSync', 'watch', 'notify:build']);
 
-    grunt.registerTask('release', ['base-release', 'postcss', 'rsync', 'notify:release']);
+    grunt.registerTask('release', ['babel', 'uglify:release', 'sass', 'postcss', 'rsync', 'notify:release']);
 };

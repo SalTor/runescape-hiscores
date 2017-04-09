@@ -1,7 +1,9 @@
-const express = require('express')
-const router  = express.Router()
-const api     = require('runescape-api')
+const api = require('runescape-api')
 const _ = require('lodash')
+
+const express = require('express')
+const router = express.Router()
+const generate_id = require("../../helpers/generate-id")
 
 router.get('/:username', function (req, res) {
     let username = req.params.username
@@ -9,36 +11,33 @@ router.get('/:username', function (req, res) {
     console.log(`\nThe player page has been requested for: ${username}\n`)
 
     api.osrs.hiscores.player(username)
-        .then(logInfo)
-        .catch(logError)
+        .then(handle_response)
+        .catch(response => {
+            let code = response[`statusCode`], message
+
+            switch(code) {
+                case 404:
+                    message = `No account with that username was found.`
+                    break
+                default:
+                    message = `Unexpected error.`
+                    break
+            }
+
+            res.send({ code, message }).status(200)
+        })
 
     let skills = []
 
     const maxExperience = 200000000
     const combatFilter  = /(attack|strength|defence|hitpoints|magic|ranged|prayer)/i
 
-    function logError(params) {
-        let code = params[`statusCode`], message
-
-        switch(code) {
-            case 404:
-                message = `No account with that username was found.`
-                break
-            default:
-                message = `Unexpected error.`
-                break
-        }
-
-        res.send({ code, message }).status(200)
-    }
-
-    function logInfo(info) {
-
+    function handle_response(info) {
         const player = info.skills
         const keys = _.keys(player)
 
         skills = _.values(player).map((index, position) => {
-            let object = { skill: keys[position], id: createUniqueId(), experience: index.exp }
+            let object = { skill: keys[position], id: generate_id(), experience: index.exp }
             _.unset(index, 'exp')
 
             return _.assign(object, index)
@@ -330,7 +329,7 @@ router.get('/:username', function (req, res) {
     }
 
     function calculateAndSetCombatLevel (skills) {
-        var hitpoints = findSkill("hitpoints").level,
+        let hitpoints = findSkill("hitpoints").level,
             strength  =  findSkill("strength").level,
             defence   =   findSkill("defence").level,
             prayer    =    findSkill("prayer").level,
@@ -346,18 +345,6 @@ router.get('/:username', function (req, res) {
     const non200mSkills    = (skills) => _.reject(skills, {experience: maxExperience})
     const experienceLeft   = (skills) => _.map(non200mSkills(skills), 'experienceUntilNextLevel')
     const findMinFrom      = (skills) => _.min(experienceLeft(skills))
-
-    function createUniqueId() {
-        return generateRandomHash() + generateRandomHash()
-            + '-' + generateRandomHash() + '-' + generateRandomHash()
-            + '-' + generateRandomHash() + '-' + generateRandomHash()
-            + generateRandomHash() + generateRandomHash()
-    }
-    function generateRandomHash() {
-        return _.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-    }
 
     function roundNumber(number, places) {
         let multiplier = Math.pow(10, places);
