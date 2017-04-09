@@ -160,6 +160,6 @@ module.exports = function(grunt){
     grunt.registerTask('default', ['dev']);
 
     grunt.registerTask('dev', ['babel', 'uglify:dev', 'sass', 'browserSync', 'watch', 'notify:build']);
-
-    grunt.registerTask('release', ['babel', 'uglify:release', 'sass', 'postcss', 'rsync', 'notify:release']);
+    grunt.registerTask('server-release', ['babel', 'uglify:release'])
+    grunt.registerTask('release', ['sass', 'postcss', 'rsync', 'notify:release']);
 };

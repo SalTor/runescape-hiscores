@@ -5,7 +5,8 @@
   "main": "source/js/server/api.js",
   "scripts": {
     "dev": "concurrently 'grunt dev' 'nodemon'",
-    "release": "grunt release"
+    "release": "grunt release",
+    "server-release": "grunt server-release"
   },
   "repository": "git@github.com:/SalTor/runescape-hiscores.git",
   "author": "Sal Torcivia",
