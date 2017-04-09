@@ -1,8 +1,8 @@
 <!doctype html>
 <html ng-app="runescapeHiscores">
     <head>
-        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="build/css/index.css">
+        <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../build/css/index.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>2007scape Hiscores</title>
     </head>
@@ -30,11 +30,11 @@
 
                     <div class="details__overall" ng-cloak>
                         <span class="combat-level">
-                            <img src="./assets/other-icons/combat.png" alt=""> <span>{{overall__combat_level}}</span>
+                            <img src="assets/other-icons/combat.png" alt=""> <span>{{overall__combat_level}}</span>
                         </span>
 
                         <span class="overall__total-level" ng-mouseover="updateSkillHovered(overall)">
-                            <img src="./assets/other-icons/overall.png" alt=""> <span>{{overall_total_level | number}}</span>
+                            <img src="assets/other-icons/overall.png" alt=""> <span>{{overall_total_level | number}}</span>
                         </span>
                     </div>
                 </div>
@@ -99,6 +99,6 @@
             Created by <a href="http://saltor.nyc">Sal Torcivia</a>
         </footer>
 
-        <script src="./build/js/app/index.min.js"></script>
+        <script src="../build/js/app/index.min.js"></script>
     </body>
 </html>
