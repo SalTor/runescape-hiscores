@@ -1,0 +1,16 @@
+@import "../components/form__legend";
+@import "../components/form__label-and-input";
+@import "../components/form__input";
+@import "../components/form__label";
+@import "../components/form__submit";
+
+.form {
+    padding: 20px 20px 10px;
+
+    width: 540px;
+    margin-bottom: 0;
+
+    @media all and (max-width: 540px) {
+        width: 100%;
+    }
+}

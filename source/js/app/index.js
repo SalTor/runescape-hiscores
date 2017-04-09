@@ -11,24 +11,24 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
 
             $scope.skills = _.map(skillName, (index) => _.assign({}, {skill: index, level: 1, experience: 0, progressToNextLevel: 0, virtualLevel: 1, experienceUntilNextLevel: 83, rank: -1}))
 
-            _.assign(_.find($scope.skills, {skill: "hitpoints"}), {level: 10, virtualLevel: 10, experience: 1154})
+            _.assign(_.find($scope.skills, {skill: "hitpoints"}), { level: 10, virtualLevel: 10, experience: 1154 })
 
             $scope.username_not_found = false
 
-            $scope.overall_total_level = _.sum(_.map($scope.skills, 'level'))
-            $scope.overall_experience  = _.sum(_.map($scope.skills, 'experience'))
-            $scope.player = 'username'
-            $scope.username = 'username'
+            $scope.overall_total_level = _.sum(_.map($scope.skills, "level"))
+            $scope.overall_experience  = _.sum(_.map($scope.skills, "experience"))
+            $scope.player = "username"
+            $scope.username = "username"
 
             $scope.overall = {}
-            $scope.overall.skill = 'overall'
+            $scope.overall.skill = "overall"
             $scope.overall.level = $scope.overall_total_level
             $scope.overall.experiernce = $scope.overall_experience
             $scope.overall.rank = -1
 
             $scope.form_empty = true
 
-            $scope.skillFocusedName = 'sailing'
+            $scope.skillFocusedName = "sailing"
             $scope.skillFocusedLevel = 0
             $scope.skillFocusedExperience = undefined
             $scope.skillFocusedVirtualLevel = 1

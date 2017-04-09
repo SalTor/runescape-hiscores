@@ -1,0 +1,11 @@
+.form__legend {
+    border: none;
+
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+
+    @media all and (max-width: $size__collapse) {
+        display: none;
+    }
+}

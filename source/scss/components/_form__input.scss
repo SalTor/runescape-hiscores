@@ -1,0 +1,25 @@
+.form__input {
+    width: 100%;
+    max-width: 250px;
+    margin-right: 87px;
+
+    background-color: $color--wet-asphalt;
+    background-image: none !important;
+    background-position: -100%;
+    border-radius: 10px;
+    border: 1px solid white;
+    box-shadow: none;
+
+    color: white;
+
+    @include mx__input-placeholder {
+        opacity: 1;
+
+        color: white;
+        font-weight: 400;
+    }
+
+    @media all and (min-width: $size__collapse + 1px) {
+        max-width: 180px;
+    }
+}

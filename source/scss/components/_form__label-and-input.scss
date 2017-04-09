@@ -1,0 +1,8 @@
+.form__label-and-input {
+    display: flex;
+    justify-content: center;
+
+    @media all and (min-width: $size__collapse + 1px) {
+        align-items: flex-start;
+    }
+}

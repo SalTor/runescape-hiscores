@@ -1,0 +1,34 @@
+.form__submit {
+    position: absolute;
+    top: 0;
+    right: 26px;
+
+    height: 34px;
+    width: 70px;
+    padding: 0;
+
+    background-color: $color--wet-asphalt;
+    background-image: none !important;
+    background-position: -100%;
+    border: 1px solid white;
+    border-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius:    0;
+    box-shadow: none;
+
+    opacity: 1;
+
+    color: white;
+
+
+    transition: all .25s ease;
+
+    &:hover {
+        background-color: white;
+        color: #2c3e50;
+    }
+
+    @media all and (max-width: $size__collapse) {
+        margin-left: 5px;
+    }
+}

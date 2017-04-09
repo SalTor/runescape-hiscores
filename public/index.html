@@ -3,20 +3,22 @@
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="build/css/index.css">
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <title>2007scape Hiscores</title>
     </head>
 
     <body>
-        <main role="main" class="page-container" ng-controller="mainController">
-            <div id="player__submission-container" class="player__submission-container">
+        <main role="main" ng-controller="mainController">
+            <div id="player__submission-container" class="form">
                 <form id="player__form" class="player__form form-inline" role="form" name="user_lookup">
-                    <legend>OSRS Hi-Scores Lookup</legend>
+                    <legend class="form__legend">OSRS Hi-Scores Lookup</legend>
 
-                    <div id="player__label-and-input" class="player__label-and-input">
-                        <label for="player__input" class="player__input-label" ng-class="{'username-not-found': username_not_found}">
-                            <input  id="player__input"  class="player__input form-control"     type="text" placeholder="Username" name="username" required>
-                            <button id="player__submit" class="player__submit btn" type="submit">Submit</button>
+                    <div id="player__label-and-input" class="form__label-and-input">
+                        <label for="player__input" class="form__label_with-input" ng-class="{'form__label_warning': username_not_found}">
+                            <input class="form__input form-control" id="player__input" placeholder="Username" name="username" type="text" required>
+                            <button class="form__submit btn" id="player__submit" type="submit">Submit</button>
                         </label>
                     </div>
                 </form>

@@ -1,0 +1,37 @@
+.form__label {
+    &_warning { &:before { opacity: 1; } }
+
+    &_with-input {
+        display: flex;
+        align-items: center;
+
+        position: relative;
+
+        &:after {
+            display: block;
+
+            position: absolute;
+            bottom: -16px;
+            left: 12px;
+
+            content: "Example: Zezima";
+            font-size: 1.1em;
+        }
+        &:before {
+            content: "Username not found.";
+            display: block;
+
+            $size: 1.4em;
+            position: absolute;
+            top: -$size;
+            left: 0;
+
+            opacity: 0;
+
+            color: red;
+            font-size: $size;
+
+            transition: opacity .5s ease-in-out;
+        }
+    }
+}
