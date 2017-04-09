@@ -1,3 +1,5 @@
+'use strict'
+
 const api = require('runescape-api')
 const _ = require('lodash')
 
