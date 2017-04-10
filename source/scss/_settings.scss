@@ -1,4 +1,8 @@
+// Bourbon Mixins/Functions/etc.
+@import "bourbon";
+
+// Non-css-outputting configuration
+@import "base/mixins";
 @import "base/variables";
 @import "base/color-palette";
-@import "base/mixins";
 @import "base/typography";

@@ -1,0 +1,41 @@
+@import "../components/skill__name";
+@import "../components/skill__experience-and-rank";
+@import "../components/skill__progress-bar-container";
+@import "../components/skill__progress-and-experience-left";
+
+.skill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 30px;
+    width: 55px;
+    padding: 2px;
+    margin: 5px;
+
+    &:hover {
+        background-color: $color--wet-asphalt;
+    }
+
+    &_best-skill {
+        background-color: $color--wet-asphalt;
+    }
+
+    &__icon,
+    &__level {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        height: 25px;
+        width:  25px;
+    }
+
+    @for $index from 1 through length($stats-order) {
+        $skill: nth($stats-order, $index);
+
+        &_#{$skill} {
+            order: #{$index};
+        }
+    }
+}

@@ -1,21 +1,20 @@
-@mixin mixins__flex-centered($direction: row) {
+@mixin mx__flex-centered($direction: row) {
     display: flex;
     flex-direction: $direction;
     justify-content: center;
     align-items:     center;
 }
 
-@mixin mixins__margin-centered($amount: auto) {
+@mixin mx__margin-centered($amount: auto) {
     margin-left:  $amount;
     margin-right: $amount;
 }
 
-@mixin mixins__absolute-top() {
+@mixin mx__absolute-top() {
     position: absolute;
-
     top:   0;
-    left:  0;
     right: 0;
+    left:  0;
 }
 
 @mixin mx__input-placeholder {

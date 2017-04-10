@@ -1,0 +1,9 @@
+.stats__skills-and-perspective {
+    display: flex;
+    justify-content: center;
+
+    @media all and (max-width: $size__collapse) {
+        flex-direction: column;
+        align-items: center;
+    }
+}

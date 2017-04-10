@@ -1,0 +1,19 @@
+.skill__progress-bar-container {
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    background-color: $color--midnight-blue;
+    border: 2px solid $color--wet-asphalt;
+    box-shadow: none;
+
+    .bootstrap-progress-bar {
+        height: 25px;
+        @for $index from 0 through 100 {
+            &[aria-valuenow="#{$index}"] {
+                width: $index * 1%;
+            }
+        }
+
+        background-color: $color--wet-asphalt;
+    }
+}

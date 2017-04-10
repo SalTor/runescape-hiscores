@@ -19,9 +19,14 @@ main {
     justify-content: flex-start;
 
     max-width: 815px;
+    padding-top: 20px;
     margin-bottom: 25px;
     margin-right: auto;
     margin-left:  auto;
+
+    @media all and (min-width: $size__collapse + 1px) {
+        width: 80%;
+    }
 }
 
 footer {

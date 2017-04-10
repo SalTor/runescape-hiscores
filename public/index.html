@@ -11,7 +11,7 @@
 
     <body>
         <main role="main" ng-controller="mainController">
-            <div id="player__submission-container" class="form">
+            <div class="form" id="player__submission-container">
                 <form id="player__form" class="player__form form-inline" role="form" name="user_lookup">
                     <legend class="form__legend">OSRS Hi-Scores Lookup</legend>
 
@@ -24,29 +24,28 @@
                 </form>
             </div>
 
-            <div class="player__stats-container" ng-cloak>
-                <div class="name_and_cb_level">
-                    <span class="player__name title title--center" ng-show="player" ng-cloak>
+            <div class="stats" ng-cloak>
+                <div class="stats__name-combat-and-total">
+                    <span class="stats__player-name" ng-show="player" ng-cloak>
                         {{player}}
                     </span>
 
-                    <div class="details__overall" ng-cloak>
-                        <span class="combat-level">
-                            <img src="assets/other-icons/combat.png" alt=""> <span>{{overall__combat_level}}</span>
+                    <div class="stats__combat-and-total-level" ng-cloak>
+                        <span class="stats__combat-level">
+                            <img src="assets/other-icons/combat.png" alt="">
+                            <span>{{ overall__combat_level }}</span>
                         </span>
 
-                        <span class="overall__total-level" ng-mouseover="updateSkillHovered(overall)">
-                            <img src="assets/other-icons/overall.png" alt=""> <span>{{overall_total_level | number}}</span>
+                        <span class="stats__total-level" ng-mouseover="updateSkillHovered(overall)">
+                            <img src="assets/other-icons/overall.png" alt="">
+                            <span>{{ overall_total_level | number }}</span>
                         </span>
                     </div>
                 </div>
 
-                <div class="player__summary">
-                    <div class="player__skills">
-                        <div class="skill skill--{{ skill.skill }}"
-                             ng-repeat="skill in skills track by $index"
-                             ng-class="{ 'background-color background-color--best-skill': skill.highestSkill }"
-                             ng-mouseover="updateSkillHovered(skill)" ng-cloak>
+                <div class="stats__skills-and-perspective">
+                    <div class="stats__skills">
+                        <div class="skill skill_{{ skill.skill }}" ng-mouseover="updateSkillHovered(skill)" ng-repeat="skill in skills track by $index" ng-class="{ 'skill_best-skill': skill.highestSkill }" ng-cloak>
 
                             <img class="skill__icon skill_image--{{skill.skill}}" ng-src="./assets/skill-icons/{{skill.skill | capitalize}}.png">
 
@@ -54,43 +53,40 @@
                         </div>
                     </div>
 
-                    <div class="player__details other-side-bar-info">
-                        <div class="details__focused-skill" ng-cloak>
-                            <h4 class="skill__name title title--center">
-                                {{skillFocusedName | capitalize}}
-                            </h4>
+                    <div class="stats__perspective other-side-bar-info">
+                        <h4 class="skill__name">{{ skillFocusedName | capitalize }}</h4>
 
-                            <div class="skill__experience-and-rank" ng-class="{'skill-overall': overall_hovered}" ng-cloak>
-                                <span id="experience">
-                                    <span ng-if="skillFocusedExperience != undefined">{{skillFocusedExperience | number}}xp</span>
-                                    <span ng-if="skillFocusedExperience == undefined">??? xp</span>
+                        <div class="skill__experience-and-rank" ng-class="{'skill-overall': overall_hovered}" ng-cloak>
+                            <span id="experience">
+                                <span ng-if="skillFocusedExperience != undefined">{{ skillFocusedExperience | number }}xp</span>
+                                <span ng-if="skillFocusedExperience == undefined">??? xp</span>
+                            </span>
+
+                            <span ng-show="skillFocusedIsRanked" id="rank">Rank: {{ skillFocusedRank | number }}</span>
+
+                            <span ng-show="!skillFocusedIsRanked" id="no-rank">Not ranked</span>
+                        </div>
+
+                        <div ng-hide="overall_hovered" class="progress skill__progress-bar-container">
+                            <div class="progress-bar progress-bar-striped bootstrap-progress-bar" id="progress__bar" aria-valuenow="{{roundDown(skillFocusedProgressToNextLevel)}}" aria-valuemin="0"  aria-valuemax="100" role="progressbar">
+                                <span class="sr-only"></span>
+                            </div>
+                        </div>
+
+                        <div ng-hide="overall_hovered" class="skill__progress-and-experience-left">
+                            <span ng-show="!skillFocusedIsMaxed" id="progress">
+                                {{ skillFocusedProgressToNextLevel }}% towards level {{ skillFocusedNextLevel }}
+                            </span>
+
+                            <span ng-show="!skillFocusedIsMaxed" id="experience-left">
+                                <span ng-if="skillFocusedExperienceUntilNextLevel != undefined">
+                                    {{ skillFocusedExperienceUntilNextLevel | number }}xp left!
                                 </span>
 
-                                <span ng-show=" skillFocusedIsRanked" id="rank">Rank: {{skillFocusedRank | number}}</span>
+                                <span ng-if="skillFocusedExperienceUntilNextLevel == undefined">??? xp left!</span>
+                            </span>
 
-                                <span ng-show="!skillFocusedIsRanked" id="no-rank">Not ranked</span>
-                            </div>
-
-                            <div ng-hide="overall_hovered" class="skill__progress progress">
-                                <div id="progress__bar" class="progress-bar progress-bar-striped"
-                                     role="progressbar" aria-valuenow="{{roundDown(skillFocusedProgressToNextLevel)}}"
-                                     aria-valuemin="0"  aria-valuemax="100">
-                                    <span class="sr-only"></span>
-                                </div>
-                            </div>
-
-                            <div ng-hide="overall_hovered" class="skill__progress-and-experience-left">
-                                <span ng-show="!skillFocusedIsMaxed" id="progress">{{skillFocusedProgressToNextLevel}}% towards level {{skillFocusedNextLevel}}</span>
-
-                                <span ng-show="!skillFocusedIsMaxed"
-                                      id="experience-left">
-                                    <span ng-if="skillFocusedExperienceUntilNextLevel != undefined">{{skillFocusedExperienceUntilNextLevel | number}}xp left!</span>
-
-                                    <span ng-if="skillFocusedExperienceUntilNextLevel == undefined">??? xp left!</span>
-                                </span>
-
-                                <span ng-show=" skillFocusedIsMaxed" id="experience-left--maxed">{{skillFocusedExperienceUntilNextLevel}}</span>
-                            </div>
+                            <span ng-show=" skillFocusedIsMaxed" id="experience-left--maxed">{{ skillFocusedExperienceUntilNextLevel }}</span>
                         </div>
                     </div>
                 </div>

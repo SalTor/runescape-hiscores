@@ -1,0 +1,11 @@
+.m-d-n_collapse, .hide-on-collapse {
+    @media all and (max-width: $size__collapse) {
+        display: none !important;
+    }
+}
+
+.m-d-d_collapse, .show-on-collapse {
+    @media all and (min-width: $size__collapse + 1px) {
+        display: none !important;
+    }
+}

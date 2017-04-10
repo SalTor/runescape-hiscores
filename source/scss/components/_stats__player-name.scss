@@ -1,0 +1,10 @@
+.stats__player-name {
+    padding: 0;
+    margin: 0;
+
+    font-size: 1.4em;
+
+    @media all and (max-width: $size__collapse) {
+        font-size: 1.8em;
+    }
+}

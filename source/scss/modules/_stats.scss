@@ -1,0 +1,20 @@
+@import "../components/stats__name-combat-and-total";
+@import "../components/stats__player-name";
+@import "../components/stats__combat-and-total-level";
+@import "../components/stats__skills-and-perspective";
+@import "../components/stats__skills";
+@import '../components/stats__perspective';
+
+.stats {
+    font-family: "Ubuntu Mono", "Open Sans", Arial, sans-serif;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @media all and (min-width: $size__collapse + 1px) {
+        background-size: 100% auto;
+    }
+}
