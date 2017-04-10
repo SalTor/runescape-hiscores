@@ -7,21 +7,28 @@
     width: 70px;
     padding: 0;
 
+    opacity: 1;
+    cursor: pointer;
+
     background-color: $color--wet-asphalt;
     background-image: none !important;
     background-position: -100%;
     border: 1px solid white;
-    border-radius: 10px;
-    border-bottom-left-radius: 0;
-    border-top-left-radius:    0;
+    border-radius: 0 10px 10px 0;
     box-shadow: none;
-
-    opacity: 1;
 
     color: white;
 
-
     transition: all .25s ease;
+
+    &:active,
+    &:visited,
+    &:focus {
+        outline: none;
+        cursor: pointer;
+
+        color: white;
+    }
 
     &:hover {
         background-color: white;
