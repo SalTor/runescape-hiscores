@@ -12,13 +12,13 @@
     <body>
         <main role="main" ng-controller="mainController">
             <div class="form" id="player__submission-container">
-                <form id="player__form" class="player__form form-inline" role="form" name="user_lookup">
+                <form class="form-inline player__form" id="player__form" role="form" name="user_lookup">
                     <legend class="form__legend">OSRS Hi-Scores Lookup</legend>
 
-                    <div id="player__label-and-input" class="form__label-and-input">
+                    <div class="form__label-and-input" id="player__label-and-input">
                         <label for="player__input" class="form__label_with-input" ng-class="{'form__label_warning': username_not_found}">
-                            <input class="form__input form-control" id="player__input" placeholder="Username" name="username" type="text" required>
-                            <button class="form__submit btn" id="player__submit" type="submit">Submit</button>
+                            <input class="form-control form__input" id="player__input" placeholder="Username" name="username" type="text" required>
+                            <button class="btn form__submit" id="player__submit" type="submit">Submit</button>
                         </label>
                     </div>
                 </form>
