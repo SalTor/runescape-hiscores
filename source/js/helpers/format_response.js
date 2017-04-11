@@ -1,3 +1,5 @@
+let add_details = require("./add_details.js")
+
 module.exports = function (args) {
     try {
         let calc_cb = require("./calc_combat_level.js"),
@@ -11,11 +13,11 @@ module.exports = function (args) {
             return _.assign({ id: stat_index, skill: skill_names[stat_index], exp: stat.exp }, stat)
         })
 
-        let overall = _.reject(stats, { skill: "overall" })
+        let overall = _.find(stats, { skill: "overall" })
 
         overall.combat_level = calc_cb(_.filter(stats, index => index.skill.match(combatFilter)))
 
-        return stats
+        return add_details(stats)
     } catch(error) {
         console.log(error)
     }

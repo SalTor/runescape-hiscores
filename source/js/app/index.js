@@ -9,14 +9,14 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
         function($scope, numberFilter) {
             let skillName = ["attack", "hitpoints", "mining", "strength", "agility", "smithing", "defence", "herblore", "fishing", "ranged", "thieving", "cooking", "prayer", "crafting", "firemaking", "magic", "fletching", "woodcutting", "runecrafting", "slayer", "farming", "construction", "hunter"]
 
-            $scope.skills = _.map(skillName, (index) => _.assign({}, {skill: index, level: 1, experience: 0, progressToNextLevel: 0, virtualLevel: 1, experienceUntilNextLevel: 83, rank: -1}))
+            $scope.skills = _.map(skillName, (index) => _.assign({}, {skill: index, level: 1, rank: -1, exp: 0, level_virtual: 1, exp_til_next_level: 83, level_progress: 0}))
 
-            _.assign(_.find($scope.skills, {skill: "hitpoints"}), { level: 10, virtualLevel: 10, experience: 1154 })
+            _.assign(_.find($scope.skills, {skill: "hitpoints"}), { level: 10, level_virtual: 10, exp: 1154 })
 
             $scope.username_not_found = false
 
             $scope.overall_total_level = _.sum(_.map($scope.skills, "level"))
-            $scope.overall_experience  = _.sum(_.map($scope.skills, "experience"))
+            $scope.overall_experience  = _.sum(_.map($scope.skills, "exp"))
             $scope.player = "username"
             $scope.username = "username"
 
@@ -39,6 +39,7 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
             $scope.skillFocusedIsMaxed = false
             $scope.skillFocusedExperienceUntilNextLevel = undefined
             $scope.overall__combat_level = 3
+            $scope.request_loading = false
 
             $("#player__form").submit(function(event) {
                 event.preventDefault()
@@ -48,57 +49,57 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
                     user = $("#player__input").val(),
                     domain = window.location.hostname
 
-                console.info("[ app ] retrieving stats")
+                console.log(`[ retrieving stats ]`)
+                $scope.request_loading = true
 
                 $.ajax({
                     url: `http://${domain}:3030/player/${user}`,
                     success(data) {
-                        let { code, skills } = data
+                        let { code, stats } = data
 
                         if(code === 200) {
-                            appendSkills(skills)
+                            appendSkills(stats)
 
                             $scope.username = user
 
                             form.trigger('reset')
                         } else if(code === 404) {
-                            triggerWarning()
+                            $scope.username_not_found = true
+                            $scope.$digest()
+
+                            setTimeout(function () {
+                                $scope.username_not_found = false
+                                $scope.$digest()
+                            }, 1000)
                         }
                     },
                     error(error) {
                         let { status, responseText } = error
                         console.error(`ERROR (${status}): ${responseText}`)
+                    },
+                    complete() {
+                        setTimeout(function () {
+                            $scope.request_loading = false
+                            $scope.$digest()
+                        }, 750)
                     }
                 })
             })
 
-            function triggerWarning() {
-                $scope.username_not_found = true
-                $scope.$digest()
-
-                setTimeout(function () {
-                    $scope.username_not_found = false
-                    $scope.$digest()
-                }, 1000)
-            }
-
             function appendSkills(skills) {
                 let user = $("#player__input").val()
 
-                console.groupCollapsed(user) // To organize our console logs
+                console.groupCollapsed(user)
 
                 skills.map(index => console.log(JSON.stringify(index, null, 4)))
 
-                let total_combat = [],
-                    stats   = _.reject(skills, {skill: 'overall'}),
-                    overall = _.filter(skills, {skill: 'overall'})
+                let overall = _.filter(skills, {skill: "overall"})
 
-                $scope.skills = stats
-                $scope.bestSkill = _.find(stats, 'highestSkill')
+                $scope.skills = _.reject(skills, {skill: "overall"})
 
                 $scope.overall = overall[0]
                 $scope.overall_total_level = $scope.overall.level
-                $scope.overall_experience  = $scope.overall.experience
+                $scope.overall_experience  = $scope.overall.exp
                 $scope.overall_rank        = $scope.overall.rank
 
                 $scope.player = user
@@ -106,7 +107,7 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
 
                 $scope.overall__combat_level = overall[0].combat_level
 
-                $scope.updateSkillHovered($scope.bestSkill)
+                $scope.updateSkillHovered(_.sample($scope.skills))
 
                 $scope.$digest()
 
@@ -114,26 +115,31 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
             }
 
             $scope.updateSkillHovered = function (stat) {
-                if (stat.skill !== 'overall') {
-                    $scope.overall_hovered = false
+                try {
+                    if (stat.skill !== 'overall') {
+                        $scope.overall_hovered = false
 
-                    $scope.skillFocusedName = stat.skill
-                    $scope.skillFocusedLevel = stat.level
-                    $scope.skillFocusedExperience = (stat.experience == -1) ? undefined : stat.experience
-                    $scope.skillFocusedVirtualLevel = stat.virtualLevel
-                    $scope.skillFocusedIsRanked = stat.rank != -1
-                    $scope.skillFocusedRank = stat.rank
-                    $scope.skillFocusedProgressToNextLevel = stat.progressToNextLevel
-                    $scope.skillFocusedNextLevel = (stat.virtualLevel == 127) ? 127 : stat.virtualLevel + 1
-                    $scope.skillFocusedIsMaxed = stat.experienceUntilNextLevel == 0
-                    $scope.skillFocusedExperienceUntilNextLevel = $scope.skillFocusedIsMaxed ? `This skill has been maxed!` : (stat.experience == -1) ? undefined : stat.experienceUntilNextLevel
-                } else {
-                    $scope.overall_hovered = true
+                        $scope.skillFocusedName = stat.skill
+                        $scope.skillFocusedLevel = stat.level
+                        $scope.skillFocusedExperience = (stat.exp == -1) ? undefined : stat.exp
+                        $scope.skillFocusedVirtualLevel = stat.level_virtual
+                        $scope.skillFocusedIsRanked = stat.rank != -1
+                        $scope.skillFocusedRank = stat.rank
+                        $scope.skillFocusedNextLevel = stat.level === 99 ? 99 : stat.level + 1 // (stat.level_virtual == 127) ? 127 : stat.level_virtual + 1
+                        $scope.skillFocusedIsMaxed = stat.exp_til_next_level == 0
+                        $scope.skillFocusedExperienceUntilNextLevel = (stat.exp === 200000000) ? `This skill has been maxed!` : (stat.exp == -1) ? undefined : (stat.level === 99) ? 0 : stat.exp_til_next_level
+                        $scope.skillFocusedProgressToNextLevel = stat.level === 99 ? 100 : stat.level_progress.toFixed(2) < 1 ? 0.5 : stat.level_progress.toFixed(2)
+                    } else {
+                        $scope.overall_hovered = true
 
-                    $scope.skillFocusedName = 'Overall'
-                    $scope.skillFocusedLevel = stat.level
-                    $scope.skillFocusedExperience = ($scope.username == 'username') ? $scope.overall_experience : stat.experience
-                    $scope.skillFocusedRank = stat.rank
+                        $scope.skillFocusedName = 'Overall'
+                        $scope.skillFocusedLevel = stat.level
+                        $scope.skillFocusedExperience = ($scope.username == 'username') ? $scope.overall_experience : stat.exp
+                        $scope.skillFocusedRank = stat.rank
+                    }
+                } catch(error) {
+                    console.log(error)
+                    console.log(stat)
                 }
             }
 

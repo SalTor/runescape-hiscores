@@ -5,4 +5,8 @@
     @media all and (min-width: $size__collapse + 1px) {
         align-items: flex-start;
     }
+
+    &_has-loader {
+        position: relative;
+    }
 }
