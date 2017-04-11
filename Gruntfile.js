@@ -6,7 +6,7 @@ module.exports = function(grunt){
                 sourceMap: true,
                 presets: ['babel-preset-es2015']
             },
-            angular: {
+            dist: {
                 files: {
                     'public/build/.tmp/app/index.min.js': 'source/js/app/index.js'
                 }
@@ -29,29 +29,6 @@ module.exports = function(grunt){
             }
         },
         uglify: {
-            dev: {
-                options: {
-                    except: [
-                        './node_modules/lodash/lodash.min.js',
-                        './node_modules/jquery/dist/jquery.min.js',
-                        './node_modules/bootstrap/dist/js/bootstrap.min.js',
-                        './node_modules/angular/angular.min.js',
-                        './node_modules/angular-animate/angular-animate.min.js',
-                        './node_modules/angular-route/angular-route.min.js'
-                    ]
-                },
-                files: {
-                    'public/build/js/app/index.min.js': [
-                        './node_modules/lodash/lodash.min.js',
-                        './node_modules/jquery/dist/jquery.min.js',
-                        './node_modules/bootstrap/dist/js/bootstrap.min.js',
-                        './node_modules/angular/angular.min.js',
-                        './node_modules/angular-animate/angular-animate.min.js',
-                        './node_modules/angular-route/angular-route.min.js',
-                        'public/build/.tmp/app/index.min.js'
-                    ]
-                }
-            },
             release: {
                 files: {
                     'public/build/js/app/index.min.js': [
@@ -117,6 +94,27 @@ module.exports = function(grunt){
                 }
             }
         },
+        concat: {
+            options: { separator: ';' },
+            dist: {
+                src: [
+                    'public/build/.tmp/app/libraries.min.js',
+                    'public/build/.tmp/app/index.min.js'
+                ],
+                dest: 'public/build/js/app/index.min.js',
+            },
+            libraries: {
+                src: [
+                    './node_modules/lodash/lodash.min.js',
+                    './node_modules/jquery/dist/jquery.min.js',
+                    './node_modules/bootstrap/dist/js/bootstrap.min.js',
+                    './node_modules/angular/angular.min.js',
+                    './node_modules/angular-animate/angular-animate.min.js',
+                    './node_modules/angular-route/angular-route.min.js'
+                ],
+                dest: 'public/build/.tmp/app/libraries.min.js',
+            }
+        },
         postcss: {
             options: {
                 map: true,
@@ -131,7 +129,7 @@ module.exports = function(grunt){
         watch: {
             angular_app: {
                 files: ['source/js/app/**/*.js', 'source/js/app/*.js'],
-                tasks: ['babel', 'uglify:dev', 'notify:build'],
+                tasks: ['babel', 'concat:dist', 'notify:build'],
                 options : {
                     livereload: true
                 }
@@ -156,10 +154,11 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks('grunt-rsync');
+    grunt.loadNpmTasks('grunt-contrib-concat')
 
     grunt.registerTask('default', ['dev']);
 
-    grunt.registerTask('dev', ['babel', 'uglify:dev', 'sass', 'browserSync', 'watch', 'notify:build']);
+    grunt.registerTask('dev', ['babel', 'concat:libraries', 'concat:dist', 'sass', 'browserSync', 'watch', 'notify:build']);
     grunt.registerTask('server-release', ['babel', 'uglify:release'])
     grunt.registerTask('release', ['sass', 'postcss', 'rsync', 'notify:release']);
 };
