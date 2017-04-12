@@ -128,7 +128,7 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
                         $scope.skillFocusedNextLevel = stat.level === 99 ? 99 : stat.level + 1 // (stat.level_virtual == 127) ? 127 : stat.level_virtual + 1
                         $scope.skillFocusedIsMaxed = stat.exp_til_next_level == 0
                         $scope.skillFocusedExperienceUntilNextLevel = (stat.exp === 200000000) ? `This skill has been maxed!` : (stat.exp == -1) ? undefined : (stat.level === 99) ? 0 : stat.exp_til_next_level
-                        $scope.skillFocusedProgressToNextLevel = stat.level === 99 ? 100 : stat.level_progress.toFixed(2) < 1 ? 0.5 : stat.level_progress.toFixed(2)
+                        $scope.skillFocusedProgressToNextLevel = (stat.level === 99) ? 100 : (stat.level_progress.toFixed(2) < 0.5) ? 0 : stat.level_progress.toFixed(2)
                     } else {
                         $scope.overall_hovered = true
 
