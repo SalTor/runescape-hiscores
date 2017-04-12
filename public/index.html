@@ -47,7 +47,7 @@
 
                 <div class="stats__skills-and-perspective">
                     <div class="stats__skills">
-                        <div class="skill skill_{{ skill.skill }}" ng-mouseover="updateSkillHovered(skill)" ng-repeat="skill in skills track by $index" ng-class="{ 'skill_best-skill': skill.highestSkill }" ng-cloak>
+                        <div class="skill skill_{{ skill.skill }}" ng-mouseover="updateSkillHovered(skill)" ng-repeat="skill in skills track by $index" ng-cloak>
 
                             <img class="skill__icon skill__icon_{{skill.skill}}" ng-src="./assets/skill-icons/{{skill.skill | capitalize}}.png">
 
