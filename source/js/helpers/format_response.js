@@ -1,3 +1,5 @@
+'use strict';
+
 let add_details = require("./add_details.js")
 
 module.exports = function (args) {
