@@ -151,7 +151,6 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-browser-sync');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks('grunt-rsync');
     grunt.loadNpmTasks('grunt-contrib-concat')
