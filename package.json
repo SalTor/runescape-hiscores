@@ -11,7 +11,7 @@
   "repository": "git@github.com:/SalTor/runescape-hiscores.git",
   "author": "Sal Torcivia",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "angular": "^1.5.5",
     "angular-animate": "^1.5.5",
     "angular-route": "^1.5.5",
