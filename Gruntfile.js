@@ -1,14 +1,32 @@
 module.exports = function(grunt){
     grunt.initConfig({
         server_config: grunt.file.readJSON('grunt-ssh.json'),
-        babel: {
-            options: {
-                sourceMap: true,
-                presets: ['babel-preset-es2015']
+        notify: {
+            build: {
+                options: {
+                    title: 'RuneScape HiScores App',
+                    message: 'Files have been updated'
+                }
             },
-            dist: {
-                files: {
-                    'public/build/.tmp/app/index.min.js': 'source/js/app/index.js'
+            release: {
+                options: {
+                    title: 'RuneScape HiScores App',
+                    message: 'Files have been deployed'
+                }
+            }
+        },
+        browserSync: {
+            dev: {
+                bsFiles: {
+                    src: [
+                        './public/index.html',
+                        './public/build/js/app/index.min.js',
+                        './public/build/css/index.css'
+                    ]
+                },
+                options: {
+                    watchTask: true,
+                    proxy: 'runescape-hiscores.dev'
                 }
             }
         },
@@ -25,6 +43,17 @@ module.exports = function(grunt){
                     ],
                     host: "<%= server_config.user %>@<%= server_config.host %>",
                     dest: "<%= server_config.dest %>"
+                }
+            }
+        },
+        babel: {
+            options: {
+                sourceMap: true,
+                presets: ['babel-preset-es2015']
+            },
+            dist: {
+                files: {
+                    'public/build/.tmp/app/index.min.js': 'source/js/app/index.js'
                 }
             }
         },
@@ -52,20 +81,6 @@ module.exports = function(grunt){
                 }
             }
         },
-        notify: {
-            build: {
-                options: {
-                    title: 'RuneScape HiScores App',
-                    message: 'Files have been updated'
-                }
-            },
-            release: {
-                options: {
-                    title: 'RuneScape HiScores App',
-                    message: 'Files have been deployed'
-                }
-            }
-        },
         sass: {
             hiscores : {
                 options : {
@@ -77,21 +92,6 @@ module.exports = function(grunt){
                 files : [
                     {'public/build/css/index.css' : 'source/scss/index.scss'}
                 ]
-            }
-        },
-        browserSync: {
-            dev: {
-                bsFiles: {
-                    src: [
-                        './public/index.html',
-                        './public/build/js/app/index.min.js',
-                        './public/build/css/index.css'
-                    ]
-                },
-                options: {
-                    watchTask: true,
-                    server: './public'
-                }
             }
         },
         concat: {

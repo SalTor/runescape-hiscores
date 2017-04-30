@@ -46,14 +46,14 @@ angular.module('runescapeHiscores', ['ngRoute', 'ngAnimate'])
 
                 let that = this,
                     form = $(that),
-                    user = $("#player__input").val(),
-                    domain = window.location.hostname
+                    user = $("#player__input").val()
 
                 console.log(`[ retrieving stats ]`)
+
                 $scope.request_loading = true
 
                 $.ajax({
-                    url: `http://${domain}:3030/player/${user}`,
+                    url: `http://rsapi.saltor.nyc:2007/player/${user}`,
                     success(data) {
                         let { code, stats } = data
 

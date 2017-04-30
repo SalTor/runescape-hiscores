@@ -4,7 +4,7 @@
   "description": "",
   "main": "source/js/server/api.js",
   "scripts": {
-    "dev": "concurrently 'grunt dev' 'nodemon --watch source/js --ignore source/js/app'",
+    "dev": "grunt dev",
     "release": "grunt release",
     "server-release": "grunt server-release"
   },
