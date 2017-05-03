@@ -4,7 +4,8 @@
   "description": "",
   "main": "source/javascript/react-app.js",
   "scripts": {
-    "dev": "webpack-dev-server --progress --open"
+    "dev": "webpack-dev-server --progress --open",
+    "release": "webpack -d --devtool cheap-module-source-map"
   },
   "repository": "git@github.com:/SalTor/runescape-hiscores.git",
   "author": "Sal Torcivia",

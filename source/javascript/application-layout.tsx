@@ -138,8 +138,7 @@ class ApplicationLayout extends Component<any, any> {
             request_loading: true
         })
 
-        // axios.get(`http://rsapi.saltor.nyc:2007/player/${ this.state.username_input }`)
-        axios.get(`http://localhost:2007/player/${ this.state.username_input }`)
+        axios.get(`http://rsapi.saltor.nyc:2007/player/${ this.state.username_input }`)
             .then(response => {
                 console.log(`%c✔ %c${ this.state.username_input }`, "color: green;", "color: black;")
                 this.appendSkills(response.data)
