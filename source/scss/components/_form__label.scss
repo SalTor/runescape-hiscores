@@ -2,6 +2,7 @@
     &_with-input {
         display: flex;
         align-items: center;
+        justify-content: center;
 
         position: relative;
 
@@ -16,7 +17,7 @@
 
             opacity: 0;
 
-            color: red;
+            color: white;
             font-size: $size;
 
             transition: opacity .5s ease-in-out;

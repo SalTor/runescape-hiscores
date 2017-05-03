@@ -2,7 +2,6 @@
 <html ng-app="runescapeHiscores">
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="build/css/index.css">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -10,95 +9,8 @@
     </head>
 
     <body>
-        <main role="main" ng-controller="mainController">
-            <div class="form" id="player__submission-container">
-                <form class="form-inline player__form" id="player__form" role="form" name="user_lookup">
-                    <legend class="form__legend">OSRS Hi-Scores Lookup</legend>
+        <div id="rshiscores_app"></div>
 
-                    <div class="form__label-and-input form__label-and-input_has-loader" id="player__label-and-input">
-                        <svg class="loading-icon uil-ring-alt" ng-class="{ 'loading-icon_loading': request_loading }" width="50px" height="50px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><circle cx="50" cy="50" r="40" stroke="#34495e" fill="none" stroke-width="8" stroke-linecap="round"></circle><circle cx="50" cy="50" r="40" stroke="#efefef" fill="none" stroke-width="4" stroke-linecap="round"><animate attributeName="stroke-dashoffset" dur="2s" repeatCount="indefinite" from="0" to="502"></animate><animate attributeName="stroke-dasharray"  dur="2s" repeatCount="indefinite" values="150.6 100.4;1 250;150.6 100.4"></animate></circle></svg>
-
-                        <label for="player__input" class="form__label_with-input" ng-class="{ 'form__label_warning': username_not_found }">
-                            <input class="form-control form__input" id="player__input" placeholder="Username" name="username" type="text" required>
-                            <button class="btn form__submit" id="player__submit" type="submit">Submit</button>
-                        </label>
-                    </div>
-                </form>
-            </div>
-
-            <div class="stats" ng-cloak>
-                <div class="stats__name-combat-and-total">
-                    <span class="stats__player-name" ng-show="player" ng-cloak>
-                        {{ player }}
-                    </span>
-
-                    <div class="stats__combat-and-total-level" ng-cloak>
-                        <span class="stats__combat-level">
-                            <img src="assets/other-icons/combat.png" alt="">
-                            <span>{{ overall__combat_level }}</span>
-                        </span>
-
-                        <span class="stats__total-level" ng-mouseover="updateSkillHovered(overall)">
-                            <img src="assets/other-icons/overall.png" alt="">
-                            <span>{{ overall_total_level | number }}</span>
-                        </span>
-                    </div>
-                </div>
-
-                <div class="stats__skills-and-perspective">
-                    <div class="stats__skills">
-                        <div class="skill skill_{{ skill.skill }}" ng-mouseover="updateSkillHovered(skill)" ng-repeat="skill in skills track by $index" ng-cloak>
-
-                            <img class="skill__icon skill__icon_{{ skill.skill }}" ng-src="./assets/skill-icons/{{ skill.skill | capitalize }}.png">
-
-                            <div class="skill__level">{{ skill.level }}</div>
-                        </div>
-                    </div>
-
-                    <div class="stats__perspective other-side-bar-info">
-                        <h4 class="skill__name">{{ skillFocusedName | capitalize }}</h4>
-
-                        <div class="skill__experience-and-rank" ng-class="{ 'skill__experience-and-rank_overall': overall_hovered }" ng-cloak>
-                            <span id="experience">
-                                <span ng-if="skillFocusedExperience != undefined">{{ skillFocusedExperience | number }}xp</span>
-                                <span ng-if="skillFocusedExperience == undefined">??? xp</span>
-                            </span>
-
-                            <span ng-show="skillFocusedIsRanked" id="rank">Rank: {{ skillFocusedRank | number }}</span>
-
-                            <span ng-show="!skillFocusedIsRanked" id="no-rank">Not ranked</span>
-                        </div>
-
-                        <div class="progress skill__progress-bar-container" ng-hide="overall_hovered">
-                            <div class="progress-bar progress-bar-striped bootstrap-progress-bar" id="progress__bar" aria-valuenow="{{ roundDown(skillFocusedProgressToNextLevel) }}" aria-valuemin="0"  aria-valuemax="100" role="progressbar">
-                                <span class="sr-only"></span>
-                            </div>
-                        </div>
-
-                        <div ng-hide="overall_hovered" class="skill__progress-and-experience-left">
-                            <span ng-show="!skillFocusedIsMaxed" id="progress">
-                                {{ skillFocusedProgressToNextLevel }}% towards level {{ skillFocusedNextLevel }}
-                            </span>
-
-                            <span ng-show="!skillFocusedIsMaxed" id="experience-left">
-                                <span ng-if="skillFocusedExperienceUntilNextLevel != undefined">
-                                    {{ skillFocusedExperienceUntilNextLevel | number }}xp left
-                                </span>
-
-                                <span ng-if="skillFocusedExperienceUntilNextLevel == undefined">??? xp left</span>
-                            </span>
-
-                            <span ng-show=" skillFocusedIsMaxed" id="experience-left--maxed">{{ skillFocusedExperienceUntilNextLevel }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <footer>
-            Created by <a href="http://saltor.nyc">Sal Torcivia</a>
-        </footer>
-
-        <script src="build/js/app/index.min.js"></script>
+        <script src="/build/js/rshiscores-bundle.js"></script>
     </body>
 </html>

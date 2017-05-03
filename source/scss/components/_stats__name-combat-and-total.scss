@@ -12,6 +12,7 @@
     @media all and (max-width: $size__collapse) {
         flex-direction: column;
         height: auto;
+        max-width: 197px;
 
         padding: 10px 0;
     }

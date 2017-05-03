@@ -1,0 +1,18 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "jsx": "react",
+        "target": "es2016",
+        "module": "es2015",
+        "moduleResolution": "node",
+        "noImplicitAny": false,
+        "noUnusedLocals": true,
+        "removeComments": false,
+        "noUnusedParameters": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "skipLibCheck": true,
+        "allowJs": true
+    }
+}
