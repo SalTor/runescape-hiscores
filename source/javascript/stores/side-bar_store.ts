@@ -5,11 +5,6 @@ import Skill from "../types/skill"
 import Action from "../types/action"
 
 
-interface SideBarStateManagement {
-    emit: any
-    on: any
-    removeAllListeners: any
-}
 class SideBarStateManagement extends EventsEmitter {
     private focused_skill: string
     private overall_hovered: boolean
