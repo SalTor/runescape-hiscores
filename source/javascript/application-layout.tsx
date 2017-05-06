@@ -5,14 +5,17 @@ import axios from "axios"
 
 import Skill from "./types/skill"
 
-import SideBar from "./components/side-bar_component"
-import * as SideBarActions from "./actions/side-bar_actions"
-
 import { addCommas } from "./helpers"
+
+import * as SideBarActions from "./actions/side-bar_actions"
+import SideBar from "./components/side-bar_component"
+import SkillStat from "./components/skill_stat"
 
 
 interface ApplicationLayout {
     skillNames: string[]
+    skills: any
+    player_input: any
 }
 class ApplicationLayout extends Component<any, any> {
     constructor() {
@@ -21,42 +24,29 @@ class ApplicationLayout extends Component<any, any> {
         this.skillNames = ["attack", "hitpoints", "mining", "strength", "agility", "smithing", "defence", "herblore", "fishing", "ranged", "thieving", "cooking", "prayer", "crafting", "firemaking", "magic", "fletching", "woodcutting", "runecrafting", "slayer", "farming", "construction", "hunter"]
 
         this.state = {
-            username_input: ``,
+            username_input: "",
             username_not_found: false,
-            username: `username`,
+            username: "username",
+            player: "username",
             request_loading: false,
             skills: _.map(this.skillNames, (index) => _.assign({}, {skill: index, level: 1, rank: -1, experience: 0, virtual_level: 1, experience_to_level: 83, level_progress: 0})),
             overall: {
-                level: 0,
-                experience: 0,
+                skill: "overall",
+                level: _.sum(_.map(this.skills, "level")),
+                virtual_level: _.sum(_.map(this.skills, "virtual_level")),
+                experience: _.sum(_.map(this.skills, "experience")),
                 rank: -1,
-                combat_level: 3
+                combat_level: 3,
+                level_progress: 0
             },
-            playerinput: null
+            form_empty: true
         }
+
+        _.assign(_.find(this.state.skills, {skill: "hitpoints"}), { level: 10, virtual_level: 10, experience: 1154 })
     }
 
     componentDidMount() {
-        _.assign(_.find(this.state.skills, {skill: "hitpoints"}), { level: 10, virtual_level: 10, experience: 1154 })
-
-        let overall = {
-            skill: "overall",
-            level: _.sum(_.map(this.state.skills, "level")),
-            virtual_level: _.sum(_.map(this.state.skills, "virtual_level")),
-            experience: _.sum(_.map(this.state.skills, "experience")),
-            rank: -1,
-            combat_level: 3
-        }
-
-        this.setState({
-            username_not_found: false,
-            player: "username",
-            username: "username",
-            form_empty: true,
-            request_loading: false,
-            overall,
-            playerinput: document.getElementById("player__input")
-        })
+        this.player_input = document.getElementById("player__input")
     }
 
     render() {
@@ -100,15 +90,9 @@ class ApplicationLayout extends Component<any, any> {
                     <div className="stats__skills-and-perspective">
                         <div className="stats__skills">
                             {
-                                this.state.skills.map((skill, index) => {
-                                    return (
-                                        <div className={`skill skill_${ skill.skill }`} onMouseEnter={ this.updateSkillHovered.bind(this, skill) } key={ index }>
-                                            <img className={`skill__icon skill__icon_${ skill.skill }`} src={`./assets/skill-icons/${ skill.skill }.png`} />
-
-                                            <div className="skill__level">{ skill.level }</div>
-                                        </div>
-                                    )
-                                })
+                                this.state.skills.map((skill, index) =>
+                                    <SkillStat data={ skill } key={ index } />
+                                )
                             }
                         </div>
 
@@ -141,7 +125,8 @@ class ApplicationLayout extends Component<any, any> {
         axios.get(`http://rsapi.saltor.nyc:2007/player/${ this.state.username_input }`)
             .then(response => {
                 console.log(`%c✔ %c${ this.state.username_input }`, "color: green;", "color: black;")
-                this.appendSkills(response.data)
+
+                this.appendSkills(response.data.stats)
 
                 this.setState({
                     username: this.state.username_input,
@@ -149,7 +134,7 @@ class ApplicationLayout extends Component<any, any> {
                     request_loading: false
                 })
 
-                this.state.playerinput.blur()
+                this.player_input.blur()
             })
             .catch(() => {
                 console.log(`%c✖ %c${ this.state.username_input }`, "color: red;", "color: black;")
@@ -167,20 +152,20 @@ class ApplicationLayout extends Component<any, any> {
             })
     }
 
-    appendSkills(player) {
-        let skills  = _.reject(player.stats, {skill: "overall"}),
-            overall = _.filter(player.stats, {skill: "overall"})[0]
+    appendSkills(stats) {
+        let skills  = _.reject(stats, {skill: "overall"}),
+            overall = _.filter(stats, {skill: "overall"})[0]
 
-        this.setState({
-            skills,
-            overall
-        })
-
-        console.groupEnd()
+        SideBarActions.registerNewUserStats(stats)
+        this.setState({ skills, overall })
     }
 
     updateSkillHovered(skill: Skill) {
         SideBarActions.registerNewHoveredSkill(skill)
+    }
+
+    generateSkills(skills) {
+        console.log(skills)
     }
 }
 

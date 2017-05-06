@@ -1,6 +1,8 @@
 import EventsEmitter from "events"
 import dispatcher from "../event-dispatcher"
 
+import _ from "lodash"
+
 import Skill from "../types/skill"
 import Action from "../types/action"
 
@@ -19,7 +21,7 @@ class SideBarStateManagement extends EventsEmitter {
     constructor() {
         super()
 
-        this.focused_skill = "Sailing"
+        this.focused_skill = _.nth(["attack", "strength", "defence", "hitpoints", "ranged", "magic", "prayer", "runecrafting", "construction", "agility", "herblore", "thieving", "crafting", "fletching", "slayer", "hunter", "mining", "smithing", "fishing", "cooking", "firemaking", "woodcutting", "farming"], _.random(23))
         this.overall_hovered = false
         this.focused_skill_level = 1
         this.focused_skill_virtual_level = 1
@@ -69,6 +71,10 @@ class SideBarStateManagement extends EventsEmitter {
 
         this.emit("NEW_SKILL_FOCUS", this.getState())
     }
+
+    registerNewUserStats(data: any) {
+        this.registerNewHoveredSkill(data.find(stat => stat.skill === this.focused_skill))
+    }
 }
 
 let SideBarStore = new SideBarStateManagement()
@@ -77,6 +83,9 @@ let SideBarEventDispatcher = dispatcher.register(function (payload: Action) {
     switch(payload.action) {
         case "REGISTER_NEW_HOVERED_SKILL":
             SideBarStore.registerNewHoveredSkill(payload.data)
+            break
+        case "NEW_USER_STATS":
+            SideBarStore.registerNewUserStats(payload.data)
             break
         default:
             break

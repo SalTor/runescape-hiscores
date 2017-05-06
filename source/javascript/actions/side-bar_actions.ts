@@ -8,3 +8,10 @@ export function registerNewHoveredSkill(skill_to_register: Skill) {
         data: skill_to_register
     })
 }
+
+export function registerNewUserStats(stats) {
+    dispatcher.dispatch({
+        action: "NEW_USER_STATS",
+        data: stats
+    })
+}
