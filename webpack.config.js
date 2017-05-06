@@ -14,8 +14,7 @@ const config = {
         publicPath: "build/js"
     },
     devServer: {
-        contentBase: "./public",
-        historyApiFallback: true
+        contentBase: "./public"
     },
     devtool: "cheap-module-eval-source-map",
     module: {
