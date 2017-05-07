@@ -15,3 +15,10 @@ export function registerNewUserStats(stats) {
         data: stats
     })
 }
+
+export function registerClosestThreeStatsToLeveling(stats) {
+    dispatcher.dispatch({
+        action: "CLOSEST_THREE_STATS_TO_LEVELING",
+        data: stats
+    })
+}

@@ -4,6 +4,8 @@ body {
     align-items: center;
 
     min-height: 100vh;
+    padding-top: 20px;
+    padding-bottom: 25px;
 
     background-color: $color--wet-asphalt;
 
@@ -19,8 +21,6 @@ main {
     justify-content: flex-start;
 
     max-width: 815px;
-    padding-top: 20px;
-    margin-bottom: 25px;
     margin-right: auto;
     margin-left:  auto;
 

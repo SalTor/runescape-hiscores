@@ -60,7 +60,7 @@ class ApplicationLayout extends Component<any, any> {
                             <label className={ `form__label_with-input${ this.state.username_not_found ? ` form__label_warning` : `` }` }>
                                 <svg className={ `loading-icon uil-ring-alt${ this.state.request_loading ? ` loading-icon_loading` : `` }` } width="50px" height="50px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><rect x="0" y="0" width="100" height="100" fill="none" className="bk"></rect><circle cx="50" cy="50" r="40" stroke="#34495e" fill="none" strokeWidth="8" strokeLinecap="round"></circle><circle cx="50" cy="50" r="40" stroke="#efefef" fill="none" strokeWidth="4" strokeLinecap="round"><animate attributeName="stroke-dashoffset" dur="2s" repeatCount="indefinite" from="0" to="502"></animate><animate attributeName="stroke-dasharray"  dur="2s" repeatCount="indefinite" values="150.6 100.4;1 250;150.6 100.4"></animate></circle></svg>
 
-                                <input onChange={ this.handle_form_input_change.bind(this) } value={ this.state.username_input } className="form__input" id="player__input" placeholder="Username" name="username" type="text" required />
+                                <input required onChange={ this.handle_form_input_change.bind(this) } value={ this.state.username_input } className="form__input" id="player__input" placeholder="Username" name="username" type="text" />
 
                                 <button className="btn form__submit" id="player__submit" type="submit">Submit</button>
                             </label>
@@ -133,6 +133,8 @@ class ApplicationLayout extends Component<any, any> {
                     username_input: ``,
                     request_loading: false
                 })
+
+                SideBarActions.registerClosestThreeStatsToLeveling(response.data.closest)
 
                 this.player_input.blur()
             })

@@ -17,6 +17,7 @@ class SideBarStateManagement extends EventsEmitter {
     private focused_skill_next_level: number
     private focused_skill_experience_to_next_level: number
     private focused_skill_percent_progress_to_next_level: number
+    private closest_skills_to_leveling: object[]
 
     constructor() {
         super()
@@ -30,10 +31,15 @@ class SideBarStateManagement extends EventsEmitter {
         this.focused_skill_next_level = 2
         this.focused_skill_experience_to_next_level = 83
         this.focused_skill_percent_progress_to_next_level = 0
+        this.closest_skills_to_leveling = [{}, {}, {}]
     }
 
     getFocusedSkill() {
         return this.focused_skill
+    }
+
+    getClosestSkills() {
+        return this.closest_skills_to_leveling
     }
 
     getState() {
@@ -72,8 +78,14 @@ class SideBarStateManagement extends EventsEmitter {
         this.emit("NEW_SKILL_FOCUS", this.getState())
     }
 
-    registerNewUserStats(data: any) {
-        this.registerNewHoveredSkill(data.find(stat => stat.skill === this.focused_skill))
+    registerNewUserStats(stats) {
+        this.registerNewHoveredSkill(stats.find(stat => stat.skill === this.focused_skill))
+    }
+
+    registerClosestThreeStatsToLeveling(stats) {
+        this.closest_skills_to_leveling = stats
+
+        this.emit("CLOSEST_THREE_STATS_TO_LEVELING", this.closest_skills_to_leveling)
     }
 }
 
@@ -86,6 +98,9 @@ let SideBarEventDispatcher = dispatcher.register(function (payload: Action) {
             break
         case "NEW_USER_STATS":
             SideBarStore.registerNewUserStats(payload.data)
+            break
+        case "CLOSEST_THREE_STATS_TO_LEVELING":
+            SideBarStore.registerClosestThreeStatsToLeveling(payload.data)
             break
         default:
             break

@@ -1,0 +1,27 @@
+.perspective {
+    &__closest-title {
+        padding: 0;
+        margin: 0;
+
+        text-align: center;
+
+        animation: fade-in .25s ease;
+    }
+    &__closest-to-leveling {
+        @media (min-width: 514px) {
+            position: absolute;
+            bottom: 5px;
+            right: 0;
+            left: 0;
+        }
+        @media (max-width: 513px) {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+    }
+    &__skill-wrapper {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
