@@ -1,5 +1,42 @@
 'use strict';
 
+const webpack = require("webpack")
+
+let production = process.env.NODE_ENV === "production", plugins, resolve  = {}
+
+if(production) {
+    plugins = [
+        new webpack.optimize.UglifyJsPlugin({
+            sourceMap: true,
+            compress: {
+                dead_code: true,
+                conditionals: true,
+                booleans: true,
+                unused: true,
+                if_return: true,
+                join_vars: true
+            },
+            output: {
+                comments: false
+            }
+        }),
+        new webpack.DefinePlugin({
+            "process.env": {
+                NODE_ENV: JSON.stringify("production")
+            }
+        })
+    ]
+
+    resolve = {
+        alias: {
+            "react": "preact-compat",
+            "react-dom": "preact-compat"
+        }
+    }
+}
+
+resolve.extensions = [ ".ts", ".tsx", ".js" ]
+
 const babel_options = {
     "presets": [
         "react", [ "es2015", { "modules": false } ], "es2016"
@@ -16,7 +53,7 @@ const config = {
     devServer: {
         contentBase: "./public"
     },
-    devtool: "cheap-module-eval-source-map",
+    devtool: production ? "source-map" : "cheap-module-eval-source-map",
     module: {
         rules: [
             {
@@ -72,9 +109,7 @@ const config = {
             }
         ]
     },
-    resolve: {
-        extensions: [ ".ts", ".tsx", ".js" ]
-    }
+    plugins, resolve
 }
 
 module.exports = config
