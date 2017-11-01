@@ -1,11 +1,20 @@
 'use strict';
 
-const webpack = require("webpack")
+const webpack = require('webpack')
 
-let production = process.env.NODE_ENV === "production", plugins, resolve  = {}
+const env_prod = process.env.NODE_ENV === 'production'
+const plugins = []
+const resolve = {
+    extensions: ['.ts', '.tsx', '.js']
+}
+const babel_options = {
+    presets: [
+        'react', ['env', { 'modules': false }]
+    ]
+}
 
-if(production) {
-    plugins = [
+if (env_prod) {
+    plugins.push(
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: true,
             compress: {
@@ -21,39 +30,29 @@ if(production) {
             }
         }),
         new webpack.DefinePlugin({
-            "process.env": {
-                NODE_ENV: JSON.stringify("production")
+            'process.env': {
+                NODE_ENV: JSON.stringify('production')
             }
         })
-    ]
+    )
 
-    resolve = {
-        alias: {
-            "react": "preact-compat",
-            "react-dom": "preact-compat"
-        }
+    resolve.alias = {
+        'react': 'preact-compat',
+        'react-dom': 'preact-compat'
     }
 }
 
-resolve.extensions = [ ".ts", ".tsx", ".js" ]
-
-const babel_options = {
-    "presets": [
-        "react", [ "es2015", { "modules": false } ], "es2016"
-    ]
-}
-
-const config = {
-    entry: "./source/javascript/react-app.js",
+module.exports = {
+    entry: './source/javascript/react-app.js',
     output: {
-        filename: "rshiscores-bundle.js",
-        path: __dirname + "/public/build/js",
-        publicPath: "build/js"
+        filename: 'rshiscores-bundle.js',
+        path: __dirname + '/public/build/js',
+        publicPath: 'build/js'
     },
     devServer: {
-        contentBase: "./public"
+        contentBase: './public'
     },
-    devtool: production ? "source-map" : "cheap-module-eval-source-map",
+    devtool: env_prod ? 'source-map' : 'cheap-module-eval-source-map',
     module: {
         rules: [
             {
@@ -61,10 +60,10 @@ const config = {
                 exclude: /node_modules/,
                 use: [
                     {
-                        loader: "babel-loader",
+                        loader: 'babel-loader',
                         options: babel_options
                     },
-                    { loader: "ts-loader" }
+                    { loader: 'ts-loader' }
                 ]
             },
             {
@@ -72,18 +71,18 @@ const config = {
                 exclude: /node_modules/,
                 use: [
                     {
-                        loader: "babel-loader",
+                        loader: 'babel-loader',
                         options: babel_options
                     }
                 ]
             },
             {
-                test: /\.scss/,
+                test: /\.scss$/,
                 use: [
-                    { loader: "style-loader" },
-                    { loader: "css-loader" },
+                    { loader: 'style-loader' },
+                    { loader: 'css-loader' },
                     {
-                        loader: "postcss-loader",
+                        loader: 'postcss-loader',
                         options: {
                             plugins: function () {
                                 return [
@@ -93,16 +92,16 @@ const config = {
                             }
                         }
                     },
-                    { loader: "sass-loader" }
+                    { loader: 'sass-loader' }
                 ]
             },
             {
-                test: /\.css/,
-                loaders: ["style-loader", "css-loader"]
+                test: /\.css$/,
+                loaders: ['style-loader', 'css-loader']
             },
             {
                 test: /\.(png|jpg|gif|svg)$/,
-                loader: "url-loader",
+                loader: 'url-loader',
                 options: {
                     limit: 10000
                 }
@@ -111,5 +110,3 @@ const config = {
     },
     plugins, resolve
 }
-
-module.exports = config
