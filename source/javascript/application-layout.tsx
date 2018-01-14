@@ -118,11 +118,12 @@ class ApplicationLayout extends Component<any, any> {
     handle_form_submission(event) {
         event.preventDefault()
 
-        this.setState({
-            request_loading: true
-        })
+        this.setState({ request_loading: true })
 
-        axios.get(`http://${ location.hostname }:2007/player/${ this.state.username_input }`)
+        const host = location.hostname.match(/saltor\.nyc/i)
+            ? 'rsapi.saltor.nyc'
+            : location.hostname
+        axios.get(`http://${ host }:2007/player/${ this.state.username_input }`)
             .then((response: APIResponse) => {
                 console.log(`%c✔ %c${ this.state.username_input }`, 'color: green;', 'color: black;')
 
