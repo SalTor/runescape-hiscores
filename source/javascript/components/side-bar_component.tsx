@@ -7,8 +7,8 @@ import * as SideBarActions from "../actions/side-bar_actions"
 
 
 class SideBar extends Component<any, any> {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
         this.state = {
             overall_hovered: false,
@@ -25,8 +25,8 @@ class SideBar extends Component<any, any> {
     }
 
     componentWillMount() {
-        SideBarStore.on("NEW_SKILL_FOCUS", this.handle_change_in_focus)
-        SideBarStore.on("CLOSEST_THREE_STATS_TO_LEVELING", this.handle_closest_stats)
+        SideBarStore.on('NEW_SKILL_FOCUS', this.handle_change_in_focus)
+        SideBarStore.on('CLOSEST_THREE_STATS_TO_LEVELING', this.handle_closest_stats)
     }
 
     componentWillUnmount() {
@@ -101,7 +101,7 @@ class SideBar extends Component<any, any> {
 
 
     handle_change_in_focus = (focused_stat) => {
-        let { overall_hovered, focused_skill, focused_skill_experience, focused_skill_rank, focused_skill_level, focused_skill_next_level, focused_skill_experience_to_next_level, focused_skill_percent_progress_to_next_level, focused_skill_virtual_level } = focused_stat
+        const { overall_hovered, focused_skill, focused_skill_experience, focused_skill_rank, focused_skill_level, focused_skill_next_level, focused_skill_experience_to_next_level, focused_skill_percent_progress_to_next_level, focused_skill_virtual_level } = focused_stat
 
         this.setState({
             overall_hovered,

@@ -1,10 +1,10 @@
 interface Skill {
     skill: string
     rank: number
-    experience: number
+    exp: number
     level: number
     virtual_level?: number
-    experience_to_level?: number
+    exp_to_level?: number
     next_level?: number
     level_progress?: number
 }

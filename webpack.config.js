@@ -7,11 +7,6 @@ const plugins = []
 const resolve = {
     extensions: ['.ts', '.tsx', '.js']
 }
-const babel_options = {
-    presets: [
-        'react', ['env', { 'modules': false }]
-    ]
-}
 
 if (env_prod) {
     plugins.push(
@@ -46,35 +41,26 @@ module.exports = {
     entry: './source/javascript/react-app.js',
     output: {
         filename: 'rshiscores-bundle.js',
-        path: __dirname + '/public/build/js',
+        path: __dirname.concat('/public/build/js'),
         publicPath: 'build/js'
     },
     devServer: {
         contentBase: './public'
     },
-    devtool: env_prod ? 'source-map' : 'cheap-module-eval-source-map',
+    devtool: env_prod
+        ? 'source-map'
+        : 'cheap-module-eval-source-map',
     module: {
         rules: [
             {
                 test: /\.ts(x?)$/,
                 exclude: /node_modules/,
-                use: [
-                    {
-                        loader: 'babel-loader',
-                        options: babel_options
-                    },
-                    { loader: 'ts-loader' }
-                ]
+                use: ['babel-loader', 'ts-loader']
             },
             {
                 test: /\.js?$/,
                 exclude: /node_modules/,
-                use: [
-                    {
-                        loader: 'babel-loader',
-                        options: babel_options
-                    }
-                ]
+                use: ['babel-loader']
             },
             {
                 test: /\.scss$/,
@@ -84,12 +70,10 @@ module.exports = {
                     {
                         loader: 'postcss-loader',
                         options: {
-                            plugins: function () {
-                                return [
-                                    require('precss'),
-                                    require('autoprefixer')
-                                ]
-                            }
+                            plugins: () => [
+                                require('precss'),
+                                require('autoprefixer')
+                            ]
                         }
                     },
                     { loader: 'sass-loader' }

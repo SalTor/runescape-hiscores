@@ -1,7 +1,5 @@
-import _ from "lodash"
+import _ from 'lodash'
 
-function roundDown(valueToFloor: number): number {
+export default  function(valueToFloor: number): number {
     return _.floor(valueToFloor)
 }
-
-export default roundDown

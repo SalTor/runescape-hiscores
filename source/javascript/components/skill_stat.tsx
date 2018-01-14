@@ -1,10 +1,8 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 
-import Skill from "../types/skill"
-
-import * as SideBarActions from "../actions/side-bar_actions"
-
-import { capitalize } from "../helpers"
+import Skill from '../types/skill'
+import * as SideBarActions from '../actions/side-bar_actions'
+import { capitalize } from '../helpers'
 
 
 class SkillStat extends Component<any, any> {
