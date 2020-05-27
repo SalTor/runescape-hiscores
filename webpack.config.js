@@ -39,7 +39,7 @@ resolve.extensions = [ ".ts", ".tsx", ".js" ]
 
 const babel_options = {
     "presets": [
-        "react", [ "es2015", { "modules": false } ], "es2016"
+        "@babel/preset-env", "@babel/react"
     ]
 }
 

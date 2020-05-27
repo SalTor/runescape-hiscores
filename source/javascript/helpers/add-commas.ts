@@ -1,5 +1,8 @@
 function addCommas(number: number): string {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    if (number) {
+        return `${number}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    }
+    return `${number}`
 }
 
 export default addCommas
