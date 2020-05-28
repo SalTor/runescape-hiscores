@@ -5,7 +5,7 @@
   "main": "source/javascript/react-app.js",
   "scripts": {
     "dev": "webpack-dev-server --progress --open",
-    "release": "cross-env NODE_ENV=production webpack"
+    "release": "webpack -p"
   },
   "repository": "git@github.com:/SalTor/runescape-hiscores.git",
   "author": "Sal Torcivia",
@@ -31,12 +31,9 @@
     "node-sass": "^4.5.2",
     "postcss-loader": "^3.0.0",
     "preact": "^10.4.4",
-    "preact-compat": "^3.16.0",
     "precss": "^4.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router": "^5.2.0",
-    "react-router-dom": "^5.2.0",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",
     "ts-loader": "^7.0.5",
