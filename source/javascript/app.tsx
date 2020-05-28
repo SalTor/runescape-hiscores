@@ -1,6 +1,6 @@
 import React, { useReducer, useRef } from 'react'
 
-import { reduce, nth, random } from 'lodash-es'
+import { reduce, nth, random, orderBy } from 'lodash-es'
 import axios from 'axios'
 import cn from 'classnames'
 
@@ -18,14 +18,14 @@ interface AppState {
     focusedStat: Stat;
     overall: Stat;
     playerName: string;
+    playerNameFromAPI: string;
     playerNotFound: Boolean;
     requestLoading: Boolean;
     stats: Stat[];
-    username: string;
 }
 const initialReducer = (currentState, newState) => ({ ...currentState, ...newState })
 const stats: Stat[] = statNames.map(skill => {
-    if (skill === 'hitpoints') {
+    if (skill === 'constitution') {
         return {
             exp_to_level: 204,
             exp: 1154,
@@ -48,7 +48,7 @@ const stats: Stat[] = statNames.map(skill => {
         virtual_level: 1,
     }
 })
-const sum = (list: Stat[], property: string) => reduce(list, (acc, curr) => acc + curr[property] || 0, 0)
+const sum = (list: Stat[], property: string, defaultValue: number) => reduce(list, (acc, curr) => acc + curr[property] || defaultValue, 0)
 const App = () => {
     const playerInputRef = useRef(null)
     const [state, setState]: [AppState, Function] = useReducer(initialReducer, {
@@ -56,76 +56,68 @@ const App = () => {
         focusedStat: nth(stats, random(23)),
         overall: {
             combat_level: 3,
-            exp: sum(stats, 'experience'),
+            exp: sum(stats, 'exp', 0),
             level_progress: 0,
-            level: sum(stats, 'level'),
+            level: sum(stats, 'level', 1),
             rank: -1,
             skill: 'overall',
-            virtual_level: sum(stats, 'virtual_level'),
+            virtual_level: sum(stats, 'virtual_level', 1),
         },
         playerName: '',
+        playerNameFromAPI: '',
         playerNotFound: false,
         requestLoading: false,
         stats,
-        username: 'username',
     })
 
-    const handle_form_input_change = (event: React.ChangeEvent<HTMLInputElement>) => setState({ playerName: event.target.value.toString().toLowerCase() })
-
-    const appendSkills = (list: Stat[]) => {
-        const stats: Stat[] = []
-        let overall: Stat
-        let focusedStat: Stat
-
-        for (let stat of list) {
-            if (stat.skill === 'overall') {
-                overall = stat
-            } else {
-                stats.push(stat)
-            }
-            if (stat.skill === state.focusedStat.skill) {
-                focusedStat = stat
-            }
-        }
-
-        setState({ overall, stats, focusedStat })
-    }
-
-    const handle_form_submission = (event: React.ChangeEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-        setState({ requestLoading: true })
+        if (state.playerName.trim()) {
+            setState({ requestLoading: true })
 
-        axios.get(`http://rsapi.saltor.nyc:2007/player/${state.playerName}`)
-            .then(response => {
-                appendSkills(response.data.stats)
+            axios.get(`http://localhost:2007/player/${state.playerName}`)
+                .then(response => {
+                    const { stats, overall }: { stats: Stat[], overall: object } = response.data
+                    const track = {}
+                    const closest3 = orderBy(
+                        stats.filter(stat => {
+                            track[stat.skill] = stat
+                            return stat.rank > 0 && stat.exp_to_level > 0
+                        }),
+                        ['exp_to_level'], ['asc']
+                    ).slice(0, 3)
 
-                setState({
-                    username: state.playerName,
-                    playerName: '',
-                    requestLoading: false,
-                    closestThreeStatsToLevel: response.data.closest,
-                })
+                    setState({
+                        playerName: '',
+                        playerNameFromAPI: state.playerName,
+                        requestLoading: false,
+                        closestThreeStatsToLevel: closest3,
+                        stats,
+                        overall,
+                        focusedStat: closest3[0] || track[state.focusedStat.skill]
+                    })
 
-                if (playerInputRef && playerInputRef.current) {
                     playerInputRef.current.blur()
-                }
-            })
-            .catch(() => {
-                setState({ requestLoading: false, playerNotFound: true })
+                })
+                .catch(() => {
+                    setState({ requestLoading: false, playerNotFound: true })
 
-                setTimeout(() => {
-                    setState({ playerNotFound: false })
-                }, 1000)
-            })
+                    setTimeout(() => {
+                        setState({ playerNotFound: false })
+                    }, 1000)
+                })
+        }
     }
+
+    const handlePlayerNameChange = (event: React.ChangeEvent<HTMLInputElement>) => setState({ playerName: event.target.value })
 
     const updateSkillHovered = (focusedStat: Stat) => setState({ focusedStat })
 
     return (
         <div>
             <div className="form" id="player__submission-container">
-                <form className="form-inline player__form" id='player__form' role='form' name='user_lookup' onSubmit={handle_form_submission}>
+                <form className="form-inline player__form" id='player__form' role='form' name='user_lookup' onSubmit={handleSubmit}>
                     <legend className="form__legend">OSRS Hi-Scores Lookup</legend>
 
                     <div className="form__label-and-input form__label-and-input_has-loader" id="player__label-and-input">
@@ -148,12 +140,11 @@ const App = () => {
                             <input
                                 ref={playerInputRef}
                                 required
-                                onChange={handle_form_input_change}
+                                onChange={handlePlayerNameChange}
                                 value={state.playerName}
                                 className="form__input"
                                 id="player__input"
-                                placeholder="Username"
-                                name="username"
+                                placeholder="Player name"
                                 type="text"
                             />
 
@@ -166,7 +157,7 @@ const App = () => {
             <div className="stats">
                 <div className="stats__name-combat-and-total">
                     <span className="stats__player-name">
-                        {state.username}
+                        {state.playerNameFromAPI}
                     </span>
 
                     <div className="stats__combat-and-total-level">
@@ -189,10 +180,10 @@ const App = () => {
                                 <img
                                     className={`skill__icon skill__icon_${stat.skill}`}
                                     src={`./assets/skill-icons/${stat.skill}.png`}
-                                    alt={`${ capitalize(stat.skill)} icon`}
+                                    alt={`${capitalize(stat.skill)} icon`}
                                 />
 
-                                <div className="skill__level">{stat.level}</div>
+                                <div className="skill__level">{stat.rank < 0 ? '--' : stat.level}</div>
                             </div>
                         )}
                     </div>

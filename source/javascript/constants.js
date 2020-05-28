@@ -1,6 +1,6 @@
 export const statNames = [
     'attack',
-    'hitpoints',
+    'constitution',
     'mining',
     'strength',
     'agility',
