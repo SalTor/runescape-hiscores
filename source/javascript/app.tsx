@@ -76,7 +76,7 @@ const App = () => {
         if (state.playerName.trim()) {
             setState({ requestLoading: true })
 
-            axios.get(`http://localhost:2007/player/${state.playerName}`)
+            axios.get(`http://rsapi.saltor.nyc:2007/player/${state.playerName}`)
                 .then(response => {
                     const { stats, overall }: { stats: Stat[], overall: object } = response.data
                     const track = {}
