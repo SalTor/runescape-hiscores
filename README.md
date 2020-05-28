@@ -4,7 +4,7 @@ This is small interface I've been working on in my free time to display the stat
 ## How To Use
 ```bash
 # Get started working locally
-$ npm run dev
+$ npm start
 ```
 
 ## Live Example
