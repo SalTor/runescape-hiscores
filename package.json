@@ -28,7 +28,7 @@
     "classnames": "^2.2.6",
     "css-loader": "^3.5.3",
     "lodash-es": "^4.17.15",
-    "node-sass": "^4.5.2",
+    "node-sass": "^7.0.0",
     "postcss-loader": "^3.0.0",
     "preact": "^10.4.4",
     "precss": "^4.0.0",
