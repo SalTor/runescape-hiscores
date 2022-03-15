@@ -27,7 +27,7 @@
     "babel-loader": "^8.1.0",
     "classnames": "^2.2.6",
     "css-loader": "^3.5.3",
-    "lodash-es": "^4.17.15",
+    "lodash-es": "^4.17.21",
     "node-sass": "^4.5.2",
     "postcss-loader": "^3.0.0",
     "preact": "^10.4.4",
